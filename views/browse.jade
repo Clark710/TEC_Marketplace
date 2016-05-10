@@ -1,0 +1,19 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+head
+  title=title
+
+style.
+    h3 {font-size: 19px; color: #464646;}
+
+
+
+block body
+  +navbar("TEC Display", "dropdown_menu")
+    +nav_item("/") Home
+    +nav_item("/browse", "active") Browse
+  .container
+    h1 Colenso Database Folders
+    p Click the links below to explore the folders
+
+  .container
+       br

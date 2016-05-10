@@ -1,4 +1,27 @@
 # Group-Project
+The project is run using the www.js file.
+
+cd in the parent directory of bin,
+init the npm modules by running npm install,
+npm install
+
+Then run the www.js file by typing,
+bin/www
+
+Open local host to the webpage below. 
+http://localhost:3000
+
+Please be aware guys that you will need to ssh from home to access the database
+Please contact me on facebook and ill show you how to do it or go to this link,
+https://ecs.victoria.ac.nz/Support/TechNoteWorkingFromHome
+
+Front End dev work will just be adding .jade files to the views folder.
+Back End dev work will be working in the routes folder and app.js & database.
+
+
+
+SWEN303 Project description below.
+
 Main Project (75%)
 For this project you will develop an online shopping and market place system.
 There will be three separate assessments as a part of this project. Two these

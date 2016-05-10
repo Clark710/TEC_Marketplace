@@ -1,0 +1,32 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+
+head
+  title=title
+
+
+// this is the main home page of the website.
+
+
+block body
+  +navbar("Top End Code", "dropdown_menu")
+    +nav_item("/", "active") Home
+    +nav_item("/browse") Browse
+
+
+  .container
+    h1 #{title}
+    p Welcome to #{title}. Please use the search below to discover the
+      |range of documents available. The site provides the following features
+      |<br>
+      |<br>1 . Lorem ipsum dolor sit amet, pri liber causae te. Cum aliquam utroque ei, modo iusto eligendi et eum, enim vidit verterem qui eu. Affert maiestatis mei id, eam altera scripserit contentiones ad. Eu his laudem pertinax inciderint, altera signiferumque conclusionemque vis id.
+      |<br>2 . Lorem ipsum dolor sit amet, pri liber causae te. Cum aliquam utroque ei, modo iusto eligendi et eum, enim vidit verterem qui eu. Affert maiestatis mei id, eam altera scripserit contentiones ad. Eu his laudem pertinax inciderint, altera signiferumque conclusionemque vis id.
+
+      |<br>3  Lorem ipsum dolor sit amet, pri liber causae te. Cum aliquam utroque ei, modo iusto eligendi et eum, enim vidit verterem qui eu. Affert maiestatis mei id, eam altera scripserit contentiones ad. Eu his laudem pertinax inciderint, altera signiferumque conclusionemque vis id..
+      |<br>4 . Lorem ipsum dolor sit amet, pri liber causae te. Cum aliquam utroque ei, modo iusto eligendi et eum, enim vidit verterem qui eu. Affert maiestatis mei id, eam altera scripserit contentiones ad. Eu his laudem pertinax inciderint, altera signiferumque conclusionemque vis id. 
+      |<br>5 . Lorem ipsum dolor sit amet, pri liber causae te. Cum aliquam utroque ei, modo iusto eligendi et eum, enim vidit verterem qui eu. Affert maiestatis mei id, eam altera scripserit contentiones ad. Eu his laudem pertinax inciderint, altera signiferumque conclusionemque vis id. 
+
+
+    h2 Enter Search Below
+    form.form-group(action="/search1", method="get")
+      input.input-block-level(type="text", name="query", placeholder="Query")
+      button.btn.btn-large(type="submit", name="place", value="1") Submit
