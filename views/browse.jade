@@ -8,12 +8,31 @@ style.
 
 
 block body
-  +navbar("TEC Display", "dropdown_menu")
+  +navbar("Top End Code", "dropdown_menu")
     +nav_item("/") Home
     +nav_item("/browse", "active") Browse
   .container
-    h1 Colenso Database Folders
+    h1 Top End Code
     p Click the links below to explore the folders
 
   .container
-       br
+    s
+      a(href='/browse') Click here to return to Top End Code Browse Page
+
+        a(href='/browse?path=' + folder) #{folder}
+        br
+
+        h3 Files returned in #{path}
+        
+        h3 Upload your files below.
+        p.
+          To upload file please click "Choose File" to select file then click "Upload File"
+        a(style={color: 'red', background: 'green'})
+        a(href='view?path=' + path + file) #{file}
+        a(style={color: 'red', background: 'green'})
+        br
+
+    br
+    form(action="/upload?path=" + path, method="post", enctype="multipart/form-data")
+      input(type="file", name="file")
+      button(type="submit") Upload File

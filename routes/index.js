@@ -12,7 +12,7 @@ console.log("Printing from app.js")
 
 var cheerio = require('cheerio');
 router.get("/",function(req,res) {
-res.render('index', {title: 'Colenso Database'});
+    res.render('index', {title: 'Top End Code'});
 });
 
 router.get('/test_database', function(request, response) {
@@ -35,7 +35,7 @@ router.get('/test_database', function(request, response) {
 
 router.get("/browse",function(req,res) {
 
-  res.render('browse', {title: 'Colenso Database'});
+  res.render('browse', {title: 'Top End Code'});
 
 });
 
