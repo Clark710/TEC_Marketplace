@@ -65,7 +65,6 @@ hs_err_pid*
 
 # eclipse .gitignore file
 .metadata
-bin/
 tmp/
 *.tmp
 *.bak
