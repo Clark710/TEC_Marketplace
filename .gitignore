@@ -1,6 +1,10 @@
 ################################################################################
 
 ##################### Node .gitignore and Java .gitignore file.
+#prevents uploads of swap files below.
+.jade.swo
+.html.swo
+.js.swo
 
 # Logs
 logs
