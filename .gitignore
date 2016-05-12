@@ -5,7 +5,7 @@
 .jade.swo
 .html.swo
 .js.swo
-
+.directory
 # Logs
 logs
 *.log
