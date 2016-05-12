@@ -2,12 +2,21 @@ var express = require('express');
 var multer = require('multer');
 var router = express.Router();
 var pg = require('pg').native;
-console.log("Printing from app.js")
+var mysql = require('mysql');
 
-var connectionString = "postgres://copleyquen:123@depot:5432/marketplace_group_7"
-var client = new pg.Client(connectionString);
-client.connect();
-console.log("Printing from app.js")
+var connection = mysql.createConnection({
+  host     : 'marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com',
+  user     : 'swen303group7',
+  password : 'swen303group7',
+  port     : '5432'
+});
+
+
+// Original connection method. Date:  21:21 12/05/2016 
+//
+//var connectionString = "postgres://copleyquen:123@depot:5432/marketplace_group_7"
+//var client = new pg.Client(connectionString);
+//client.connect();
 
 
 var cheerio = require('cheerio');

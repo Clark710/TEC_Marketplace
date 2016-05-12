@@ -18,6 +18,7 @@
     "jade-bootstrap": "*",
     "morgan": "^1.6.1",
     "multer": "*",
+    "mysql": "^2.10.2",
     "pg-native": "^1.10.0",
     "pg-promise": "^4.0.12",
     "serve-favicon": "^2.3.0"
