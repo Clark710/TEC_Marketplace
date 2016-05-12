@@ -1,3 +1,4 @@
+
 ################################################################################
 
 ##################### Node .gitignore and Java .gitignore file.
@@ -6,6 +7,8 @@
 .html.swo
 .js.swo
 .directory
+
+
 # Logs
 logs
 *.log
@@ -22,8 +25,10 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+
 # nyc test coverage
 .nyc_output
+
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -33,6 +38,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+
 
 # Dependency directories
 node_modules
