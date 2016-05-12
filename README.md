@@ -11,9 +11,6 @@ bin/www
 Open local host to the webpage below. 
 http://localhost:3000
 
-Please be aware guys that you will need to ssh from home to access the database
-Please contact me on facebook and ill show you how to do it or go to this link,
-https://ecs.victoria.ac.nz/Support/TechNoteWorkingFromHome
 
 Front End dev work will just be adding .jade files to the views folder.
 Back End dev work will be working in the routes folder and app.js & database.
