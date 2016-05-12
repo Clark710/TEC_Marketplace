@@ -18,6 +18,14 @@ var connection = mysql.createConnection({
 //var client = new pg.Client(connectionString);
 //client.connect();
 
+connection.connect();
+// to implement method below.
+connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows[0].solution);
+});
+
+//connection.end();
 
 var cheerio = require('cheerio');
 router.get("/",function(req,res) {
