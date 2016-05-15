@@ -39,7 +39,6 @@ connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
 
 //connection.end();
 
-var cheerio = require('cheerio');
 router.get("/",function(req,res) {
     res.render('index', {title: 'Top End Code'});
 });
