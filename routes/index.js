@@ -6,8 +6,11 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : 'marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com',
-  user     : 'swen303group7',
-  password : 'swen303group7',
+      user     : 'app_rw',
+      password : 'myPassword',
+  
+  //    user     : 'swen303group7',
+  //    password : 'swen303group7',
   port     : '5432'
 });
 
