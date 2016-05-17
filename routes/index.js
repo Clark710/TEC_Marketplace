@@ -9,6 +9,10 @@ router.get("/",function(req,res) {
     res.render('index', {title: 'Top End Code'});
 });
 
+router.get("/contact",function(req,res) {
+    res.render('contact', {title: 'Top End Code'});
+});
+
 router.get('/test_database', function(request, response) {
     pg.connect(connectionString, function(err, client, done){
     if(err){
