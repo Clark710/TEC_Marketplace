@@ -8,7 +8,7 @@ var pg = require('pg').native;
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
 
-pg.connect(connectionString, function(err, client, done){
+/*pg.connect(connectionString, function(err, client, done){
     if(err){
         done();
         console.log(err);
@@ -20,10 +20,12 @@ pg.connect(connectionString, function(err, client, done){
         rows.push(row);
     });
     query.on('end', function(){
-        console.log('The solution is: ', rows[0].solution);
+        console.log('The solution is: ', rows[0]);
+        done();
+        return;
     });
 
-});
+});*/
 
 //connection.end();
 
@@ -34,9 +36,23 @@ router.get("/",function(req,res) {
 
 
 router.get('/test_database', function(request, response) {
-    
-    //client.query('SELECT * FROM `items`', function (error, results, fields)
-    
+    pg.connect(connectionString, function(err, client, done){
+    if(err){
+        done();
+        console.log(err);
+        return;
+    }
+    var query = client.query('SELECT * FROM items');
+    var rows = [];
+    query.on('row', function(row){
+        rows.push(row);
+    });
+    query.on('end', function(){
+        response.json(rows);
+        done();
+        return;
+    });
+    });
 });
 
 
