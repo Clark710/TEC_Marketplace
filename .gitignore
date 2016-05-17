@@ -7,7 +7,7 @@
 .html.swo
 .js.swo
 .directory
-
+node_modules
 
 # Logs
 logs
