@@ -2,36 +2,27 @@ var express = require('express');
 var multer = require('multer');
 var router = express.Router();
 var pg = require('pg').native;
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-  host     : 'marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com',
-  user     : 'app_rw',
-  password : 'myPassword',
-  port     : '5432'
-})
-
 
 // Original connection method. Date:  21:21 12/05/2016 
 //
-//var connectionString = "postgres://copleyquen:123@depot:5432/marketplace_group_7"
-//var client = new pg.Client(connectionString);
-//client.connect();
+var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
-//connection.connect();
-// to implement method below.
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
- 
-  console.log('connected as id ' + connection.threadId);
-});
 
-connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
+pg.connect(connectionString, function(err, client, done){
+    if(err){
+        done();
+        console.log(err);
+        return;
+    }
+    var query = client.query('SELECT * FROM users');
+    var rows = [];
+    query.on('row', function(row){
+        rows.push(row);
+    });
+    query.on('end', function(){
+        console.log('The solution is: ', rows[0].solution);
+    });
+
 });
 
 //connection.end();
@@ -40,21 +31,12 @@ router.get("/",function(req,res) {
     res.render('index', {title: 'Top End Code'});
 });
 
-router.get('/test_database', function(request, response) {
-    var query = client.query("SELECT * FROM items");
-    query.on('error', function () {
-        response.status(404).send({message: "fail to complete item"});
-    });
-    var results = [];
-    // Stream results back one row at a time 
-    query.on('row', function (row) {
-        results.push(row);
-    });
 
-    // After all data is returned, close connection and return results 
-    query.on('end', function () {
-        response.json(results);
-    });
+
+router.get('/test_database', function(request, response) {
+    
+    //client.query('SELECT * FROM `items`', function (error, results, fields)
+    
 });
 
 
