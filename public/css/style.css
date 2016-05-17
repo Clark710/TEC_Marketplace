@@ -1,0 +1,28 @@
+form {
+  width:500px;
+  margin:50px auto;
+}
+input[type=text] {
+  padding:8px 15px;
+  background-color: gray;
+  border:0px solid #dbdbdb;
+}
+input[type=button] {
+  position:relative;
+  padding:6px 15px;
+  left:-8px;
+  border:2px solid #207cca;
+  background-color:#207cca;
+  color:#fafafa;
+}
+input[type=button]  {
+  background-color:#fafafa;
+  color:#207cca;
+}
+.containerContact {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: gray;
+}
