@@ -1,105 +1,148 @@
 doctype html
 html(lang='en')
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    meta(name='description', content='')
-    meta(name='author', content='')
-    title TEC - Top End Code
-    // Bootstrap Core CSS
-    link(href='css/bootstrap.min.css', rel='stylesheet')
-    // Custom CSS
-    link(href='css/shop-homepage.css', rel='stylesheet')
-    // TEC CSS
-    link(href='css/style.css', rel='stylesheet')
-    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-    // WARNING: Respond.js doesn't work if you view the page via file://
-    //if lt IE 9
-      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
-  body
-    // Navigation
-    nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-      .container
-        // Brand and toggle get grouped for better mobile display
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='/') TEC
-        // Collect the nav links, forms, and other content for toggling
-        #bs-example-navbar-collapse-1.collapse.navbar-collapse
-          ul.nav.navbar-nav.left
-            li
-              a(href='/search') Browse
-            li
-              a(href='/contact') Contact
-            li
-          ul.nav.navbar-nav.right
-            li
-              a(href='/login') Login
-            li
-              a(href='/register') Register
-          .nav.navbar-nav.middle
-            input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
-            input(id='submitButton', type='button', value='Search')
-        // /.navbar-collapse
-      // /.container
-    // Page Content
-    .container
-      .row    
-          .row
-            br
-            .col-sm-4.col-lg-4.col-md-4
-              .thumbnail
-                img(src='http://placehold.it/320x250', alt='')
-                .caption
-                  h4.pull-right $#{price}
-                  h4
-                    a(href='/view') #{name}
-                  p #{description}
-                  p Stock Left: #{stock}
-                .ratings
-                  p.pull-right #{reviews} reviews
-                  p
-                   if rating > 0
-                    span.glyphicon.glyphicon-star
-                   else
-                    span.glyphicon.glyphicon-star-empty
-                   if rating > 1.5
-                    span.glyphicon.glyphicon-star
-                   else
-                    span.glyphicon.glyphicon-star-empty
-                   if rating > 2.5
-                    span.glyphicon.glyphicon-star
-                   else
-                    span.glyphicon.glyphicon-star-empty
-                   if rating > 3.5
-                    span.glyphicon.glyphicon-star
-                   else
-                    span.glyphicon.glyphicon-star-empty
-                   if rating > 4.5
-                    span.glyphicon.glyphicon-star
-                   else
-                    span.glyphicon.glyphicon-star-empty
-      .row    
-        ul
-          each comment, index in comments
-            li #{comment} </br> Rating: #{commentRatings[index]} - CommenterID: #{commenterIDs[index]}
-                    
-                    
-              
-    .container
-      hr
-      // Footer
-      footer
-        .row
-          .col-lg-12
-            p Copyright © TEC 2016
-    // jQuery
-    script(src='js/jquery.js')
-    // Bootstrap Core JavaScript
-    script(src='js/bootstrap.min.js')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title TEC - Top End Code
+        // Bootstrap Core CSS
+        link(href='css/bootstrap.min.css', rel='stylesheet')
+        // Custom CSS
+        link(href='css/shop-viewitempage.css', rel='stylesheet')
+        // TEC CSS
+        link(href='css/style.css', rel='stylesheet')
+        // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+        // WARNING: Respond.js doesn't work if you view the page via file://
+        //if lt IE 9
+          script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+          script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    body
+        // Navigation
+        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+            .container
+                // Brand and toggle get grouped for better mobile display
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/') TEC
+                // Collect the nav links, forms, and other content for toggling
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.left
+                        li
+                            a(href='/search') Browse
+                        li
+                            a(href='/contact') Contact
+                        li
+                    ul.nav.navbar-nav.right
+                        li
+                            a(href='/login') Login
+                        li
+                            a(href='/register') Register
+                    .nav.navbar-nav.middle
+                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
+                        input(id='submitButton', type='button', value='Search')
+                // /.navbar-collapse
+            // /.container
+        // Page Content
+        .container
+            .row
+                .col-md-3
+                    p.lead Top End Code
+                    .list-group
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                .col-md-9
+                    a.itemName(href='/view?itemid=1084') #{name}
+                    .middle-container
+                        .middle-container.description
+                            //p #{description}
+                            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis nisl felis. Curabitur porttitor tincidunt consectetur. Sed cursus nulla eget lorem lacinia, in interdum tellus rutrum. Donec a est ipsum. Praesent lacus odio, bibendum non erat eu, malesuada viverra dui. Aliquam tempus nibh orci, non congue nibh laoreet ut. In in suscipit arcu, eget dapibus tortor. Ut consequat, mauris at efficitur suscipit, orci massa tincidunt lectus, in iaculis justo tortor id enim. Nullam sit amet leo aliquet turpis porttitor viverra a quis tortor. Mauris maximus felis ac nisl vehicula, vel condimentum nulla efficitur. Vivamus id sollicitudin nisi. Sed scelerisque, metus sed viverra viverra, leo libero sodales tortor, eu sodales arcu velit ac purus.
+                        .middle-container.image-and-info
+                            img(id='product-image',src='http://placehold.it/320x250', alt='')
+                            .caption
+                                h4.item-price $#{price}
+                                p.stock-left Stock Left: #{stock}
+                    .bottom-container
+                        .bottom-container.ratings
+                            p
+                                if rating > 0
+                                    span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star-empty
+                                if rating > 1.5
+                                    span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star-empty
+                                if rating > 2.5
+                                    span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star-empty
+                                if rating > 3.5
+                                    span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star-empty
+                                if rating > 4.5
+                                    span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star-empty
+                                |    #{reviews} reviews
+                        .row
+                            .ratings-list
+                                each comment, index in comments
+                                    .ratings-list-item
+                                        .ratings-list-item.rating
+                                            p
+                                            if commentRatings[index] > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if commentRatings[index] > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if commentRatings[index] > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if commentRatings[index] > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if commentRatings[index] > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                        .ratings-list-item.commenter-id
+                                            p Commenter ID: #{commenterIDs[index]}
+                                        .ratings-list-item.comment
+                                            p #{comment}
+
+
+
+
+        .container
+            hr
+            // Footer
+            footer
+                .row
+                    .col-lg-12
+                        p Copyright © TEC 2016
+        // jQuery
+        script(src='js/jquery.js')
+        // Bootstrap Core JavaScript
+        script(src='js/bootstrap.min.js')

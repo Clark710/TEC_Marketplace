@@ -1,0 +1,89 @@
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.navbar-nav.left{
+    float: left;
+}
+
+.navbar-nav.right{
+    float: right;
+}
+
+.navbar-nav.middle {
+    padding: 7px 20px;
+    position: absolute;
+    left: 50%;
+}
+
+#searchBox {
+    border-radius: 4px;
+    background-color: white;
+}
+
+#submitButton {
+    border-radius: 4px;
+    color: darkgrey;
+    background-color: lightgrey;
+    position: relative;
+    left: 2%;
+}
+
+
+.itemName {
+    font-size: x-large;
+}
+
+.middle-container {
+    padding: 5px 5px;
+    width: 850px;
+    height: 350px;
+    position: relative;
+    margin: 10px 0px;
+}
+.middle-container.description {
+    position: absolute;
+    width: 520px;
+    height: 280px;
+    left: 0px;
+    top: 0px;
+}
+.middle-container.image-and-info {
+    padding: 0px 0px;
+    width: 320px;
+    height: 320px;
+    position: absolute;
+    left: 530px;
+    top: 0px;
+}
+.item-price {
+    text-align: right;
+    font-size: 50px;
+}
+.stock-left{
+    text-align: right;
+}
+
+.ratings-list {
+
+}
+.ratings-list-item {
+    position: relative;
+    padding: 2px;
+    margin: 1px 0px;
+    background-color: lightgrey;
+    border-radius: 2px;
+}
+.ratings-list-item.rating {
+    font-size: x-large;
+}
+.ratings-list-item.commenter-id {
+    float: right;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+}
+.ratings-list-item.comment {
+
+}
+
