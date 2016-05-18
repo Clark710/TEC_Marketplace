@@ -39,6 +39,7 @@ body {
     margin: 1px 8px;
     background-color: lightgrey;
     position: relative;
+    width: 860px;
 }
 
 
@@ -95,10 +96,4 @@ body {
 }
 #search-results-image {
 
-}
-#search-results-image {
-
-}
-#search-results-rating {
-    margin: 0px 5px;
 }
