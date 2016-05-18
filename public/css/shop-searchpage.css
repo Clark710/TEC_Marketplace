@@ -1,0 +1,100 @@
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.navbar-nav.left{
+    float: left;
+}
+
+.navbar-nav.right{
+    float: right;
+}
+
+.navbar-nav.middle {
+    padding: 7px 20px;
+    position: absolute;
+    left: 50%;
+}
+
+#searchBox {
+    border-radius: 4px;
+    background-color: white;
+}
+
+#submitButton {
+    border-radius: 4px;
+    color: darkgrey;
+    background-color: lightgrey;
+    position: relative;
+    left: 2%;
+}
+
+
+
+.search-results-list {
+    padding: 3px 3px;
+}
+.search-results-list.search-results-item {
+    padding: 8px 3px;
+    margin: 1px 8px;
+    background-color: lightgrey;
+    position: relative;
+}
+
+
+.search-results-list.search-results-item.title-description {
+    width: 470px;
+    position: absolute;
+    right: 90px;
+    top: 5px;
+}
+.search-results-list.search-results-item.title-description.title {
+    position: absolute;
+    padding: 0px 0px;
+    font-family: sans-serif;
+    font-size: x-large;
+    right: 0px;
+    top: 0px;
+}
+.search-results-list.search-results-item.title-description.description {
+    position: absolute;
+    background-color: transparent;
+    margin: 1px 1px;
+    font-size: small;
+    top: 23px;
+    right: 0px;
+}
+
+
+.search-results-list.search-results-item.price-and-buy {
+    margin: 3px 3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    height: 50px;
+}
+.search-results-list.search-results-item.price-and-buy.price {
+    font-size: x-large;
+    text-align: right;
+    top: 10px;
+}
+.search-results-list.search-results-item.price-and-buy.buy {
+    background-color: transparent;
+    height: 15px;
+    top: 45px;
+    text-align: right;
+}
+
+#search-results-rating {
+    padding: 0px 10px;
+}
+#search-results-image {
+
+}
+#search-results-image {
+
+}
+#search-results-rating {
+    margin: 0px 5px;
+}
