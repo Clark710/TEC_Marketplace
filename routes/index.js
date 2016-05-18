@@ -84,7 +84,8 @@ router.get("/browse",function(req,res) {
 router.post('/upload', function(req, res){
 });
 
-router.get('/search1', function(req, res) {
+router.get('/search', function(req, res) {
+    res.render('search', {title: 'TEC - Search Results'});
 });
 
 /** View a specific items page */

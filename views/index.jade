@@ -34,7 +34,7 @@ html(lang='en')
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
                     ul.nav.navbar-nav.left
                         li
-                            a(href='#') Browse
+                            a(href='/search') Browse
                         li
                             a(href='/contact') Contact
                         li
@@ -44,7 +44,7 @@ html(lang='en')
                         li
                             a(href='/register') Register
                     .nav.navbar-nav.middle
-                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;')
+                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
                         input(id='submitButton', type='button', value='Search')
                 // /.navbar-collapse
             // /.container

@@ -1,38 +1,67 @@
-extends ../node_modules/jade-bootstrap/_bootstrap
-head
-  title=title
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title {!title}
+        // Bootstrap Core CSS
+        link(href='css/bootstrap.min.css', rel='stylesheet')
+        // Custom CSS
+        link(href='css/shop-homepage.css', rel='stylesheet')
+        // TEC CSS
+        link(href='css/style.css', rel='stylesheet')
+        // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+        // WARNING: Respond.js doesn't work if you view the page via file://
+        //if lt IE 9
+          script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+          script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    body
+        // Navigation
+        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+            .container
+                // Brand and toggle get grouped for better mobile display
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/') TEC
+                // Collect the nav links, forms, and other content for toggling
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.left
+                        li
+                            a(href='/search') Browse
+                        li
+                            a(href='/contact') Contact
+                        li
+                    ul.nav.navbar-nav.right
+                        li
+                            a(href='/login') Login
+                        li
+                            a(href='/register') Register
+                    .nav.navbar-nav.middle
+                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
+                        input(id='submitButton', type='button', value='Search')
+                // /.navbar-collapse
+            // /.container
+        // Page Content
+        .container
 
-// This file demonstates the pages after the search. 10 results are displayed per page.
 
-block body
-  +navbar("Colenso Database", "dropdown_menu")
-    +nav_item("/", "active") Home
-    +nav_item("/browse") Browse
-
-  .container
-    h1 Your #{search} search returned
-    h2 #{total} results.
-
-  .container
-    if search_result.length > 0
-      if total > 1
-        p #{total} results.
-      else
-        p #{total} result.
-      if total > 10
-        p Page displays results #{first} to #{last}
-        p Click edit link to ammend document.
-      if first > 1
-        a(href='/search1?query=' + search + '&place=' + prev) previous <
-        span -
-      if last < total
-        a(href='/search1?query=' + search + '&place=' + next) More results
-      ul
-        each file in search_result
-          li
-            a(href='view?path='+file.path)  #{file.title}
-            p #{file.author}, #{file.date}
-            a(href='edit?path='+file.path) Edit Document
-            p <br>
-    p <br>
-    a(href='/') Try New Search
+        // /.container
+        .container
+            hr
+            // Footer
+            footer
+                .row
+                    .col-lg-12
+                        p Copyright © TEC 2016
+        // /.container
+        // jQuery
+        script(src='js/jquery.js')
+        // Bootstrap Core JavaScript
+        script(src='js/bootstrap.min.js')
