@@ -32,16 +32,21 @@ html(lang='en')
           a.navbar-brand(href='/') TEC
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li
-              a(href='#') Browse
-            li
-              a(href='/contact') Contact
-            li
-          .search
-            input(type='text', placeholder='Search...', required='')
-            input(type='button', value='Search')
-        // /.navbar-collapse
+          ul.nav.navbar-nav.left
+              li
+                  a(href='/search') Browse
+              li
+                  a(href='/contact') Contact
+              li
+          ul.nav.navbar-nav.right
+              li
+                  a(href='/login') Login
+              li
+                  a(href='/register') Register
+          .nav.navbar-nav.middle
+              input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
+              input(id='submitButton', type='button', value='Search')
+      // /.navbar-collapse
       // /.container
     // Page Content
     .container
@@ -55,13 +60,11 @@ html(lang='en')
             a.list-group-item(href='#') Textbooks
             a.list-group-item(href='#') Magazines
             a.list-group-item(href='#') DVDs
-        .col-md-9                
+        .col-md-3
           .row
-    .containerContact
-      p.lead Contact Us
-      p
-      | This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    // /.containerContact
+            p.lead Contact Us
+            p
+            | This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     // /.container
     .container
       hr
