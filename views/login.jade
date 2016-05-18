@@ -62,10 +62,11 @@ html(lang='en')
                         a.list-group-item(href='#') DVDs
                 .col-md-3
                     .row
-                        .form
+                        .form-signin
                             form(method='post')
-                                input(type='text', name='username', placeholder='Username', required='required')
-                                input(type='password', name='password', placeholder='Password', required='required')
+                                p.lead Login
+                                input#username.form-control(placeholder='Username', type='text')
+                                input#password.form-control(placeholder='Password', type='password')
                                 br
                                 button.btn.btn-default(href='#', type='submit') Login!
         // /.container
