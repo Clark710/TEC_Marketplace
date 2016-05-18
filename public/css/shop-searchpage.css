@@ -43,7 +43,7 @@ body {
 
 
 .search-results-list.search-results-item.title-description {
-    width: 470px;
+    width: 500px;
     position: absolute;
     right: 90px;
     top: 5px;
@@ -86,8 +86,11 @@ body {
     text-align: right;
 }
 
-#search-results-rating {
-    padding: 0px 10px;
+.search-results-list.search-results-item.ratings {
+    background-color: transparent;
+    position: absolute;
+    right: 620px;
+    top: 25px
 }
 #search-results-image {
 

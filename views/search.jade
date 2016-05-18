@@ -67,58 +67,72 @@ html(lang='en')
                         a.list-group-item(href='#') Magazines
                         a.list-group-item(href='#') DVDs
                 .col-md-9
-                    p.lead Search Results
+                    p.lead #{title}
                     .search-results-list
                         .row
                             .search-results-list.search-results-item
                                 img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                img(id='search-results-rating', src='images/five-star.png', alt='')
+                                .search-results-list.search-results-item.ratings
+                                    p
+                                        if rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                    p #{reviews} reviews
                                 .search-results-list.search-results-item.price-and-buy
                                     p.search-results-list.search-results-item.price-and-buy.price() $69.99
                                     a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
                                 .search-results-list.search-results-item.title-description
                                     p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla
+                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
                         .row
                             .search-results-list.search-results-item
                                 img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                img(id='search-results-rating', src='images/five-star.png', alt='')
+                                .search-results-list.search-results-item.ratings
+                                    p
+                                        if rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                    p #{reviews} reviews
                                 .search-results-list.search-results-item.price-and-buy
                                     p.search-results-list.search-results-item.price-and-buy.price() $69.99
                                     a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
                                 .search-results-list.search-results-item.title-description
                                     p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                img(id='search-results-rating', src='images/five-star.png', alt='')
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                img(id='search-results-rating', src='images/five-star.png', alt='')
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                img(id='search-results-rating', src='images/five-star.png', alt='')
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla
+                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
         // /.container
         .container
             hr

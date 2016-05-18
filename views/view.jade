@@ -32,16 +32,22 @@ html(lang='en')
           a.navbar-brand(href='/') TEC
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
-          ul.nav.navbar-nav
+          ul.nav.navbar-nav.left
             li
-              a(href='#') Browse
+              a(href='/search') Browse
             li
               a(href='/contact') Contact
             li
-          .search
-            input(type='text', placeholder='Search...', required='')
-            input(type='button', value='Search')
-
+          ul.nav.navbar-nav.right
+            li
+              a(href='/login') Login
+            li
+              a(href='/register') Register
+          .nav.navbar-nav.middle
+            input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
+            input(id='submitButton', type='button', value='Search')
+        // /.navbar-collapse
+      // /.container
     // Page Content
     .container
       .row    
