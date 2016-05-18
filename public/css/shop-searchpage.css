@@ -90,7 +90,8 @@ body {
     background-color: transparent;
     position: absolute;
     right: 620px;
-    top: 25px
+    top: 25px;
+    text-align: right;
 }
 #search-results-image {
 
