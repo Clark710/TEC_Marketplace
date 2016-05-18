@@ -75,13 +75,53 @@ router.get('/remove', function(request, response) {
 
 
 router.get("/browse",function(req,res) {
-  
   res.render('browse', {title: 'Top End Code'});
-  
-  
 });
 
-router.post('/upload', function(req, res){
+router.get("/contact",function(req,res) {
+    res.render('contact', {title: 'Top End Code'});
+});
+
+router.get("/login",function(req,res) {
+    res.render('login', {title: 'Top End Code'});
+});
+
+router.post('/login', function (req,res,next) {
+    console.log("Trying to log in");
+
+    var USERNAME = req.body.user;
+    var PASSWORD = req.body.pass;
+    console.log(USERNAME + " " + PASSWORD);
+    var client = new pg.Client(database);
+    pg.connect(database,function(err,client,done){
+        if(err) {
+            return console.error('could not connect to postgres', err);
+        }
+        console.log('Connected to database');
+        var query = "SELECT * FROM Users WHERE username='%NAME%' AND password='%PASSWORD%';".replace("%NAME%", USERNAME).replace("%PASSWORD%", PASSWORD);
+        client.query(query, function(error, result){
+
+            console.log(result);
+            console.log(error);
+            if(error) {
+                console.error('Query failed');
+                console.error(error);
+                return;
+            }
+            else if (result.rowCount === 0){
+                res.send(false);
+                return;
+            } else {
+                res.send(true);
+                console.log("Query success");
+                return;
+            }
+        })
+    })
+});
+
+router.get("/register",function(req,res) {
+    res.render('register', {title: 'Top End Code'});
 });
 
 router.get('/search', function(req, res) {
@@ -167,15 +207,6 @@ router.get('/view', function(request, response) {
           });
       });
     });
-});
-
-router.get('/download', function(req, res) {
-});
-
-router.post("/submit",function(req,res){
-});
-
-router.get('/edit', function(req,res) {
 });
 
 function getURLParameter(name) {
