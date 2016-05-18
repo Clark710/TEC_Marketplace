@@ -1,148 +1,38 @@
-doctype html
-html(lang='en')
-    head
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='description', content='')
-        meta(name='author', content='')
-        title TEC - Search Results
-        // Bootstrap Core CSS
-        link(href='css/bootstrap.min.css', rel='stylesheet')
-        // Custom CSS
-        link(href='css/shop-searchpage.css', rel='stylesheet')
-        // TEC CSS
-        link(href='css/style.css', rel='stylesheet')
-        // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-        // WARNING: Respond.js doesn't work if you view the page via file://
-        //if lt IE 9
-          script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-          script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
-    body
-        // Navigation
-        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-            .container
-                // Brand and toggle get grouped for better mobile display
-                .navbar-header
-                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href='/') TEC
-                // Collect the nav links, forms, and other content for toggling
-                #bs-example-navbar-collapse-1.collapse.navbar-collapse
-                    ul.nav.navbar-nav.left
-                        li
-                            a(href='/search') Browse
-                        li
-                            a(href='/contact') Contact
-                        li
-                    ul.nav.navbar-nav.right
-                        li
-                            a(href='/login') Login
-                        li
-                            a(href='/register') Register
-                    .nav.navbar-nav.middle
-                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
-                        input(id='submitButton', type='button', value='Search')
-                // /.navbar-collapse
-            // /.container
-        // Page Content
-        .container
-            .row
-                .col-md-3
-                    p.lead Top End Code
-                    .list-group
-                        a.list-group-item(href='#') Textbooks
-                        a.list-group-item(href='#') Magazines
-                        a.list-group-item(href='#') DVDs
-                        a.list-group-item(href='#') Textbooks
-                        a.list-group-item(href='#') Magazines
-                        a.list-group-item(href='#') DVDs
-                        a.list-group-item(href='#') Textbooks
-                        a.list-group-item(href='#') Magazines
-                        a.list-group-item(href='#') DVDs
-                        a.list-group-item(href='#') Textbooks
-                        a.list-group-item(href='#') Magazines
-                        a.list-group-item(href='#') DVDs
-                .col-md-9
-                    p.lead #{title}
-                    .search-results-list
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                .search-results-list.search-results-item.ratings
-                                    p
-                                        if rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                .search-results-list.search-results-item.ratings
-                                    p
-                                        if rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
-        // /.container
-        .container
-            hr
-            // Footer
-            footer
-                .row
-                    .col-lg-12
-                        p Copyright © TEC 2016
-        // /.container
-        // jQuery
-        script(src='js/jquery.js')
-        // Bootstrap Core JavaScript
-        script(src='js/bootstrap.min.js')
+extends ../node_modules/jade-bootstrap/_bootstrap
+head
+  title=title
+
+style.
+    h3 {font-size: 19px; color: #464646;}
+
+
+
+block body
+  +navbar("Top End Code", "dropdown_menu")
+    +nav_item("/") Home
+    +nav_item("/browse", "active") Browse
+  .container
+    h1 Top End Code
+    p Click the links below to explore the folders
+
+  .container
+    s
+      a(href='/browse') Click here to return to Top End Code Browse Page
+
+        a(href='/browse?path=' + folder) #{folder}
+        br
+
+        h3 Files returned in #{path}
+        
+        h3 Upload your files below.
+        p.
+          To upload file please click "Choose File" to select file then click "Upload File"
+        a(style={color: 'red', background: 'green'})
+        a(href='view?path=' + path + file) #{file}
+        a(style={color: 'red', background: 'green'})
+        br
+
+    br
+    form(action="/upload?path=" + path, method="post", enctype="multipart/form-data")
+      input(type="file", name="file")
+      button(type="submit") Upload File
