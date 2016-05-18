@@ -25,6 +25,7 @@ body {
 #searchBox {
     border-radius: 4px;
     background-color: white;
+    height: 35px;
 }
 
 #submitButton {

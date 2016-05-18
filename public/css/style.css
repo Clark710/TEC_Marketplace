@@ -2,10 +2,19 @@ form {
   width:500px;
   margin:50px auto;
 }
-input[type=text] {
+.search input[type="text"] {
   padding:8px 15px;
-  background-color: gray;
   border:0px solid #dbdbdb;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 input[type=button] {
   position:relative;
