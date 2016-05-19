@@ -89,65 +89,101 @@ html(lang='en')
                                 img(id='search-results-image', src='http://placehold.it/140x90', alt='')
                                 .search-results-list.search-results-item.ratings
                                     p
-                                        if rating > 0
+                                        if items[0].rating > 0
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
+                                        if items[0].rating > 1.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
+                                        if items[0].rating > 2.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
+                                        if items[0].rating > 3.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
+                                        if items[0].rating > 4.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
+                                    p #{items[0].reviews} reviews
                                 .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
+                                    p.search-results-list.search-results-item.price-and-buy.price() $#{items[0].price}
                                     a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
                                 .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
+                                    p.search-results-list.search-results-item.title-description.title 
+                                        a(href='/view?itemid='+ items[0].id) #{items[0].name}
+                                    p.search-results-list.search-results-item.title-description.description #{items[0].summary}
                         .row
                             .search-results-list.search-results-item
                                 img(id='search-results-image', src='http://placehold.it/140x90', alt='')
                                 .search-results-list.search-results-item.ratings
                                     p
-                                        if rating > 0
+                                        if items[1].rating > 0
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
+                                        if items[1].rating > 1.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
+                                        if items[1].rating > 2.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
+                                        if items[1].rating > 3.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
+                                        if items[1].rating > 4.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
+                                    p #{items[1].reviews} reviews
                                 .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
+                                    p.search-results-list.search-results-item.price-and-buy.price() $#{items[1].price}
                                     a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
                                 .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
+                                    p.search-results-list.search-results-item.title-description.title 
+                                        a(href='/view?itemid='+ items[1].id) #{items[1].name}
+                                    p.search-results-list.search-results-item.title-description.description #{items[1].summary}
+                        .row
+                            .search-results-list.search-results-item
+                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
+                                .search-results-list.search-results-item.ratings
+                                    p
+                                        if items[2].rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                    p #{items[2].reviews} reviews
+                                .search-results-list.search-results-item.price-and-buy
+                                    p.search-results-list.search-results-item.price-and-buy.price() $#{items[2].price}
+                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
+                                .search-results-list.search-results-item.title-description
+                                    p.search-results-list.search-results-item.title-description.title 
+                                        a(href='/view?itemid='+ items[2].id) #{items[2].name}
+                                    p.search-results-list.search-results-item.title-description.description #{items[2].summary}
+
         // /.container
         .container
             hr
