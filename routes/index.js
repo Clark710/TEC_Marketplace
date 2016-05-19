@@ -172,6 +172,7 @@ router.get('/search', function(request, response) {
 		  	query.on('end', function(){
 				var str = "TEC - " + items.length + " Results";
 				response.render('search', {title: str, items: items});
+				done();
 			});
 		});
 	} else {
@@ -197,6 +198,7 @@ router.get('/', function(request, response) {
 
           	query.on('end', function(){
 			response.render('index', {items: items});
+			done();
 		});
 	});
 });
@@ -278,6 +280,7 @@ router.get('/view', function(request, response) {
 	   response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs});
 	   done();
           });
+	done();
       });
     });
 });
