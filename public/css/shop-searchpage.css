@@ -2,6 +2,11 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.navbar-nav.whole-container {
+    position: relative;
+    height: 50px;
+}
+
 .navbar-nav.left{
     float: left;
 }
@@ -11,22 +16,24 @@ body {
 }
 
 .navbar-nav.middle {
-    padding: 7px 20px;
+    margin: 6px 0px 0px 0px;
     position: absolute;
-    left: 50%;
+    left: 45%;
 }
 
 #searchBox {
     border-radius: 4px;
+    padding: 0px 5px;
     background-color: white;
     height: 35px;
 }
-
 #submitButton {
     border-radius: 4px;
-    color: darkgrey;
+    color: black;
     background-color: lightgrey;
     position: relative;
+    height: 33px;
+    text-align: center;
     left: 2%;
 }
 
