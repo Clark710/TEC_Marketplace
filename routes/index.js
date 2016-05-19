@@ -58,41 +58,32 @@ router.get('/add', function(request, response) {
 	add();
 });
 
-
 /** Removes everything from the database */
 router.get('/remove', function(request, response) {
 	remove();
 });
 
-
-/** Removes from and adds to everything in the database */
-router.get('/reset', function(request, response) {
-	remove();
-	add();
-});
-
 function add(){
 	pg.connect(connectionString, function(err, client, done){
 		// Add item 0
-		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (0, 'Java DVD', 'Short summary about Java DVD item', 'Longer description about java dvd item', 16.99, '2000-09-09T00:00:00.000Z', 2, 20, 2.3)");
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (0, 'Java DVD', 'Short summary about Java DVD item', 'Longer description about java dvd item', 16.99, '2000-09-09T00:00:00.000Z', 2, 20, 2.3, 3)");
 			// Item 0s comments
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (0, 'This is the first comment of item 0!', 2, 2, 0)");
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (1, 'This is the second comment of item 0!', 4, 3, 0)");
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (2, 'This is the third comment of item 0!', 1, 1, 0)");
 
 		// Add item 1
-		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (1, 'C++ Book', 'Short summary about C++ Book item', 'Longer description about C++ Book item', 9.99, '2000-09-09T00:00:00.000Z', 1, 5, 3)");
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (1, 'C++ Book', 'Short summary about C++ Book item', 'Longer description about C++ Book item', 9.99, '2000-09-09T00:00:00.000Z', 1, 5, 3, 3)");
 			// Item 1s comments
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (3, 'This is the first comment of item 1!', 4, 2, 1)");
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (4, 'This is the second comment of item 1!', 2, 0, 1)");
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (5, 'This is the third comment of item 1!', 3, 3, 1)");
 
 		// Add item 2
-		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (2, 'AI Tutorial', 'Short summary about AI Tutorial item', 'Longer description about AI Tutorial item', 128.99, '2000-09-09T00:00:00.000Z', 0, -1, 4.3)");
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (2, 'AI Tutorial', 'Short summary about AI Tutorial item', 'Longer description about AI Tutorial item', 128.99, '2000-09-09T00:00:00.000Z', 0, -1, 4.5, 2)");
 			// Item 2s comments
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (6, 'This is the first comment of item 2!', 4, 1, 2)");
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (7, 'This is the second comment of item 2!', 5, 0, 2)");
-			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (8, 'This is the third comment of item 2!', 4, 3, 2)");
 
 
 	});
@@ -108,7 +99,6 @@ function remove(){
 		client.query('DELETE FROM itemcomments WHERE id = 5');
 		client.query('DELETE FROM itemcomments WHERE id = 6');
 		client.query('DELETE FROM itemcomments WHERE id = 7');
-		client.query('DELETE FROM itemcomments WHERE id = 8');
 
 
 		client.query('DELETE FROM items WHERE id = 0');
@@ -172,27 +162,22 @@ router.get('/search', function(req, res) {
     res.render('search', {title: 'TEC - Search Results'});
 });
 
+var items = [];
+
 /** Browse items page */
 router.get('/', function(request, response) {
-	var itemID = 1084;
-
 	pg.connect(connectionString, function(err, client, done){
-		// Check for error in connection
-		if(err){
-			done();
-			console.log(err);
-			return;
-		}
-
-		var items = [];
+		// Query items
 		var query = client.query("SELECT * FROM items", function(err, result) {
-			// Push items into the items array
+			// For each item
 			for (i = 0; i < result.rows.length; i++) {
-				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:3};
-				console.log(result.rows[i].id);
+				// Add item
+				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 				items.push(item);
 			}
-			// Render page with items
+		});
+
+          	query.on('end', function(){
 			response.render('index', {items: items});
 		});
 	});
@@ -272,7 +257,7 @@ router.get('/view', function(request, response) {
 	      itemRating = itemRating/itemReviewCount;
 	    }
 	   
-	   response.render('view', {name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs});
+	   response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs});
 	   done();
           });
       });
