@@ -1,86 +1,25 @@
 doctype html
 html(lang='en')
-    head
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='description', content='')
-        meta(name='author', content='')
-        title TEC - Top End Code
-        // Bootstrap Core CSS
-        link(href='css/bootstrap.min.css', rel='stylesheet')
-        // Custom CSS
-        link(href='css/shop-homepage.css', rel='stylesheet')
-        // TEC CSS
-        link(href='css/style.css', rel='stylesheet')
-        // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-        // WARNING: Respond.js doesn't work if you view the page via file://
-        //if lt IE 9
-          script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-          script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
     body
-        // Navigation
-        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-            .container
-                // Brand and toggle get grouped for better mobile display
-                .navbar-header
-                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href='/') TEC
-                // Collect the nav links, forms, and other content for toggling
-                #bs-example-navbar-collapse-1.collapse.navbar-collapse
-                    ul.nav.navbar-nav.left
-                        li
-                            a(href='/search') Browse
-                        li
-                            a(href='/contact') Contact
-                        li
-                    ul.nav.navbar-nav.right
-                        li
-                            a(href='/login') Login
-                        li
-                            a(href='/register') Register
-                    .nav.navbar-nav.middle
-                        input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
-                        input(id='submitButton', type='button', value='Search')
-                // /.navbar-collapse
-            // /.container
+        include head
         // Page Content
         .container
             .row
                 .col-md-3
                     p.lead Top End Code
                     .list-group
-                        .list-group-item
-                            summary Textbooks
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                        .list-group-item
-                            summary Magazines
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                        .list-group-item
-                            summary DVDs
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
+                        a.list-group-item(href='#') Textbooks
+                        a.list-group-item(href='#') Magazines
+                        a.list-group-item(href='#') DVDs
                 .col-md-9
                     .row.carousel-holder
                         .col-md-12
@@ -101,40 +40,102 @@ html(lang='en')
                                 a.right.carousel-control(href='#carousel-example-generic', data-slide='next')
                                     span.glyphicon.glyphicon-chevron-right
                                         .row
-                        each item in items
-                            br
-                            .col-sm-4.col-lg-4.col-md-4
-                                .thumbnail
-                                    img(src='http://placehold.it/320x250', alt='')
-                                    .caption
-                                        h4.pull-right $#{item.price}
-                                        h4
-                                            a(href='/view?itemid=' + item.id) #{item.name}
-                                        p	#{item.summary}
-                                    .ratings
-                                        p.pull-right #{item.reviews} reviews
-                                        p
-                                            if item.rating > 0
-                                                span.glyphicon.glyphicon-star
-                                            else
-                                                span.glyphicon.glyphicon-star-empty
-                                            if item.rating > 1.5
-                                                span.glyphicon.glyphicon-star
-                                            else
-                                                span.glyphicon.glyphicon-star-empty
-                                            if item.rating > 2.5
-                                                span.glyphicon.glyphicon-star
-                                            else
-                                                span.glyphicon.glyphicon-star-empty
-                                            if item.rating > 3.5
-                                                span.glyphicon.glyphicon-star
-                                            else
-                                                span.glyphicon.glyphicon-star-empty
-                                            if item.rating > 4.5
-                                                span.glyphicon.glyphicon-star
-                                            else
-                                                span.glyphicon.glyphicon-star-empty
-                        
+                        br
+                        .col-sm-4.col-lg-4.col-md-4
+                            .thumbnail
+                                img(src='http://placehold.it/320x250', alt='')
+                                .caption
+                                    h4.pull-right $#{items[0].price}
+                                    h4
+                                        a(href='/view?itemid=' + items[0].id) #{items[0].name}
+                                    p	#{items[0].summary}
+                                .ratings
+                                    p.pull-right #{items[0].reviews} reviews
+                                    p
+                                        if items[0].rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[0].rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[0].rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[0].rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[0].rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                        br
+                        .col-sm-4.col-lg-4.col-md-4
+                            .thumbnail
+                                img(src='http://placehold.it/320x250', alt='')
+                                .caption
+                                    h4.pull-right $#{items[1].price}
+                                    h4
+                                        a(href='/view?itemid=' + items[1].id) #{items[1].name}
+                                    p	#{items[1].summary}
+                                .ratings
+                                    p.pull-right #{items[1].reviews} reviews
+                                    p
+                                        if items[1].rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[1].rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[1].rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[1].rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[1].rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                        br
+                        .col-sm-4.col-lg-4.col-md-4
+                            .thumbnail
+                                img(src='http://placehold.it/320x250', alt='')
+                                .caption
+                                    h4.pull-right $#{items[2].price}
+                                    h4
+                                        a(href='/view?itemid=' + items[2].id) #{items[2].name}
+                                    p	#{items[2].summary}
+                                .ratings
+                                    p.pull-right #{items[2].reviews} reviews
+                                    p
+                                        if items[2].rating > 0
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 1.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 2.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 3.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
+                                        if items[2].rating > 4.5
+                                            span.glyphicon.glyphicon-star
+                                        else
+                                            span.glyphicon.glyphicon-star-empty
                         
         // /.container
         .container
