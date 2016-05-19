@@ -33,19 +33,19 @@ html(lang='en')
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.left
-              li
-                  a(href='/search') Browse
-              li
-                  a(href='/contact') Contact
-              li
+            li
+              a(href='/search') Browse
+            li
+              a(href='/contact') Contact
+            li
           ul.nav.navbar-nav.right
-              li
-                  a(href='/login') Login
-              li
-                  a(href='/register') Register
+            li
+              a(href='/login') Login
+            li
+              a(href='/register') Register
           .nav.navbar-nav.middle
-              input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
-              input(id='submitButton', type='button', value='Search')
+            input(id='searchBox', type='text', placeholder='Search...', required='', style='backgroundColor=#fff;', href='/search')
+            input(id='submitButton', type='button', value='Search')
       // /.navbar-collapse
       // /.container
     // Page Content
@@ -54,12 +54,33 @@ html(lang='en')
         .col-md-3
           p.lead Top End Code
           .list-group
-            a.list-group-item(href='#') Textbooks
-            a.list-group-item(href='#') Magazines
-            a.list-group-item(href='#') DVDs
-            a.list-group-item(href='#') Textbooks
-            a.list-group-item(href='#') Magazines
-            a.list-group-item(href='#') DVDs
+            .list-group-item
+              summary Textbooks
+              .drop-down-content
+                .drop-down-content.single-item
+                  a(href='#') Programming
+                .drop-down-content.single-item
+                  a(href='#') Marketing
+                .drop-down-content.single-item
+                  a(href='#') Other
+            .list-group-item
+              summary Magazines
+              .drop-down-content
+                .drop-down-content.single-item
+                  a(href='#') Programming
+                .drop-down-content.single-item
+                  a(href='#') Marketing
+                .drop-down-content.single-item
+                  a(href='#') Other
+            .list-group-item
+              summary DVDs
+              .drop-down-content
+                .drop-down-content.single-item
+                  a(href='#') Programming
+                .drop-down-content.single-item
+                  a(href='#') Marketing
+                .drop-down-content.single-item
+                  a(href='#') Other
         .col-md-3
           .row
             p.lead Contact Us
