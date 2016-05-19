@@ -16,7 +16,19 @@ html(lang='en')
                         a.list-group-item(href='#') DVDs
                 .col-md-3
                     .row
-                        p.lead Register
+                        .form-signin
+                            form(method='post')
+                                p.lead Register
+                                input#firstname.form-control(placeholder='First Name', name="firstName", type='text', required="required")
+                                input#lastname.form-control(placeholder='Last Name', name="lastName", type='text', required="required")
+                                input#username.form-control(placeholder='Username', name="username", type='text', required="required")
+                                input#email.form-control(placeholder='Email Address', name="email", type='email',  required="required")
+                                input#birthdate.form-control(placeholder='Date of birth', name="birthdate", type='date',  required="required")
+                                input#address.form-control(placeholder='Postal Address', name="address", type='text',  required="required")
+                                input#password.form-control(placeholder='Password', name="password", type='password', required="required")
+                                input#confirmpassword.form-control(placeholder='Confirm Password', name="confirmPassword", type='password', required="required")
+                                br
+                                button.btn.btn-default(href='#', type='submit') Register!
         // /.container
         .container
             hr
