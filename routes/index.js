@@ -176,7 +176,24 @@ router.get('/search', function(request, response) {
 			});
 		});
 	} else {
-		
+		var items = [];
+		pg.connect(connectionString, function(err, client, done){
+			// Query items
+			var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')", function(err, result) {
+				// For each item
+				for (i = 0; i < result.rows.length; i++) {
+					// Add item
+					var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+					items.push(item);
+				}
+			});
+
+		  	query.on('end', function(){
+				var str = "TEC - " + items.length + " Results from search '" + search + "'";
+				response.render('search', {title: str, items: items});
+				done();
+			});
+		});
 	}
 	
 });

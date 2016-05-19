@@ -101,102 +101,40 @@ html(lang='en')
                                 a.right.carousel-control(href='#carousel-example-generic', data-slide='next')
                                     span.glyphicon.glyphicon-chevron-right
                                         .row
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='http://placehold.it/320x250', alt='')
-                                .caption
-                                    h4.pull-right $#{items[0].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[0].id) #{items[0].name}
-                                    p	#{items[0].summary}
-                                .ratings
-                                    p.pull-right #{items[0].reviews} reviews
-                                    p
-                                        if items[0].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='http://placehold.it/320x250', alt='')
-                                .caption
-                                    h4.pull-right $#{items[1].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[1].id) #{items[1].name}
-                                    p	#{items[1].summary}
-                                .ratings
-                                    p.pull-right #{items[1].reviews} reviews
-                                    p
-                                        if items[1].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='http://placehold.it/320x250', alt='')
-                                .caption
-                                    h4.pull-right $#{items[2].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[2].id) #{items[2].name}
-                                    p	#{items[2].summary}
-                                .ratings
-                                    p.pull-right #{items[2].reviews} reviews
-                                    p
-                                        if items[2].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
+                        each item in items
+                            br
+                            .col-sm-4.col-lg-4.col-md-4
+                                .thumbnail
+                                    img(src='http://placehold.it/320x250', alt='')
+                                    .caption
+                                        h4.pull-right $#{item.price}
+                                        h4
+                                            a(href='/view?itemid=' + item.id) #{item.name}
+                                        p	#{item.summary}
+                                    .ratings
+                                        p.pull-right #{item.reviews} reviews
+                                        p
+                                            if item.rating > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                        
                         
         // /.container
         .container
