@@ -76,7 +76,10 @@ html(lang='en')
                             img(id='product-image',src='http://placehold.it/320x250', alt='')
                             .caption
                                 h4.item-price $#{price}
-                                p.stock-left Stock Left: #{stock}
+                                if stock < 0
+                                        p.stock-left 
+                                else
+                                        p.stock-left Stock Left: #{stock}
                     .bottom-container
                         .bottom-container.ratings
                             p

@@ -5,10 +5,6 @@ var pg = require('pg');
 
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
-/** Get index page aka The front page */
-router.get("/",function(req,res) {
-    res.render('index', {title: 'Top End Code'});
-});
 
 /** Get contact page where people can find ways to contact TEC */
 router.get("/contact",function(req,res) {
@@ -57,21 +53,69 @@ router.get('/check', function(request, response) {
     });
 });
 
+/** Fills the database */
 router.get('/add', function(request, response) {
-    pg.connect(connectionString, function(err, client, done){
-      client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (0, 'This is the first comment of item 1084!', 4, 404, 1084)");
-      client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (1, 'This is the second comment of item 1084!', 1, 405, 1084)");
-      client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (2, 'This is the third comment of item 1084!', 2, 406, 1084)");
-    });
+	add();
 });
 
+
+/** Removes everything from the database */
 router.get('/remove', function(request, response) {
-    pg.connect(connectionString, function(err, client, done){
-      client.query('DELETE FROM itemcomments WHERE id = 0');
-      client.query('DELETE FROM itemcomments WHERE id = 1');
-      client.query('DELETE FROM itemcomments WHERE id = 2');
-    });
+	remove();
 });
+
+
+/** Removes from and adds to everything in the database */
+router.get('/reset', function(request, response) {
+	remove();
+	add();
+});
+
+function add(){
+	pg.connect(connectionString, function(err, client, done){
+		// Add item 0
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (0, 'Java DVD', 'Short summary about Java DVD item', 'Longer description about java dvd item', 16.99, '2000-09-09T00:00:00.000Z', 2, 20, 2.3)");
+			// Item 0s comments
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (0, 'This is the first comment of item 0!', 2, 2, 0)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (1, 'This is the second comment of item 0!', 4, 3, 0)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (2, 'This is the third comment of item 0!', 1, 1, 0)");
+
+		// Add item 1
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (1, 'C++ Book', 'Short summary about C++ Book item', 'Longer description about C++ Book item', 9.99, '2000-09-09T00:00:00.000Z', 1, 5, 3)");
+			// Item 1s comments
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (3, 'This is the first comment of item 1!', 4, 2, 1)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (4, 'This is the second comment of item 1!', 2, 0, 1)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (5, 'This is the third comment of item 1!', 3, 3, 1)");
+
+		// Add item 2
+		client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating) VALUES (2, 'AI Tutorial', 'Short summary about AI Tutorial item', 'Longer description about AI Tutorial item', 128.99, '2000-09-09T00:00:00.000Z', 0, -1, 4.3)");
+			// Item 2s comments
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (6, 'This is the first comment of item 2!', 4, 1, 2)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (7, 'This is the second comment of item 2!', 5, 0, 2)");
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (8, 'This is the third comment of item 2!', 4, 3, 2)");
+
+
+	});
+}
+
+function remove(){
+	pg.connect(connectionString, function(err, client, done){
+		client.query('DELETE FROM itemcomments WHERE id = 0');
+		client.query('DELETE FROM itemcomments WHERE id = 1');
+		client.query('DELETE FROM itemcomments WHERE id = 2');
+		client.query('DELETE FROM itemcomments WHERE id = 3');
+		client.query('DELETE FROM itemcomments WHERE id = 4');
+		client.query('DELETE FROM itemcomments WHERE id = 5');
+		client.query('DELETE FROM itemcomments WHERE id = 6');
+		client.query('DELETE FROM itemcomments WHERE id = 7');
+		client.query('DELETE FROM itemcomments WHERE id = 8');
+
+
+		client.query('DELETE FROM items WHERE id = 0');
+		client.query('DELETE FROM items WHERE id = 1');
+		client.query('DELETE FROM items WHERE id = 2');
+	});
+}
 
 
 router.get("/browse",function(req,res) {
@@ -126,6 +170,32 @@ router.get("/register",function(req,res) {
 
 router.get('/search', function(req, res) {
     res.render('search', {title: 'TEC - Search Results'});
+});
+
+/** Browse items page */
+router.get('/', function(request, response) {
+	var itemID = 1084;
+
+	pg.connect(connectionString, function(err, client, done){
+		// Check for error in connection
+		if(err){
+			done();
+			console.log(err);
+			return;
+		}
+
+		var items = [];
+		var query = client.query("SELECT * FROM items", function(err, result) {
+			// Push items into the items array
+			for (i = 0; i < result.rows.length; i++) {
+				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:3};
+				console.log(result.rows[i].id);
+				items.push(item);
+			}
+			// Render page with items
+			response.render('index', {items: items});
+		});
+	});
 });
 
 /** View a specific items page */
