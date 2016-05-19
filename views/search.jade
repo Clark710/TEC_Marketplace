@@ -38,70 +38,40 @@ html(lang='en')
                 .col-md-9
                     p.lead #{title}
                     .search-results-list
-                        .row
+                        each item in items
+                          .row
                             .search-results-list.search-results-item
                                 img(id='search-results-image', src='http://placehold.it/140x90', alt='')
                                 .search-results-list.search-results-item.ratings
                                     p
-                                        if rating > 0
+                                        if item.rating > 0
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
+                                        if item.rating > 1.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
+                                        if item.rating > 2.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
+                                        if item.rating > 3.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
+                                        if item.rating > 4.5
                                             span.glyphicon.glyphicon-star
                                         else
                                             span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
+                                    p #{item.reviews} reviews
                                 .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
+                                    p.search-results-list.search-results-item.price-and-buy.price() $#{item.price}
                                     a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
                                 .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
-                        .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='http://placehold.it/140x90', alt='')
-                                .search-results-list.search-results-item.ratings
-                                    p
-                                        if rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                    p #{reviews} reviews
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $69.99
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title Sample product title
-                                    p.search-results-list.search-results-item.title-description.description Sample product description bla product description bla product description bla product description bla product description bla product description bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consect...
+                                    p.search-results-list.search-results-item.title-description.title 
+                                        a(href="/view?itemid=#{item.id}") #{item.name}
+                                    p.search-results-list.search-results-item.title-description.description #{item.summary}
         // /.container
         .container
             hr
