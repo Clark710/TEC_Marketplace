@@ -98,3 +98,12 @@ body {
 #search-results-image {
 
 }
+
+.drop-down-content {
+    text-align: start;
+    margin: 5px 0px 0px 0px;
+}
+.drop-down-content.single-item {
+    font-size: small;
+    padding: 0px 0px 0px 10px;
+}
