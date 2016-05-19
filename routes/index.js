@@ -19,7 +19,7 @@ router.get('/test_database', function(request, response) {
 			console.log(err);
 			return;
 		}
-		var query = client.query('SELECT * FROM items');
+		var query = client.query('SELECT * FROM users');
 		var rows = [];
 		query.on('row', function(row){
 			rows.push(row);
@@ -116,31 +116,21 @@ router.get("/login",function(req,res) {
 });
 
 router.post('/login', function (req,res,next) {
-	console.log("Trying to log in");
-
-	var USERNAME = req.body.user;
-	var PASSWORD = req.body.pass;
-	console.log(USERNAME + " " + PASSWORD);
-	var client = new pg.Client(database);
-	pg.connect(database,function(err,client,done){
+	var EMAIL = req.body.email;
+	var PASSWORD = req.body.password;
+	var client = new pg.Client(connectionString);
+	pg.connect(connectionString,function(err,client,done){
 		if(err) {
 			return console.error('could not connect to postgres', err);
 		}
-		console.log('Connected to database');
-		var query = "SELECT * FROM Users WHERE username='%NAME%' AND password='%PASSWORD%';".replace("%NAME%", USERNAME).replace("%PASSWORD%", PASSWORD);
+		var query = "SELECT * FROM users WHERE email='%EMAIL%' AND password='%PASSWORD%';".replace("%EMAIL%", EMAIL).replace("%PASSWORD%", PASSWORD);
 		client.query(query, function(error, result){
-
-			console.log(result);
-			console.log(error);
 			if(error) {
 				console.error('Query failed');
 				console.error(error);
 				return;
 			}
-			else if (result.rowCount === 0){
-				res.send(false);
-				return;
-			} else {
+			else {
 				res.send(true);
 				console.log("Query success");
 				return;
@@ -151,6 +141,36 @@ router.post('/login', function (req,res,next) {
 
 router.get("/register",function(req,res) {
 	res.render('register', {title: 'Top End Code'});
+});
+
+router.post("/register",function(req,res){
+	var FNAME = req.body.firstName;
+	var LNAME = req.body.lastName;
+	var UNAME = req.body.username;
+	var EMAIL = req.body.email;
+	var BIRTHDATE = req.body.birthdate;
+	var ADDRESS = req.body.address;
+	var PASSWORD = req.body.pasword;
+	var ID = Math.floor((Math.random() * 100) + 1);
+	var RATING = 0;
+	var client = new pg.Client(connectionString);
+		pg.connect(connectionString,function(err,client,done){
+			if(err){
+				return console.error('Could not connect'.err);
+			}
+			var query = ("INSERT INTO users (id, email, firstname, lastname, password, birthdate, address, totalrating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)");
+			client.query(query,[ID, EMAIL, FNAME, LNAME, PASSWORD, BIRTHDATE, ADDRESS, RATING], function(error, result){
+				if(error) {
+					console.error('Query failed');
+					console.error(error);
+					return;
+				}
+				else{
+					res.redirect('/');
+					return;
+				}
+			})
+		})
 });
 
 router.get('/search', function(request, response) {
