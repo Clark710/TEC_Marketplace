@@ -2,54 +2,37 @@ doctype html
 html(lang='en')
     body
         include head
+        link(href='css/shop-register.css', rel='stylesheet')
         // Page Content
         .container
             .row
-                .col-md-3
-                    p.lead Top End Code
-                    .list-group
-                        .list-group-item
-                            summary Textbooks
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                        .list-group-item
-                            summary Magazines
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                        .list-group-item
-                            summary DVDs
-                            .drop-down-content
-                                .drop-down-content.single-item
-                                    a(href='#') Programming
-                                .drop-down-content.single-item
-                                    a(href='#') Marketing
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                .col-md-3
+                .col-md-12
                     .row
-                        .form-signin
-                            form(method='post')
-                                p.lead Register
-                                input#firstname.form-control(placeholder='First Name', name="firstName", type='text', required="required")
-                                input#lastname.form-control(placeholder='Last Name', name="lastName", type='text', required="required")
-                                input#username.form-control(placeholder='Username', name="username", type='text', required="required")
-                                input#email.form-control(placeholder='Email Address', name="email", type='email',  required="required")
-                                input#birthdate.form-control(placeholder='Date of birth', name="birthdate", type='date',  required="required")
-                                input#address.form-control(placeholder='Postal Address', name="address", type='text',  required="required")
-                                input#password.form-control(placeholder='Password', name="password", type='password', required="required")
-                                input#confirmpassword.form-control(placeholder='Confirm Password', name="confirmPassword", type='password', required="required")
-                                br
-                                button.btn.btn-default(href='#', type='submit') Register!
+                        .middle-container
+                            .middle-container.form-signin
+                                .register-title
+                                    p.register-title TEC Sign Up
+                                form(method='post')
+                                    .pair
+                                        .item.fname
+                                            input#firstname.form-control(placeholder='First Name', name="firstName", type='text', required="required")
+                                        .item.lname
+                                            input#lastname.form-control(placeholder='Last Name', name="lastName", type='text', required="required")
+                                    .item.uname
+                                        input#username.form-control(placeholder='Username', name="username", type='text', required="required")
+                                    .item.email
+                                        input#email.form-control(placeholder='Email Address', name="email", type='email',  required="required")
+                                    .item.dob
+                                        input#birthdate.form-control(placeholder='Date of birth', name="birthdate", type='date',  required="required")
+                                    .item.add
+                                        input#address.form-control(placeholder='Postal Address', name="address", type='text',  required="required")
+                                    .pair
+                                        .item.pass
+                                            input#password.form-control(placeholder='Password', name="password", type='password', required="required")
+                                        .item.pass-confirm
+                                            input#confirmpassword.form-control(placeholder='Confirm Password', name="confirmPassword", type='password', required="required")
+                                    .item.button
+                                        button.btn.btn-default(href='#', type='submit') Register
         // /.container
         .container
             hr

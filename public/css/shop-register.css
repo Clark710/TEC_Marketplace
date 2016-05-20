@@ -1,0 +1,67 @@
+
+.middle-container {
+    position: relative;
+    height: 500px;
+}
+
+.middle-container.form-signin {
+    background-color: #353535;
+    position: absolute;
+    left: 33%;
+    width: 500px;
+    padding: 40px 40px;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.register-title {
+    font-size: xx-large;
+    color: #cbcbcb;
+    margin: 20px 50px;
+
+}
+
+.pair {
+    position: relative;
+    height: 40px;
+}
+.item {
+    margin: 5px 0px;
+}
+.item.fname {
+    width: 195px;
+    position: absolute;
+    left: 0px;
+}
+.item.lname {
+    width: 195px;
+    position: absolute;
+    left: 205px;
+}
+.item.uname {
+    width: 400px;
+}
+.item.email {
+    width: 400px;
+}
+.item.dob {
+    width: 400px;
+}
+.item.add {
+    width: 400px;
+}
+.item.pass {
+    width: 195px;
+    position: absolute;
+    left: 0px;
+}
+.item.pass-confirm {
+    width: 195px;
+    position: absolute;
+    left: 205px;
+}
+.item.button {
+    margin: 40px 160px;
+}
