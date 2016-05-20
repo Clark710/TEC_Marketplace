@@ -118,3 +118,9 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+.idea/.name
+.idea/TEC_Marketplace.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
