@@ -1,0 +1,39 @@
+doctype html
+html(lang='en')
+   body
+      include head
+      link(href='css/shop-aboutus.css', rel='stylesheet')
+      // Page Content
+      .container
+         .row
+            .col-md-9
+               .row
+                  .middle-container
+                     p.middle-container.title-text About Us
+                     .middle-container.image
+                        a(href='https://www.google.co.nz/maps/place/Victoria+University+-+Kelburn+Parade+(near+42)/@-41.2886647,174.7656392,17z/')
+                           img(src='images/map-image.png', alt='')
+                     .middle-container.text-content
+                        p.middle-container.text-content.description
+                        | We are located at <a href='http://www.vuw.ac.nz'>Victoria University of Wellington Kelburn Campus.</a> </br></br>
+                        | Customer support office hours are:</br>
+                        ul.middle-container.text-content.description.office-hours
+                           li
+                              p Monday-Friday 8am-5pm
+                           li
+                              p Saturday-Sunday 9am-4pm
+                        p </br></br></br>For any other enquiries, please contact head office at <a href='tel:555-6969'>555-6969</a> or
+                        | email <a href='mailto:head-office@tec.co.nz?Subject=TEC%20Enquiry' target='_top'>head-office@tec.co.nz</a>
+         // /.container
+         .container
+            hr
+            // Footer
+            footer
+               .row
+                  .col-lg-12
+                     p Copyright © TEC 2016
+         // /.container
+         // jQuery
+         script(src='js/jquery.js')
+         // Bootstrap Core JavaScript
+         script(src='js/bootstrap.min.js')

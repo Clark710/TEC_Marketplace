@@ -111,6 +111,10 @@ router.get("/contact",function(req,res) {
 	res.render('contact', {title: 'Top End Code'});
 });
 
+router.get("/about",function(req,res) {
+	res.render('about', {title: 'Top End Code'});
+});
+
 router.get("/login",function(req,res) {
 	res.render('login', {title: 'Top End Code'});
 });
