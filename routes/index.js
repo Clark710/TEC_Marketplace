@@ -187,6 +187,7 @@ router.get('/search', function(request, response) {
 					var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 					items.push(item);
 				}
+				console.log(items);
 			});
 
 			query.on('end', function(){
