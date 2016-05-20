@@ -52,15 +52,9 @@ body {
 
 
 .search-results-list.search-results-item.title-description {
-<<<<<<< HEAD
-    width: 480px;
-    position: absolute;
-    right: 70px;
-=======
     width: 68%;
     position: absolute;
     right: 20%;
->>>>>>> 1a1e5b663a428d0e3adc17cc12ce906a775d143f
     top: 5px;
 }
 .search-results-list.search-results-item.title-description.title {
