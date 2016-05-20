@@ -1,12 +1,12 @@
 .middle-container {
     position: relative;
-    height: 1000px;
+    height: 1050px;
 }
 .inner-container {
     position: absolute;
     left: 33%;
     border: groove;
-    background-color: lightgrey;
+    background-color: #353535;
     border-bottom-right-radius: 5%;
     border-bottom-left-radius: 5%;
     border-top-left-radius: 5%;
@@ -16,14 +16,16 @@
 }
 .title-text {
     font-size: xx-large;
+    color: #cbcbcb;
 }
 
 .sub-title {
     font-size: x-large;
+    color: #cbcbcb;
 }
 
 .body-text {
-
+    color: #cbcbcb;
 }
 
 footer {

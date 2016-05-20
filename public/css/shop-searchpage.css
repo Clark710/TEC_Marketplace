@@ -54,6 +54,7 @@ body {
 .search-results-list.search-results-item.title-description {
     width: 68%;
     position: absolute;
+    background-color: transparent;
     right: 20%;
     top: 5px;
 }
