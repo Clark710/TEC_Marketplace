@@ -1,0 +1,19 @@
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.middle-container {
+
+}
+.middle-container.image {
+    float: right;
+    border: groove;
+    padding: 0.3%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+.middle-container.description {
+
+}
