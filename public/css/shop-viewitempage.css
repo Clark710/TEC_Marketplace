@@ -1,28 +1,27 @@
-
 .itemName {
     font-size: x-large;
 }
 
 .middle-container {
     padding: 5px 5px;
-    width: 850px;
+    width: 100%;
     height: 350px;
     position: relative;
     margin: 10px 0px;
 }
 .middle-container.description {
     position: absolute;
-    width: 520px;
+    width: 60%;
     height: 280px;
     left: 0px;
     top: 0px;
 }
 .middle-container.image-and-info {
     padding: 0px 0px;
-    width: 320px;
+    width: 35%;
     height: 320px;
     position: absolute;
-    left: 530px;
+    left: 60%;
     top: 0px;
 }
 .item-price {

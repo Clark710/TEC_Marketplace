@@ -47,14 +47,14 @@ body {
     margin: 1px 8px;
     background-color: lightgrey;
     position: relative;
-    width: 860px;
+    width: 100%;
 }
 
 
 .search-results-list.search-results-item.title-description {
-    width: 500px;
+    width: 68%;
     position: absolute;
-    right: 90px;
+    right: 20%;
     top: 5px;
 }
 .search-results-list.search-results-item.title-description.title {
@@ -80,7 +80,7 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    width: 100px;
+    width: 55%;
     height: 50px;
 }
 .search-results-list.search-results-item.price-and-buy.price {
@@ -98,7 +98,7 @@ body {
 .search-results-list.search-results-item.ratings {
     background-color: transparent;
     position: absolute;
-    right: 620px;
+    right: 72%;
     top: 25px;
     text-align: right;
 }
