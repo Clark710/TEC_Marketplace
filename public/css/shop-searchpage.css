@@ -18,7 +18,7 @@ body {
 .navbar-nav.middle {
     margin: 6px 0px 0px 0px;
     position: absolute;
-    left: 45%;
+    left: 42%;
 }
 
 #searchBox {
@@ -52,15 +52,14 @@ body {
 
 
 .search-results-list.search-results-item.title-description {
-    width: 500px;
+    width: 480px;
     position: absolute;
-    right: 90px;
+    right: 70px;
     top: 5px;
 }
 .search-results-list.search-results-item.title-description.title {
     position: absolute;
     padding: 0px 0px;
-    font-family: sans-serif;
     font-size: x-large;
     right: 0px;
     top: 0px;
@@ -73,8 +72,6 @@ body {
     top: 23px;
     right: 0px;
 }
-
-
 .search-results-list.search-results-item.price-and-buy {
     margin: 3px 3px;
     position: absolute;
@@ -86,24 +83,25 @@ body {
 .search-results-list.search-results-item.price-and-buy.price {
     font-size: x-large;
     text-align: right;
-    top: 10px;
+    top: 30px;
 }
 .search-results-list.search-results-item.price-and-buy.buy {
     background-color: transparent;
     height: 15px;
-    top: 45px;
+    top: 65px;
     text-align: right;
 }
 
 .search-results-list.search-results-item.ratings {
     background-color: transparent;
     position: absolute;
-    right: 620px;
+    right: 600px;
     top: 25px;
     text-align: right;
 }
 #search-results-image {
-
+    height: 125px;
+    width: 160px;
 }
 
 .drop-down-content {
