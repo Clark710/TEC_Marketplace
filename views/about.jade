@@ -1,39 +1,50 @@
 doctype html
 html(lang='en')
-   body
-      include head
-      link(href='css/shop-aboutus.css', rel='stylesheet')
-      // Page Content
-      .container
-         .row
-            .col-md-9
-               .row
-                  .middle-container
-                     p.middle-container.title-text About Us
-                     .middle-container.image
-                        a(href='https://www.google.co.nz/maps/place/Victoria+University+-+Kelburn+Parade+(near+42)/@-41.2886647,174.7656392,17z/')
-                           img(src='images/map-image.png', alt='')
-                     .middle-container.text-content
-                        p.middle-container.text-content.description
-                        | We are located at <a href='http://www.vuw.ac.nz'>Victoria University of Wellington Kelburn Campus.</a> </br></br>
-                        | Customer support office hours are:</br>
-                        ul.middle-container.text-content.description.office-hours
-                           li
-                              p Monday-Friday 8am-5pm
-                           li
-                              p Saturday-Sunday 9am-4pm
-                        p </br></br></br>For any other enquiries, please contact head office at <a href='tel:555-6969'>555-6969</a> or
-                        | email <a href='mailto:head-office@tec.co.nz?Subject=TEC%20Enquiry' target='_top'>head-office@tec.co.nz</a>
-         // /.container
-         .container
-            hr
-            // Footer
-            footer
-               .row
-                  .col-lg-12
-                     p Copyright © TEC 2016
-         // /.container
-         // jQuery
-         script(src='js/jquery.js')
-         // Bootstrap Core JavaScript
-         script(src='js/bootstrap.min.js')
+    body
+        include head
+        link(href='css/shop-aboutus.css', rel='stylesheet')
+        // Page Content
+        .container
+            .row
+                .col-md-9
+                    .row
+                        .middle-container
+                            .inner-container
+                                p.title-text About Us
+                                p.sub-title About The Company
+                                .body-text
+                                    p
+                                    | TEC Media LLC is a technical publisher devoted to meeting the needs of IT professionals, software developers, and programmers, with more than 1,000 books in print and electronic formats.
+                                    | TEC provides high-quality, no-fluff content that helps serious technology professionals build a comprehensive pathway to career success.</br></br>
+                                    | The TEC editorial and production teams work hand-in-hand with all authors to ensure that their unique voices come through in each book. TEC is committed to supporting the ever-growing
+                                    | programming community by taking risks on publishing books in niche and nascent technologies.</br></br>
+                                    | Based in New Zealand, Wellington, TEC strives to promote innovation in publishing, boasting a global network of authors, editors, technical reviewers, and sales and marketing teams who
+                                    | work together to provide our readers books and electronic products of the highest quality. Since 2007, TEC has been part of Springer Science+Business Media, one of the world's leading
+                                    | scientific, technical, and medical publishing houses, enabling global distribution of TEC publications.</br></br>
+                                p.sub-title Got and idea for a book? <a href='#'>Write for us!</a>
+                                p.sub-title About our Books
+                                .body-text
+                                    p
+                                    | We are proud to publish an extensive range of books in print and electronic formats geared toward programmers from all areas, including industry bestsellers Pro C# and the .NET Platform
+                                    | by Andrew Troelsen, CSS Mastery: Advanced Web Standards Solutions by Andy Budd, Beginning Ubuntu Linux: From Novice to Professional by Keir Thomas, and Beginning iPhone Development:
+                                    | Exploring the iPhone SDK by Dave Mark and Jeff LaMarche. Our business and software management line, which features titles by a trove of well-respected authors (including Founders at
+                                    | Work by Jessica Livingston, Coders at Work by Peter Seibel, and multiple books from the inimitable Joel Spolsky), has helped legions of programmers adapt to the business side of technology
+                                    | and become more productive.</br></br>
+                                    | TEC Beginning books provide a reliable and readable place to start learning something new, while developers have long relied on TEC Pro books to provide the no-fuss, honest approach that
+                                    | is needed for solving everyday problems and coverage of topics that is broad enough to support their complete career development. At Expert level, our readers appreciate the accuracy and
+                                    | singular voice that our books provide for the highest-intensity of topics.</br></br>
+                                    | Our friends of ED books offer a combination of inspiration and techniques to help both experienced and novice designers and developers who are searching for fresh ideas or guidance.</br></br>
+
+            // /.container
+            .container
+                hr
+                // Footer
+                footer
+                    .row
+                        .col-lg-12
+                            p Copyright © TEC 2016
+            // /.container
+            // jQuery
+            script(src='js/jquery.js')
+            // Bootstrap Core JavaScript
+            script(src='js/bootstrap.min.js')
