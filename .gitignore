@@ -126,3 +126,4 @@ local.properties
 .idea/workspace.xml
 *.psd
 .idea/dictionaries/The_Beast.xml
+.idea/watcherTasks.xml
