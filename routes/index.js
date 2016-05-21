@@ -179,27 +179,64 @@ router.post("/register",function(req,res){
 
 router.get('/search', function(request, response) {
 	var search = request.query.search;
+	var category = request.query.type;
 	// If no search then display everything
 	if(search == undefined){
-		var items = [];
-		pg.connect(connectionString, function(err, client, done){
-			// Query items
-			var query = client.query("SELECT * FROM items", function(err, result) {
-				// For each item
-				for (i = 0; i < result.rows.length; i++) {
-					// Add item
-					var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
-					items.push(item);
-				}
-				console.log(items);
-			});
+		if(category == undefined) {
+			var items = [];
+			pg.connect(connectionString, function (err, client, done) {
+				// Query items
+				var query = client.query("SELECT * FROM items", function (err, result) {
+					// For each item
+					for (i = 0; i < result.rows.length; i++) {
+						// Add item
+						var item = {
+							id: result.rows[i].id,
+							name: result.rows[i].name,
+							summary: result.rows[i].summary,
+							price: result.rows[i].price,
+							rating: result.rows[i].totalrating,
+							reviews: result.rows[i].reviewcount
+						};
+						items.push(item);
+					}
+				});
 
-			query.on('end', function(){
-				var str = "TEC - " + items.length + " Results";
-				response.render('search', {title: str, items: items});
-				done();
+				query.on('end', function () {
+					var str = "TEC - " + items.length + " Results";
+					response.render('search', {title: str, items: items});
+					done();
+				});
 			});
-		});
+		}
+		else {
+			var items = [];
+			category = "'"+ request.query.type +"'";
+			pg.connect(connectionString, function (err, client, done) {
+				// Query items
+				var query = client.query("SELECT * FROM items WHERE type=" +category, function (err, result) {
+					// For each item
+					for (i = 0; i < result.rows.length; i++) {
+						// Add item
+						var item = {
+							id: result.rows[i].id,
+							name: result.rows[i].name,
+							summary: result.rows[i].summary,
+							price: result.rows[i].price,
+							rating: result.rows[i].totalrating,
+							reviews: result.rows[i].reviewcount
+						};
+						items.push(item);
+					}
+				});
+
+				query.on('end', function () {
+					var str = "TEC - " + items.length + " Results";
+					response.render('search', {title: str, items: items});
+					done();
+				});
+			});
+		}
 	} else {
 		var items = [];
 		pg.connect(connectionString, function(err, client, done){
@@ -325,6 +362,11 @@ router.get('/view', function(request, response) {
 			done();
 		});
 	});
+});
+
+router.get("/profile",function(req,res) {
+	var FNAME = req.body.firstName;
+	res.render('profile', {title: 'Top End Code'});
 });
 
 module.exports = router;
