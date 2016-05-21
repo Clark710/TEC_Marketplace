@@ -1,1 +1,21 @@
 link(href='css/foot.css', rel='stylesheet')
+
+.container
+   // Brand and toggle get grouped for better mobile display
+   .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+         span.sr-only Toggle navigation
+         span.icon-bar
+         span.icon-bar
+         span.icon-bar
+   // Collect the nav links, forms, and other content for toggling
+   #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      .my-inner-container
+         ul.nav.navbar-nav.foot
+            li
+               a(href='/contact') <strong>Contact</strong>
+            li
+               a(href='/about') <strong>About Us</strong>
+            li
+               a(href='/terms') <strong>Terms and Conditions</strong>
+            p.nav.navbar-nav.foot.copyright-text &copy TEC 2016

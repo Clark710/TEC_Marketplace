@@ -1,25 +1,33 @@
-
+.outer-container {
+    background-color: #006666;
+}
+.middle-container {
+    position: relative;
+}
 .inner-container {
     background-color: #eeeeee;
     border-bottom-right-radius: 5%;
     border-bottom-left-radius: 5%;
     border-top-left-radius: 5%;
     border-top-right-radius: 5%;
+    padding: 20px 20px;
     text-align: center;
-    padding: 10px 10px;
 }
 .title-text {
-    font-size: xx-large;
-    color: #cbcbcb;
-}
-
-.sub-title {
     font-size: x-large;
     color: #323232;
 }
 
-.body-text {
+.sub-title {
+    font-size: large;
     color: #323232;
+    text-align: left;
+}
+
+.body-text {
+    padding: 0px 20px;
+    color: #323232;
+    text-align: left;
 }
 
 footer {

@@ -5,9 +5,9 @@
 }
 
 .middle-container.form-signin {
-    background-color: #353535;
+    background-color: #eeeeee;
     position: absolute;
-    left: 33%;
+    left: 27%;
     width: 500px;
     padding: 40px 40px;
     border-bottom-right-radius: 5%;
@@ -18,7 +18,7 @@
 
 .register-title {
     font-size: xx-large;
-    color: #cbcbcb;
+    color: #323232;
     margin: 20px 80px;
 
 }

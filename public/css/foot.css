@@ -1,1 +1,19 @@
+.my-inner-container {
+    margin: 50px 0px;
+    height: 80px;
+    background-color: #eeeeee;
+    border-bottom-right-radius: 15%;
+    border-bottom-left-radius: 15%;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+}
 
+.nav.navbar-nav.foot {
+    position: absolute;
+    left: 38%;
+}
+
+.nav.navbar-nav.foot.copyright-text {
+    color: gray;
+    top: 85%;
+}

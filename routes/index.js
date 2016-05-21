@@ -369,4 +369,9 @@ router.get("/profile",function(req,res) {
 	res.render('profile', {title: 'Top End Code'});
 });
 
+router.get("/terms",function(req,res) {
+	var FNAME = req.body.firstName;
+	res.render('terms', {title: 'Top End Code'});
+});
+
 module.exports = router;
