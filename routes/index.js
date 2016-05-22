@@ -394,7 +394,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
           done();
         });
       });
@@ -422,7 +422,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
           done();
         });
       });
@@ -442,7 +442,7 @@ function renderSearchpage(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username});
+        response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
         done();
       });
     });
