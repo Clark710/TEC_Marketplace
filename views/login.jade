@@ -14,11 +14,12 @@ html(lang='en')
                                     p.register-title Login
                                 form(method='post')
                                     .item.uname
-                                        input#username.form-control(placeholder='Username', type='text')
+                                        input#username.form-control(placeholder='Username', type='text', name ="username")
                                     .item.pass
-                                        input#password.form-control(placeholder='Password', type='password')
+                                        input#password.form-control(placeholder='Password', type='password' , name ="password")
+                                        span.label.label-danger #{failed}
                                     .item.button
-                                        button.btn.btn-default(href='#', type='submit') Login
+                                        button.btn.btn-default(type='submit') Login
         // /.container
         hr
         include foot
