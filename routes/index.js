@@ -8,34 +8,34 @@ var loggedIn = 0;
 var cartItems = [];
 
 ////// FAKE CART ITEMS //////
-var item1 = {
+/*var item1 = {
 	id: 0,
 	name: "fake1",
 	price: 19.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item2 = {
 	id: 1,
 	name: "fake2",
 	price: 29.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item3 = {
 	id: 2,
 	name: "fake3",
 	price: 39.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item4 = {
 	id: 3,
 	name: "fake4",
 	price: 49.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 cartItems[0] = item1;
 cartItems[1] = item2;
 cartItems[2] = item3;
-cartItems[3] = item4;
+cartItems[3] = item4;*/
 ////// FAKE CART ITEMS //////
 
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
@@ -154,7 +154,6 @@ router.post('/login', function (req,res,next) {
   })
 });
 
-
 router.post('/view', function(request, response) {
 	pg.connect(connectionString, function(err, client, done){
 		var comment = request.body.comment;
@@ -247,7 +246,36 @@ function renderHomepage(request, response){
 }
 
 function renderCart(request, response){
-	
+	if(request.query.itemid != undefined){
+		pg.connect(connectionString, function(err, client, done){
+			var itemID = parseInt(request.query.itemid);
+			// Query items
+			var query = client.query("SELECT * FROM items WHERE id = " + itemID + ";", function(err, result) {
+				// Add item to list
+				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, summary:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				cartItems.push(item);
+				console.log(cartItems.length);
+			});
+
+			query.on('end', function(){
+				// Compute carts total price 
+				var cartPrice = 0;
+				for( i = 0 ; i < cartItems.length ; i++){
+					cartPrice += cartItems[i].price;
+				}
+				// Carts title
+				var str = cartItems.length + " items in your cart";
+				response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
+				done();
+			});
+
+		});
+		return;
+	}
+
+	if(request.query.index != undefined){
+		cartItems.splice(request.query.index, 1);
+	}
 	
 	// Compute carts total price 
 	var cartPrice = 0;
@@ -366,7 +394,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
@@ -394,7 +422,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
@@ -414,7 +442,7 @@ function renderSearchpage(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+        response.render('search', {title: str, items: items, username: username});
         done();
       });
     });

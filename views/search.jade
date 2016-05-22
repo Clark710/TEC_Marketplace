@@ -38,7 +38,7 @@ html(lang='en')
                                         p #{item.reviews} reviews
                                     .search-results-list.search-results-item.price-and-buy
                                         p.search-results-list.search-results-item.price-and-buy.price() $#{item.price}
-                                        a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
+                                        a.search-results-list.search-results-item.price-and-buy.buy(href="/cart?itemid="+item.id) Add to cart
                                     .search-results-list.search-results-item.title-description
                                         p.search-results-list.search-results-item.title-description.title
                                             a(href="/view?itemid=#{item.id}") #{item.name}
