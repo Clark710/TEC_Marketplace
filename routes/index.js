@@ -387,53 +387,57 @@ function renderSearchpage(request, response) {
       var items = [];
       pg.connect(connectionString, function (err, client, done) {
         // Query items
-        var query = client.query("SELECT * FROM items LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
-          // For each item
-          for (i = 0; i < result.rows.length; i++) {
-            // Add item
-            var item = {
-              id: result.rows[i].id,
-              name: result.rows[i].name,
-              summary: result.rows[i].summary,
-              price: result.rows[i].price,
-              rating: result.rows[i].totalrating,
-              reviews: result.rows[i].reviewcount
-            };
-            items.push(item);
-          }
-        });
+        var query = client.query("SELECT * FROM items;", function (err, resultTotal) {
+		var query = client.query("SELECT * FROM items LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		  // For each item
+		  for (i = 0; i < result.rows.length; i++) {
+		    // Add item
+		    var item = {
+		      id: result.rows[i].id,
+		      name: result.rows[i].name,
+		      summary: result.rows[i].summary,
+		      price: result.rows[i].price,
+		      rating: result.rows[i].totalrating,
+		      reviews: result.rows[i].reviewcount
+		    };
+		    items.push(item);
+		  }
+		});
 
-        query.on('end', function () {
-          var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
-          done();
-        });
+		query.on('end', function () {
+		  var str = "TEC - " + resultTotal.rows.length + " Results";
+		  response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  done();
+		});
+	});
       });
     }
     else if (type == undefined) {
       var items = [];
       pg.connect(connectionString, function (err, client, done) {
         // Query items
-        var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
-          // For each item
-          for (i = 0; i < result.rows.length; i++) {
-            // Add item
-            var item = {
-              id: result.rows[i].id,
-              name: result.rows[i].name,
-              summary: result.rows[i].summary,
-              price: result.rows[i].price,
-              rating: result.rows[i].totalrating,
-              reviews: result.rows[i].reviewcount
-            };
-            items.push(item);
-          }
-        });
+        var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "';", function (err, resultTotal) {
+		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		  // For each item
+		  for (i = 0; i < result.rows.length; i++) {
+		    // Add item
+		    var item = {
+		      id: result.rows[i].id,
+		      name: result.rows[i].name,
+		      summary: result.rows[i].summary,
+		      price: result.rows[i].price,
+		      rating: result.rows[i].totalrating,
+		      reviews: result.rows[i].reviewcount
+		    };
+		    items.push(item);
+		  }
+		});
 
-        query.on('end', function () {
-          var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, catagory: catagory, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
-          done();
+		query.on('end', function () {
+		  var str = "TEC - " + resultTotal.rows.length + " Results";
+		  response.render('search', {title: str, items: items, username: username, catagory: catagory, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  done();
+		});
         });
       });
     }
@@ -441,46 +445,50 @@ function renderSearchpage(request, response) {
       var items = [];
       pg.connect(connectionString, function (err, client, done) {
         // Query items
-        var query = client.query("SELECT * FROM items WHERE type='" + type + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
-          // For each item
-          for (i = 0; i < result.rows.length; i++) {
-            // Add item
-            var item = {
-              id: result.rows[i].id,
-              name: result.rows[i].name,
-              summary: result.rows[i].summary,
-              price: result.rows[i].price,
-              rating: result.rows[i].totalrating,
-              reviews: result.rows[i].reviewcount
-            };
-            items.push(item);
-          }
-        });
+        var query = client.query("SELECT * FROM items WHERE type='" + type + "';", function (err, resultTotal) {
+		var query = client.query("SELECT * FROM items WHERE type='" + type + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		  // For each item
+		  for (i = 0; i < result.rows.length; i++) {
+		    // Add item
+		    var item = {
+		      id: result.rows[i].id,
+		      name: result.rows[i].name,
+		      summary: result.rows[i].summary,
+		      price: result.rows[i].price,
+		      rating: result.rows[i].totalrating,
+		      reviews: result.rows[i].reviewcount
+		    };
+		    items.push(item);
+		  }
+		});
 
-        query.on('end', function () {
-          var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, type: type, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
-          done();
-        });
+		query.on('end', function () {
+		  var str = "TEC - " + resultTotal.rows.length + " Results";
+		  response.render('search', {title: str, items: items, username: username, type: type, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  done();
+		});
+	});
       });
     }
   } else {
     var items = [];
     pg.connect(connectionString, function(err, client, done){
       // Query items
-      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
-        // For each item
-        for (i = 0; i < result.rows.length; i++) {
-          // Add item
-          var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
-          items.push(item);
-        }
-      });
+      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%');", function (err, resultTotal) {
+	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
+		// For each item
+		for (i = 0; i < result.rows.length; i++) {
+		  // Add item
+		  var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  items.push(item);
+		}
+	      });
 
-      query.on('end', function(){
-        var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
-        done();
+	      query.on('end', function(){
+		var str = "TEC - " + items.length + " Results from search '" + search + "'";
+		response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		done();
+	      });
       });
     });
   }
