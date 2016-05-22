@@ -2,14 +2,75 @@ var express = require('express');
 var multer = require('multer');
 var router = express.Router();
 var pg = require('pg');
-
+var username = "Login";
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
-
-/** Get contact page where people can find ways to contact TEC */
-router.get("/contact",function(req,res) {
-  res.render('contact', {title: 'Top End Code'});
+router.post("/register",function(req,res){
+  var FNAME = req.body.firstName;
+  var LNAME = req.body.lastName;
+  var UNAME = req.body.username;
+  var EMAIL = req.body.email;
+  var BIRTHDATE = req.body.birthdate;
+  var ADDRESS = req.body.address;
+  var PASSWORD = req.body.password;
+  console.log(UNAME + " " + PASSWORD);
+  var ID = Math.floor((Math.random() * 100) + 1);
+  var RATING = 0;
+  var client = new pg.Client(connectionString);
+  pg.connect(connectionString,function(err,client,done){
+    if(err){
+      return console.error('Could not connect'.err);
+    }
+    var query = ("INSERT INTO users (id, email, firstname, lastname, password, birthdate, address, totalrating, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)");
+    client.query(query,[ID, EMAIL, FNAME, LNAME, PASSWORD, BIRTHDATE, ADDRESS, RATING, UNAME], function(error, result){
+      if(error) {
+        console.error('Query failed');
+        console.error(error);
+        return;
+      }
+      else{
+        res.redirect('/');
+        return;
+      }
+    })
+  })
 });
+
+router.get("/login",function(req,res) {
+  res.render('login', {title: 'Top End Code'});
+});
+
+router.post('/login', function (req,res,next) {
+  var USERNAME = req.body.username;
+  var PASSWORD = req.body.password;
+
+  var fail = "Failed to login. Please try again.";
+  var client = new pg.Client(connectionString);
+  pg.connect(connectionString,function(err,client,done){
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    console.log('Connected to database');
+    var query = "SELECT * FROM users WHERE username='%NAME%' AND password='%PASSWORD%';".replace("%NAME%", USERNAME).replace("%PASSWORD%", PASSWORD);
+    client.query(query, function(error, result){
+      if(error) {
+        console.error('Query failed');
+        console.error(error);
+        return;
+      }
+      else if (result.rowCount === 0){
+        res.render('login', { title: 'Top End Code', username: username, failed: fail });
+        return;
+      } else {
+        username = req.body.username;
+        res.render('profile', { title:  'Top End Code', username: username });
+        console.log("Query success");
+        return;
+      }
+    })
+  })
+});
+
 
 /** Test database query selecting all from table items */
 router.get('/test_database', function(request, response) {
@@ -54,14 +115,14 @@ router.get('/check', function(request, response) {
 });
 
 /** Fills the database */
-router.get('/add', function(request, response) {
-  add();
-});
+//router.get('/add', function(request, response) {
+  //add();
+//});
 
 /** Removes everything from the database */
-router.get('/remove', function(request, response) {
-  remove();
-});
+//router.get('/remove', function(request, response) {
+  //remove();
+//});
 
 function add(){
   pg.connect(connectionString, function(err, client, done){
@@ -108,73 +169,15 @@ function remove(){
 }
 
 router.get("/contact",function(req,res) {
-  res.render('contact', {title: 'Top End Code'});
+  res.render('contact', {title: 'Top End Code', username:username});
 });
 
 router.get("/about",function(req,res) {
-  res.render('about', {title: 'Top End Code'});
-});
-
-router.get("/login",function(req,res) {
-  res.render('login', {title: 'Top End Code'});
-});
-
-router.post('/login', function (req,res,next) {
-  var EMAIL = req.body.email;
-  var PASSWORD = req.body.password;
-  var client = new pg.Client(connectionString);
-  pg.connect(connectionString,function(err,client,done){
-    if(err) {
-      return console.error('could not connect to postgres', err);
-    }
-    var query = "SELECT * FROM users WHERE email='%EMAIL%' AND password='%PASSWORD%';".replace("%EMAIL%", EMAIL).replace("%PASSWORD%", PASSWORD);
-    client.query(query, function(error, result){
-      if(error) {
-        console.error('Query failed');
-        console.error(error);
-        return;
-      }
-      else {
-        res.send(true);
-        console.log("Query success");
-        return;
-      }
-    })
-  })
+  res.render('about', {title: 'Top End Code', username:username});
 });
 
 router.get("/register",function(req,res) {
-  res.render('register', {title: 'Top End Code'});
-});
-
-router.post("/register",function(req,res){
-  var FNAME = req.body.firstName;
-  var LNAME = req.body.lastName;
-  var UNAME = req.body.username;
-  var EMAIL = req.body.email;
-  var BIRTHDATE = req.body.birthdate;
-  var ADDRESS = req.body.address;
-  var PASSWORD = req.body.pasword;
-  var ID = Math.floor((Math.random() * 100) + 1);
-  var RATING = 0;
-  var client = new pg.Client(connectionString);
-    pg.connect(connectionString,function(err,client,done){
-      if(err){
-        return console.error('Could not connect'.err);
-      }
-      var query = ("INSERT INTO users (id, email, firstname, lastname, password, birthdate, address, totalrating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)");
-      client.query(query,[ID, EMAIL, FNAME, LNAME, PASSWORD, BIRTHDATE, ADDRESS, RATING], function(error, result){
-        if(error) {
-          console.error('Query failed');
-          console.error(error);
-          return;
-        }
-        else{
-          res.redirect('/');
-          return;
-        }
-      })
-    })
+  res.render('register', {title: 'Top End Code', username:username});
 });
 
 router.get('/search', function(request, response) {
@@ -204,7 +207,7 @@ router.get('/search', function(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items});
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
@@ -232,7 +235,7 @@ router.get('/search', function(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items});
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
@@ -252,7 +255,7 @@ router.get('/search', function(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items});
+        response.render('search', {title: str, items: items, username: username});
         done();
       });
     });
@@ -276,7 +279,7 @@ router.get('/', function(request, response) {
     });
 
     query.on('end', function(){
-      response.render('index', {items: items});
+      response.render('index', {items: items, username: username});
       done();
     });
   });
@@ -285,7 +288,6 @@ router.get('/', function(request, response) {
 /** View a specific items page */
 router.get('/view', function(request, response) {
   var itemID = parseInt(request.query.itemid);
-
   pg.connect(connectionString, function(err, client, done){
     // Check for error in connection
     if(err){
@@ -356,7 +358,7 @@ router.get('/view', function(request, response) {
           itemRating = itemRating/itemReviewCount;
         }
 
-        response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs});
+        response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username});
         done();
       });
       done();
@@ -364,19 +366,64 @@ router.get('/view', function(request, response) {
   });
 });
 
+router.get("/listItem",function(req,res) {
+  res.render('listItem', {title: 'Top End Code'});
+});
+
+/*router.post('/listItem', function(req, res) {
+  userid = localStorage.getItem("userid");
+  var FILE = req.body.file;
+  console.log(FILE);
+  var ID = req.body.id;
+  var NAME = req.body.name;
+  var SUMMARY = req.body.summary;
+  var DESCRIPTION = req.body.description;
+  var PRICE = req.body.price;
+  var ENDDATE = req.body.enddate;
+  var USERID = userid;
+  var STOCKCOUNT = req.body.stockcount;
+  var TYPE = req.body.type;
+  var CATEGORY = req.body.category;
+  var client = new pg.Client(connectionString);
+  pg.connect(connectionString, function (err, client, done) {
+    if (err) {
+      return console.error('could not connect to postgres', err);
+    }
+    console.log('Connected to database');
+    var query = ("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, type, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)");
+    client.query(query, [ID, NAME, SUMMARY, DESCRIPTION, PRICE, ENDDATE, USERID, STOCKCOUNT, TYPE, CATEGORY], function (error, result) {
+      console.log(result);
+      console.log(error);
+      if (error) {
+        console.error('Query failed');
+        console.error(error);
+        return;
+      }
+      else {
+        res.render('/',{title: 'Top End Code', userid: userid});
+        return;
+      }
+    })
+  });
+});*/
+
+router.get("/", function(req,res){
+  res.render('sell', {title: 'Sell', username: username});
+});
+
 router.get("/profile",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('profile', {title: 'Top End Code'});
+  res.render('profile', {title: 'Top End Code', username: username});
 });
 
 router.get("/terms",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('terms', {title: 'Top End Code'});
+  res.render('terms', {title: 'Top End Code', username: username});
 });
 router.get("/cart",function(req,res) {
   //    sorry I dont know how to pass parameters yet.
   //    to be implemented 22/05 - mc
-  res.render('cart', {title: 'Top End Code'});
+  res.render('cart', {title: 'Top End Code', username: username});
 });
 
 module.exports = router;
