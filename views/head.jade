@@ -37,7 +37,7 @@ body
                     li
                         a(href='/search') Browse
                 ul.nav.navbar-nav.right
-                    if 0 == 0
+                    if username == 'Login'
                         li
                             a(href='/login') #{username}
                         li
@@ -45,6 +45,8 @@ body
                     else
                         li
                             a(href='/profile') #{username}
+                        li
+                            a(href='/logout', method='post') Logout
                 form.nav.navbar-nav.middle(name='search-query', action='/search', method='get')
                     input(id='searchBox', "text", "query", "Search" value='Search', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Search';}", name='search')
                     input(id='submitButton', type='submit', value='Search')
