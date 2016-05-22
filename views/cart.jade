@@ -12,12 +12,12 @@ html(lang='en')
                     .outer-left-side
                         .left-side
                             .cart-list
-                                each item in items
+                                each item, index in items
                                     .row
-                                        .cart-list.cart-item
+                                        .cart-item
                                             img(id='cart-item-image', src='images/book-image.png', alt='')
                                             p.title-text #{item.name}
-                                            a.remove-button(href='#') Remove
+                                            a.remove-button(href="/cart?index="+index) Remove
                                             p.description-text #{item.description}
                     .outer-right-side
                         .right-side

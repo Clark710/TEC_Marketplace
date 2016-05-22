@@ -35,6 +35,7 @@
 .description-text {
     background-color: transparent;
     width: 90%;
+    height: 100px;
 }
 
 .remove-button {
