@@ -4,6 +4,7 @@ html(lang='en')
         include head
         link(href='css/shop-cart.css', rel='stylesheet')
         // Page Content
+        p #{title}     
         .container
             .row
                 include sidebar
@@ -14,13 +15,14 @@ html(lang='en')
                                 .row
                                     .search-results-list.search-results-item
                                         img(id='search-results-image', src='images/book-image.png', alt='')
-                                        p.search-results-item.title-text Name
-                                        p.search-results-item.description-text Description
+                                        p.search-results-item.title-text #{item.name}
+                                        p.search-results-item.price-text $#{item.price}
+                                        p.search-results-item.description-text #{item.description}
                                         a(href='#') Remove
                     .right-side
                         .cart-summary
                             p.cart-summary.title-text Cart Summary
-                            p.cart-summary.price $10
+                            p.cart-summary.price $#{totalPrice}
                             a.cart-summary.proceed-button(href='') Proceed To Checkout
 
         hr

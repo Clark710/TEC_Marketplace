@@ -6,6 +6,38 @@ var username = "Login";
 var userID = -1;
 var loggedIn = 0;
 var cartItems = [];
+
+////// FAKE CART ITEMS //////
+var item1 = {
+	id: 0,
+	name: "fake1",
+	price: 19.99,  
+	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+};
+var item2 = {
+	id: 1,
+	name: "fake2",
+	price: 29.99,  
+	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+};
+var item3 = {
+	id: 2,
+	name: "fake3",
+	price: 39.99,  
+	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+};
+var item4 = {
+	id: 3,
+	name: "fake4",
+	price: 49.99,  
+	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+};
+cartItems[0] = item1;
+cartItems[1] = item2;
+cartItems[2] = item3;
+cartItems[3] = item4;
+////// FAKE CART ITEMS //////
+
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
  ////// GETS //////
@@ -210,72 +242,18 @@ function renderHomepage(request, response){
 }
 
 function renderCart(request, response){
-	var item1 = {
-		id: 0,
-		name: "fake1",
-		price: 19.99,
-	};
-	var item2 = {
-		id: 1,
-		name: "fake2",
-		price: 29.99,
-	};
-	var item3 = {
-		id: 2,
-		name: "fake3",
-		price: 39.99,
-	};
-	var item4 = {
-		id: 3,
-		name: "fake4",
-		price: 49.99,
-	};
-	cartItems[0] = item1;
-	cartItems[1] = item2;
-	cartItems[2] = item3;
-	cartItems[3] = item4;
-
-	var str = "TEC - " + cartItems.length + " Results";
-	response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn});
+	
+	
+	// Compute carts total price 
+	var cartPrice = 0;
+	for( i = 0 ; i < cartItems.length ; i++){
+		cartPrice += cartItems[i].price;
+	}
+	// Carts title
+	var str = cartItems.length + " items in your cart";
+	response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice});
 	
 }
-
-  //    psudocode  
-  //    select * from items where userid=userID; //get all items from user
-  //    select address from users where id=userID
-  //    add up total price from all items
-  //    pass dylan array of item titles, and total price
-
-  //please implement -mc
-  
-      //   var items = [];
-      //   var address = ""; //users table
-
-      // //category = "'"+ request.query.type +"'";
-      // pg.connect(connectionString, function (err, client, done) {
-      //   // Query items
-      //   var query = client.query("SELECT * FROM items WHERE userID=" +userID, function (err, result) {
-      //     // For each item
-      //     for (i = 0; i < result.rows.length; i++) {
-      //       // Add item
-      //       var item = {
-      //         id: result.rows[i].id,
-      //         name: result.rows[i].name,
-      //         price: result.rows[i].price,
-      //       };
-      //       items.push(item);
-      //     }
-      //   });
-
-      //   query.on('end', function () {
-      //     var str = "TEC - " + items.length + " Results";
-      //     response.render('cart', {title: str, items: items, username: username});
-      //     done();
-      //   });
-      // });
-
-  //    sorry I dont know how to pass parameters yet.
-  //    to be implemented 22/05 - mc
 
 function renderView(itemID, response, error){
   pg.connect(connectionString, function(err, client, done){
@@ -477,6 +455,43 @@ function renderSearchpage(request, response) {
     })
   });
 });*/
+
+  //    psudocode  
+  //    select * from items where userid=userID; //get all items from user
+  //    select address from users where id=userID
+  //    add up total price from all items
+  //    pass dylan array of item titles, and total price
+
+  //please implement -mc
+  
+      //   var items = [];
+      //   var address = ""; //users table
+
+      // //category = "'"+ request.query.type +"'";
+      // pg.connect(connectionString, function (err, client, done) {
+      //   // Query items
+      //   var query = client.query("SELECT * FROM items WHERE userID=" +userID, function (err, result) {
+      //     // For each item
+      //     for (i = 0; i < result.rows.length; i++) {
+      //       // Add item
+      //       var item = {
+      //         id: result.rows[i].id,
+      //         name: result.rows[i].name,
+      //         price: result.rows[i].price,
+      //       };
+      //       items.push(item);
+      //     }
+      //   });
+
+      //   query.on('end', function () {
+      //     var str = "TEC - " + items.length + " Results";
+      //     response.render('cart', {title: str, items: items, username: username});
+      //     done();
+      //   });
+      // });
+
+  //    sorry I dont know how to pass parameters yet.
+  //    to be implemented 22/05 - mc
 
 router.get("/profile",function(req,res) {
   var FNAME = req.body.firstName;
