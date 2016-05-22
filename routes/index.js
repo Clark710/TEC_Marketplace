@@ -377,6 +377,9 @@ function renderSearchpage(request, response) {
     itemStart = 0;
   } else {
     itemStart = parseInt(request.query.itemStart);
+    if (itemStart < 0){
+      itemStart = 0;
+    }
   }
   // If no search then display everything
   if(search == undefined){
