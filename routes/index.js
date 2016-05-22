@@ -272,6 +272,10 @@ function renderCart(request, response){
 		});
 		return;
 	}
+
+	if(request.query.index != undefined){
+		cartItems.splice(request.query.index, 1);
+	}
 	
 	// Compute carts total price 
 	var cartPrice = 0;

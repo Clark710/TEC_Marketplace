@@ -11,14 +11,14 @@ html(lang='en')
                 .col-md-9
                     .left-side
                         .search-results-list
-                            each item in items
+                            each item, index in items
                                 .row
                                     .search-results-list.search-results-item
                                         img(id='search-results-image', src='images/book-image.png', alt='')
                                         p.search-results-item.title-text #{item.name}
                                         p.search-results-item.price-text $#{item.price}
                                         p.search-results-item.description-text #{item.summary}
-                                        a(href='#') Remove
+                                        a(href='/cart?index=' + index) Remove
                     .right-side
                         .cart-summary
                             p.cart-summary.title-text Cart Summary
