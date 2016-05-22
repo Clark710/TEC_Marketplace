@@ -50,3 +50,8 @@ footer {
     font-size: small;
     padding: 0px 0px 0px 10px;
 }
+
+.item.active {
+    width: inherit;
+    height: 300px;
+}

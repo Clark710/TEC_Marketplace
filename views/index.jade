@@ -9,120 +9,121 @@ html(lang='en')
                 include sidebar
                 .col-md-9
                     .row.carousel-holder
-                        .col-md-12
-                            #carousel-example-generic.carousel.slide(data-ride='carousel')
-                                ol.carousel-indicators
-                                    li.active(data-target='#carousel-example-generic', data-slide-to='0')
-                                    li(data-target='#carousel-example-generic', data-slide-to='1')
-                                    li(data-target='#carousel-example-generic', data-slide-to='2')
-                                .carousel-inner
-                                    .item.active
-                                        img.slide-image(src='http://placehold.it/800x300', alt='')
-                                    .item
-                                        img.slide-image(src='http://placehold.it/800x300', alt='')
-                                    .item
-                                        img.slide-image(src='http://placehold.it/800x300', alt='')
-                                a.left.carousel-control(href='#carousel-example-generic', data-slide='prev')
-                                    span.glyphicon.glyphicon-chevron-left
-                                a.right.carousel-control(href='#carousel-example-generic', data-slide='next')
-                                    span.glyphicon.glyphicon-chevron-right
-                                        .row
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='images/#{items[0].id}hres.png', alt='')
-                                .caption
-                                    h4.pull-right $#{items[0].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[0].id) #{items[0].name}
-                                    p	#{items[0].summary}
-                                .ratings
-                                    p.pull-right #{items[0].reviews} reviews
-                                    p
-                                        if items[0].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[0].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='images/#{items[1].id}hres.png', alt='')
-                                .caption
-                                    h4.pull-right $#{items[1].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[1].id) #{items[1].name}
-                                    p	#{items[1].summary}
-                                .ratings
-                                    p.pull-right #{items[1].reviews} reviews
-                                    p
-                                        if items[1].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[1].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                        br
-                        .col-sm-4.col-lg-4.col-md-4
-                            .thumbnail
-                                img(src='images/#{items[2].id}hres.png', alt='')
-                                .caption
-                                    h4.pull-right $#{items[2].price}
-                                    h4
-                                        a(href='/view?itemid=' + items[2].id) #{items[2].name}
-                                    p	#{items[2].summary}
-                                .ratings
-                                    p.pull-right #{items[2].reviews} reviews
-                                    p
-                                        if items[2].rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if items[2].rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
+                        if 2==2
+                            .col-md-12
+                                #carousel-example-generic.carousel.slide(data-ride='carousel')
+                                    ol.carousel-indicators
+                                        li.active(data-target='#carousel-example-generic', data-slide-to='0')
+                                        li(data-target='#carousel-example-generic', data-slide-to='1')
+                                        li(data-target='#carousel-example-generic', data-slide-to='2')
+                                    .carousel-inner
+                                        .item.active
+                                            img.slide-image(src='images/banner1.png', alt='')
+                                        .item
+                                            img.slide-image(src='http://placehold.it/840x300', alt='')
+                                        .item
+                                            img.slide-image(src='http://placehold.it/800x300', alt='')
+                                    a.left.carousel-control(href='#carousel-example-generic', data-slide='prev')
+                                        span.glyphicon.glyphicon-chevron-left
+                                    a.right.carousel-control(href='#carousel-example-generic', data-slide='next')
+                                        span.glyphicon.glyphicon-chevron-right
+                                            .row
+                            br
+                            .col-sm-4.col-lg-4.col-md-4
+                                .thumbnail
+                                    img(src='images/book-image.png', alt='')
+                                    .caption
+                                        h4.pull-right $#{items[0].price}
+                                        h4
+                                            a(href='/view?itemid=' + items[0].id) #{items[0].name}
+                                        p	#{items[0].summary}
+                                    .ratings
+                                        p.pull-right #{items[0].reviews} reviews
+                                        p
+                                            if items[0].rating > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[0].rating > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[0].rating > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[0].rating > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[0].rating > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                            br
+                            .col-sm-4.col-lg-4.col-md-4
+                                .thumbnail
+                                    img(src='images/book-image.png', alt='')
+                                    .caption
+                                        h4.pull-right $#{items[1].price}
+                                        h4
+                                            a(href='/view?itemid=' + items[1].id) #{items[1].name}
+                                        p	#{items[1].summary}
+                                    .ratings
+                                        p.pull-right #{items[1].reviews} reviews
+                                        p
+                                            if items[1].rating > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[1].rating > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[1].rating > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[1].rating > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[1].rating > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                            br
+                            .col-sm-4.col-lg-4.col-md-4
+                                .thumbnail
+                                    img(src='images/book-image.png', alt='')
+                                    .caption
+                                        h4.pull-right $#{items[2].price}
+                                        h4
+                                            a(href='/view?itemid=' + items[2].id) #{items[2].name}
+                                        p	#{items[2].summary}
+                                    .ratings
+                                        p.pull-right #{items[2].reviews} reviews
+                                        p
+                                            if items[2].rating > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[2].rating > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[2].rating > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[2].rating > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if items[2].rating > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
 
         // /.container
         hr
