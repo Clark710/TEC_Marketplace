@@ -27,7 +27,14 @@ router.get("/register",function(req,res) {
 });
 
 router.get("/login",function(req,res) {
-	res.render('login', {title: 'Top End Code'});
+	res.render('login', {title: 'Top End Code', username:username});
+});
+
+router.get("/logout",function(request,response) {
+	username = "Login";
+	userID = -1;
+	loggedIn = 0;
+	renderHomepage(request, response);
 });
 
 router.get("/terms",function(req,res) {
@@ -122,7 +129,7 @@ router.post('/view', function(request, response) {
 			// Must be logged in first
 			renderView(itemID, response, "You must be logged in before you can comment.");
 		} else if(rating < 0 || comment == ""){
-			// Must have put a rating
+			// Must have put a rating and a comment
 			renderView(itemID, response, "You must add a rating and a comment");
 		} else {
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES ("+ID+", '"+comment+"', "+rating+", "+userID+", "+itemID+")");
