@@ -252,7 +252,7 @@ function renderCart(request, response){
 			// Query items
 			var query = client.query("SELECT * FROM items WHERE id = " + itemID + ";", function(err, result) {
 				// Add item to list
-				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, summary:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
 				cartItems.push(item);
 				console.log(cartItems.length);
 			});
