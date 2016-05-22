@@ -11,7 +11,6 @@ html(lang='en')
                     a.itemName(href='/view?itemid=' + id) #{name}
                     .middle-container
                         .middle-container.description
-                            //p #{description}
                             p #{description}
                         .middle-container.image-and-info
                             img(id='product-image',src='images/#{id}hres.png', alt='')
@@ -75,8 +74,21 @@ html(lang='en')
                                             p Commenter ID: #{commenterIDs[index]}
                                         .ratings-list-item.comment
                                             p #{comment}
-                            form.ratings-add-comment(name='search-query', action='/addcomment?itemid=#{itemid}&comment=[thecomment]', method='get')
-                                input(id='commentBox', "text", "query", "Search" value='Add comment', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Search';}", name='search')
+
+                            form.ratings-add-comment(name='search-query', action='', method='post')
+                                input(value=id, type='hidden', name='itemid')
+                                input(value=userid, type='hidden', name='commenterid')
+                                if error
+                                    p #{error}
+                                p Rating: 
+                                  |  1 - 
+                                  input(value=1, type='radio', name='rating')
+                                  input(value=2, type='radio', name='rating')
+                                  input(value=3, type='radio', name='rating')
+                                  input(value=4, type='radio', name='rating')
+                                  input(value=5, type='radio', name='rating')
+                                  |  - 5
+                                input(id='commentBox', value='Add comment', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Search';}", name='comment')
                                 input(id='submitButton', type='submit', value='Submit')
 
 

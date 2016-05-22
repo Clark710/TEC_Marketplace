@@ -3,6 +3,7 @@ var multer = require('multer');
 var router = express.Router();
 var pg = require('pg');
 var username = "Login";
+var userID = -1;
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
 router.post("/register",function(req,res){
@@ -22,6 +23,7 @@ router.post("/register",function(req,res){
       return console.error('Could not connect'.err);
     }
     var query = ("INSERT INTO users (id, email, firstname, lastname, password, birthdate, address, totalrating, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)");
+
     client.query(query,[ID, EMAIL, FNAME, LNAME, PASSWORD, BIRTHDATE, ADDRESS, RATING, UNAME], function(error, result){
       if(error) {
         console.error('Query failed');
@@ -62,8 +64,9 @@ router.post('/login', function (req,res,next) {
         res.render('login', { title: 'Top End Code', username: username, failed: fail });
         return;
       } else {
-        username = req.body.username;
-        res.render('profile', { title:  'Top End Code', username: username });
+        username = USERNAME;
+	userID = result.rows[0].id;
+	renderHomepage(req, res);
         console.log("Query success");
         return;
       }
@@ -266,28 +269,56 @@ router.get('/search', function(request, response) {
 
 /** Browse items page */
 router.get('/', function(request, response) {
-  var items = [];
-  pg.connect(connectionString, function(err, client, done){
-    // Query items
-    var query = client.query("SELECT * FROM items", function(err, result) {
-      // For each item
-      for (i = 0; i < result.rows.length; i++) {
-        // Add item
-        var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
-        items.push(item);
-      }
-    });
+	renderHomepage(request, response);
+});
 
-    query.on('end', function(){
-      response.render('index', {items: items, username: username});
-      done();
-    });
-  });
+function renderHomepage(request, response){
+	var items = [];
+	pg.connect(connectionString, function(err, client, done){
+		// Query items
+		var query = client.query("SELECT * FROM items", function(err, result) {
+			// For each item
+			for (i = 0; i < result.rows.length; i++) {
+				// Add item
+				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+				items.push(item);
+			}
+		});
+
+		query.on('end', function(){
+			response.render('index', {items: items, username: username});
+			done();
+		});
+	});
+}
+
+router.post('/view', function(request, response) {
+	pg.connect(connectionString, function(err, client, done){
+		var comment = request.body.comment;
+		var rating = parseInt(request.body.rating);
+		var commenterID = parseInt(request.body.commenterid);
+		var itemID = parseInt(request.body.itemid);
+  		var ID = Math.floor((Math.random() * 100) + 1);
+		if(commenterID < 0){
+			// Must be logged in first
+			displayView(itemID, response, "You must be logged in before you can comment.");
+		} else if(rating < 0 || comment == ""){
+			// Must have put a rating
+			displayView(itemID, response, "You must add a rating and a comment");
+		} else {
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES ("+ID+", '"+comment+"', "+rating+", "+userID+", "+itemID+")");
+			displayView(itemID, response);
+		}
+	});
 });
 
 /** View a specific items page */
 router.get('/view', function(request, response) {
-  var itemID = parseInt(request.query.itemid);
+  	var itemID = parseInt(request.query.itemid);
+	displayView(itemID, response);
+});
+
+function displayView(itemID, response, error){
   pg.connect(connectionString, function(err, client, done){
     // Check for error in connection
     if(err){
@@ -358,13 +389,13 @@ router.get('/view', function(request, response) {
           itemRating = itemRating/itemReviewCount;
         }
 
-        response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username});
+        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error});
         done();
       });
       done();
     });
   });
-});
+}
 
 router.get("/listItem",function(req,res) {
   res.render('listItem', {title: 'Top End Code'});
