@@ -23,11 +23,11 @@ router.get('/view', function(request, response) {
 });
 
 router.get("/register",function(req,res) {
-	res.render('register', {title: 'Top End Code', username:username});
+	res.render('register', {title: 'Top End Code', username:username, loginState:loggedIn});
 });
 
 router.get("/login",function(req,res) {
-	res.render('login', {title: 'Top End Code', username:username});
+	res.render('login', {title: 'Top End Code', username:username, loginState:loggedIn});
 });
 
 router.get("/logout",function(request,response) {
@@ -39,15 +39,15 @@ router.get("/logout",function(request,response) {
 
 router.get("/terms",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('terms', {title: 'Top End Code', username: username});
+  res.render('terms', {title: 'Top End Code', username: username, loginState:loggedIn});
 });
 
 router.get("/contact",function(req,res) {
-	res.render('contact', {title: 'Top End Code', username:username});
+	res.render('contact', {title: 'Top End Code', username:username, loginState:loggedIn});
 });
 
 router.get("/about",function(req,res) {
-	res.render('about', {title: 'Top End Code', username:username});
+	res.render('about', {title: 'Top End Code', username:username, loginState:loggedIn});
 });
 
  ////// POSTS //////
@@ -198,7 +198,7 @@ function renderHomepage(request, response){
 		});
 
 		query.on('end', function(){
-			response.render('index', {items: items, username: username});
+			response.render('index', {items: items, username: username, loginState:loggedIn});
 			done();
 		});
 	});
@@ -275,7 +275,7 @@ function renderView(itemID, response, error){
           itemRating = itemRating/itemReviewCount;
         }
 
-        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error});
+        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn});
         done();
       });
       done();
@@ -310,7 +310,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
           done();
         });
       });
@@ -338,7 +338,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
           done();
         });
       });
@@ -358,7 +358,7 @@ function renderSearchpage(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username});
+        response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
         done();
       });
     });
@@ -407,17 +407,57 @@ function renderSearchpage(request, response) {
 
 router.get("/profile",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('profile', {title: 'Top End Code', username: username});
+  res.render('profile', {title: 'Top End Code', username: username, loginState:loggedIn});
 });
 
 router.get("/listItem",function(req,res) {
-  res.render('listItem', {title: 'Top End Code'});
+  res.render('listItem', {title: 'Top End Code', loginState:loggedIn});
 });
 
 router.get("/cart",function(req,res) {
+  //    psudocode  
+  //    select * from items where userid=userID; //get all items from user
+  //    select address from users where id=userID
+  //    add up total price from all items
+  //    pass dylan array of item titles, and total price
+
+  //please implement -mc
+  
+      //   var items = [];
+      //   var address = ""; //users table
+
+      // //category = "'"+ request.query.type +"'";
+      // pg.connect(connectionString, function (err, client, done) {
+      //   // Query items
+      //   var query = client.query("SELECT * FROM items WHERE userID=" +userID, function (err, result) {
+      //     // For each item
+      //     for (i = 0; i < result.rows.length; i++) {
+      //       // Add item
+      //       var item = {
+      //         id: result.rows[i].id,
+      //         name: result.rows[i].name,
+      //         price: result.rows[i].price,
+      //       };
+      //       items.push(item);
+      //     }
+      //   });
+
+
+
+
+
+
+
+
+      //   query.on('end', function () {
+      //     var str = "TEC - " + items.length + " Results";
+      //     response.render('cart', {title: str, items: items, username: username});
+      //     done();
+      //   });
+      // });
+
   //    sorry I dont know how to pass parameters yet.
   //    to be implemented 22/05 - mc
-  res.render('cart', {title: 'Top End Code', username: username});
 });
 
 module.exports = router;
