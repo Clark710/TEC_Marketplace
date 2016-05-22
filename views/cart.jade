@@ -9,21 +9,22 @@ html(lang='en')
             .row
                 include sidebar
                 .col-md-9
-                    .left-side
-                        .search-results-list
-                            each item in items
-                                .row
-                                    .search-results-list.search-results-item
-                                        img(id='search-results-image', src='images/book-image.png', alt='')
-                                        p.search-results-item.title-text #{item.name}
-                                        p.search-results-item.price-text $#{item.price}
-                                        p.search-results-item.description-text #{item.description}
-                                        a(href='#') Remove
-                    .right-side
-                        .cart-summary
-                            p.cart-summary.title-text Cart Summary
-                            p.cart-summary.price $#{totalPrice}
-                            a.cart-summary.proceed-button(href='') Proceed To Checkout
+                    .outer-left-side
+                        .left-side
+                            .cart-list
+                                each item in items
+                                    .row
+                                        .cart-list.cart-item
+                                            img(id='cart-item-image', src='images/book-image.png', alt='')
+                                            p.title-text #{item.name}
+                                            a.remove-button(href='#') Remove
+                                            p.description-text #{item.description}
+                    .outer-right-side
+                        .right-side
+                            .cart-summary
+                                p.cart-summary.title-text Cart Summary
+                                p.cart-summary.price $#{totalPrice}
+                                a.cart-summary.proceed-button(href='') Proceed To Checkout
 
         hr
         include foot

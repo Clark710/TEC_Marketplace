@@ -45,9 +45,13 @@ body {
 .search-results-list.search-results-item {
     padding: 8px 3px;
     margin: 1px 8px;
-    background-color: lightgrey;
+    background-color: #eeeeee;
     position: relative;
     width: 100%;
+    border-bottom-right-radius: 2%;
+    border-bottom-left-radius: 2%;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
 }
 
 
