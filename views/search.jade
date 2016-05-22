@@ -43,6 +43,14 @@ html(lang='en')
                                         p.search-results-list.search-results-item.title-description.title
                                             a(href="/view?itemid=#{item.id}") #{item.name}
                                         p.search-results-list.search-results-item.title-description.description #{item.summary}
+                        if catagory
+                          p 
+                            a(href="/search?catagory=" + catagory + "&itemStart=" + (itemStart - 10)) Previous 
+                            a(href="/search?catagory=" + catagory + "&itemStart=" + (itemStart + 10)) Next 
+                        else
+                          p 
+                            a(href="/search?itemStart=" + (itemStart - 10)) Previous 
+                            a(href="/search?itemStart=" + (itemStart + 10)) Next 
         // /.container
         hr
         include foot
