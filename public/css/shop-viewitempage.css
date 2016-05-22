@@ -68,4 +68,12 @@
 #submitButton {
 
 }
+#product-image {
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    background-color: #cbcbcb;
+    width: 360px;
+}
 

@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+    body
+        include head
+        link(href='css/shop-login.css', rel='stylesheet')
+        // Page Content
+        .container
+            .row
+                .col-md-12
+                    .row
+                        .middle-container
+                            p.middle-container.profile-name #{name}
+                            p.middle-container.profile-details #{description}
+                            .middle-container.profile-picture
+                                img(src='images/profile.png', alt='')
+        // /.container
+        hr
+        include foot
+        // /.container
+        // jQuery
+        script(src='js/jquery.js')
+        // Bootstrap Core JavaScript
+        script(src='js/bootstrap.min.js')
