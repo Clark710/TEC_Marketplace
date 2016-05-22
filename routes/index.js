@@ -369,10 +369,11 @@ function renderView(itemID, response, error){
 
 function renderSearchpage(request, response) {
   var search = request.query.search;
-  var category = request.query.type;
+  var catagory = request.query.catagory;
+  var type = request.query.type;
   // If no search then display everything
   if(search == undefined){
-    if(category == undefined) {
+    if(type == undefined && catagory == undefined) {
       var items = [];
       pg.connect(connectionString, function (err, client, done) {
         // Query items
@@ -394,17 +395,17 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
     }
-    else {
+    else if (type == undefined) {
       var items = [];
-      category = "'"+ request.query.type +"'";
+      catagory = "'"+ request.query.catagory +"'";
       pg.connect(connectionString, function (err, client, done) {
         // Query items
-        var query = client.query("SELECT * FROM items WHERE type=" +category, function (err, result) {
+        var query = client.query("SELECT * FROM items WHERE catagory=" + catagory, function (err, result) {
           // For each item
           for (i = 0; i < result.rows.length; i++) {
             // Add item
@@ -422,7 +423,35 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+          response.render('search', {title: str, items: items, username: username});
+          done();
+        });
+      });
+    }
+    else{
+      var items = [];
+      type = "'"+ request.query.type +"'";
+      pg.connect(connectionString, function (err, client, done) {
+        // Query items
+        var query = client.query("SELECT * FROM items WHERE type=" + type, function (err, result) {
+          // For each item
+          for (i = 0; i < result.rows.length; i++) {
+            // Add item
+            var item = {
+              id: result.rows[i].id,
+              name: result.rows[i].name,
+              summary: result.rows[i].summary,
+              price: result.rows[i].price,
+              rating: result.rows[i].totalrating,
+              reviews: result.rows[i].reviewcount
+            };
+            items.push(item);
+          }
+        });
+
+        query.on('end', function () {
+          var str = "TEC - " + items.length + " Results";
+          response.render('search', {title: str, items: items, username: username});
           done();
         });
       });
@@ -442,12 +471,11 @@ function renderSearchpage(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+        response.render('search', {title: str, items: items, username: username});
         done();
       });
     });
   }
-
 }
 
  ////// OTHER PEOPLES CODE THEY CAN REFORMAT INTO PLACES ABOVE THIS LATER :D //////
