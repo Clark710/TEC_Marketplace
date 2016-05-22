@@ -1,6 +1,31 @@
-extends layout
+doctype html
+html(lang='en')
+    body
+        include head
+        link(href='css/shop-cart.css', rel='stylesheet')
+        // Page Content
+        .container
+            .row
+                include sidebar
+                .col-md-9
+                    .left-side
+                        .search-results-list
+                            each item in items
+                                .row
+                                    .search-results-list.search-results-item
+                                        img(id='search-results-image', src='images/book-image.png', alt='')
+                                        p.search-results-item.title-text Name
+                                        p.search-results-item.description-text Description
+                                        a(href='#') Remove
+                    .right-side
+                        .cart-summary
+                            p.cart-summary.title-text Cart Summary
+                            p.cart-summary.price $10
+                            a.cart-summary.proceed-button(href='') Proceed To Checkout
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+        hr
+        include foot
+        // jQuery
+        script(src='js/jquery.js')
+        // Bootstrap Core JavaScript
+        script(src='js/bootstrap.min.js')
