@@ -408,9 +408,47 @@ router.get("/listItem",function(req,res) {
 });
 
 router.get("/cart",function(req,res) {
-  //    sorry I dont know how to pass parameters yet.
-  //    to be implemented 22/05 - mc
-  res.render('cart', {title: 'Top End Code', username: username});
+  //    psudocode  
+  //    select * from items where userid=userID; //get all items from user
+  //    select address from users where id=userID
+  //    add up total price from all items
+  //    pass dylan array of item titles, and total price
+
+  //please implement -mc
+  
+      //   var items = [];
+      //   var address = ""; //users table
+
+      // //category = "'"+ request.query.type +"'";
+      // pg.connect(connectionString, function (err, client, done) {
+      //   // Query items
+      //   var query = client.query("SELECT * FROM items WHERE userID=" +userID, function (err, result) {
+      //     // For each item
+      //     for (i = 0; i < result.rows.length; i++) {
+      //       // Add item
+      //       var item = {
+      //         id: result.rows[i].id,
+      //         name: result.rows[i].name,
+      //         price: result.rows[i].price,
+      //       };
+      //       items.push(item);
+      //     }
+      //   });
+
+
+
+
+
+
+
+
+      //   query.on('end', function () {
+      //     var str = "TEC - " + items.length + " Results";
+      //     response.render('cart', {title: str, items: items, username: username});
+      //     done();
+      //   });
+      // });
+
 });
 
 module.exports = router;
