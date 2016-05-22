@@ -15,7 +15,7 @@ html(lang='en')
                                     .row
                                         .cart-item
                                             img(id='cart-item-image', src='images/book-image.png', alt='')
-                                            p.title-text #{item.name}
+                                            a.title-text(href='/view?itemid=#{item.id}') #{item.name}
                                             a.remove-button(href="/cart?index="+index) Remove
                                             p.description-text #{item.description}
                     .outer-right-side
