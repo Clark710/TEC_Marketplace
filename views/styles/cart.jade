@@ -3,59 +3,27 @@ html(lang='en')
     body
         include head
         link(href='css/shop-cart.css', rel='stylesheet')
-        link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
         // Page Content
         .container
             .row
                 include sidebar
                 .col-md-9
-                    .container
-                        table#cart.table.table-hover.table-condensed
-                            thead
-                                tr
-                                    th(style='width:50%') Product
-                                    th(style='width:10%') Price
-                                    th(style='width:8%') Quantity
-                                    th.text-center(style='width:22%') Subtotal
-                                    th(style='width:10%')
-                            tbody
-                                tr
-                                    td(data-th='Product')
-                                        .row
-                                            .col-sm-2.hidden-xs
-                                                img.img-responsive(src='http://placehold.it/100x100', alt='...')
-                                            .col-sm-10
-                                                h4.nomargin Product 1
-                                                p
-                                                    | Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.
-                                    td(data-th='Price') $1.99
-                                    td(data-th='Quantity')
-                                        input.form-control.text-center(type='number', value='1')
-                                    td.text-center(data-th='Subtotal') 1.99
-                                    td.actions(data-th='')
-                                        button.btn.btn-info.btn-sm
-                                            i.fa.fa-refresh
-                                        button.btn.btn-danger.btn-sm
-                                            i.fa.fa-trash-o
-                            tfoot
-                                tr.visible-xs
-                                    td.text-center
-                                        strong Total 1.99
-                                tr
-                                    td
-                                        a.btn.btn-warning(href='#')
-                                            i.fa.fa-angle-left
-                                            |  Continue Shopping
-                                    td.hidden-xs(colspan='2')
-                                    td.hidden-xs.text-center
-                                        strong Total $1.99
-                                    td
-                                        a.btn.btn-success.btn-block(href='#')
-                                            | Checkout
-                                            i.fa.fa-angle-right
+                    .left-side
+                        .search-results-list
+                            each item in items
+                                .row
+                                    .search-results-list.search-results-item
+                                        img(id='search-results-image', src='images/book-image.png', alt='')
+                                        p.search-results-item.title-text Name
+                                        p.search-results-item.description-text Description
+                                        a(href='#') Remove
+                    .right-side
+                        .cart-summary
+                            p.cart-summary.title-text Cart Summary
+                            p.cart-summary.price $10
+                            a.cart-summary.proceed-button(href='') Proceed To Checkout
 
-
-            hr
+        hr
         include foot
         // jQuery
         script(src='js/jquery.js')
