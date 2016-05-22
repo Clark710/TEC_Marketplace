@@ -23,6 +23,8 @@ html(lang='en')
                     .bottom-container
                         .bottom-container.ratings
                             p
+                                a(href="/cart?itemid="+id) Add to cart
+                            p
                                 if rating > 0
                                     span.glyphicon.glyphicon-star
                                 else

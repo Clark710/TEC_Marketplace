@@ -12,25 +12,25 @@ var item1 = {
 	id: 0,
 	name: "fake1",
 	price: 19.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item2 = {
 	id: 1,
 	name: "fake2",
 	price: 29.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item3 = {
 	id: 2,
 	name: "fake3",
 	price: 39.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 var item4 = {
 	id: 3,
 	name: "fake4",
 	price: 49.99,  
-	description: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
+	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
 };
 cartItems[0] = item1;
 cartItems[1] = item2;
@@ -154,7 +154,6 @@ router.post('/login', function (req,res,next) {
   })
 });
 
-
 router.post('/view', function(request, response) {
 	pg.connect(connectionString, function(err, client, done){
 		var comment = request.body.comment;
@@ -247,7 +246,32 @@ function renderHomepage(request, response){
 }
 
 function renderCart(request, response){
-	
+	if(request.query.itemid != undefined){
+		pg.connect(connectionString, function(err, client, done){
+			var itemID = parseInt(request.query.itemid);
+			// Query items
+			var query = client.query("SELECT * FROM items WHERE id = " + itemID + ";", function(err, result) {
+				// Add item to list
+				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, summary:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				cartItems.push(item);
+				console.log(cartItems.length);
+			});
+
+			query.on('end', function(){
+				// Compute carts total price 
+				var cartPrice = 0;
+				for( i = 0 ; i < cartItems.length ; i++){
+					cartPrice += cartItems[i].price;
+				}
+				// Carts title
+				var str = cartItems.length + " items in your cart";
+				response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
+				done();
+			});
+
+		});
+		return;
+	}
 	
 	// Compute carts total price 
 	var cartPrice = 0;
