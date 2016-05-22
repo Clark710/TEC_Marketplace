@@ -3,7 +3,47 @@ var multer = require('multer');
 var router = express.Router();
 var pg = require('pg');
 var username = "Login";
+var userID = -1;
+var loggedIn = 0;
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
+
+ ////// GETS //////
+
+router.get('/', function(request, response) {
+	renderHomepage(request, response);
+});
+
+router.get('/search', function(request, response) {
+	renderSearchpage(request, response);
+});
+
+router.get('/view', function(request, response) {
+  	var itemID = parseInt(request.query.itemid);
+	renderView(itemID, response);
+});
+
+router.get("/register",function(req,res) {
+	res.render('register', {title: 'Top End Code', username:username});
+});
+
+router.get("/login",function(req,res) {
+	res.render('login', {title: 'Top End Code'});
+});
+
+router.get("/terms",function(req,res) {
+  var FNAME = req.body.firstName;
+  res.render('terms', {title: 'Top End Code', username: username});
+});
+
+router.get("/contact",function(req,res) {
+	res.render('contact', {title: 'Top End Code', username:username});
+});
+
+router.get("/about",function(req,res) {
+	res.render('about', {title: 'Top End Code', username:username});
+});
+
+ ////// POSTS //////
 
 router.post("/register",function(req,res){
   var FNAME = req.body.firstName;
@@ -22,6 +62,7 @@ router.post("/register",function(req,res){
       return console.error('Could not connect'.err);
     }
     var query = ("INSERT INTO users (id, email, firstname, lastname, password, birthdate, address, totalrating, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)");
+
     client.query(query,[ID, EMAIL, FNAME, LNAME, PASSWORD, BIRTHDATE, ADDRESS, RATING, UNAME], function(error, result){
       if(error) {
         console.error('Query failed');
@@ -34,10 +75,6 @@ router.post("/register",function(req,res){
       }
     })
   })
-});
-
-router.get("/login",function(req,res) {
-  res.render('login', {title: 'Top End Code'});
 });
 
 router.post('/login', function (req,res,next) {
@@ -62,8 +99,10 @@ router.post('/login', function (req,res,next) {
         res.render('login', { title: 'Top End Code', username: username, failed: fail });
         return;
       } else {
-        username = req.body.username;
-        res.render('profile', { title:  'Top End Code', username: username });
+        username = USERNAME;
+	userID = result.rows[0].id;
+	loggedIn = 1;
+	renderHomepage(req, res);
         console.log("Query success");
         return;
       }
@@ -71,6 +110,28 @@ router.post('/login', function (req,res,next) {
   })
 });
 
+
+router.post('/view', function(request, response) {
+	pg.connect(connectionString, function(err, client, done){
+		var comment = request.body.comment;
+		var rating = parseInt(request.body.rating);
+		var commenterID = parseInt(request.body.commenterid);
+		var itemID = parseInt(request.body.itemid);
+  		var ID = Math.floor((Math.random() * 100) + 1);
+		if(commenterID < 0){
+			// Must be logged in first
+			renderView(itemID, response, "You must be logged in before you can comment.");
+		} else if(rating < 0 || comment == ""){
+			// Must have put a rating
+			renderView(itemID, response, "You must add a rating and a comment");
+		} else {
+			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES ("+ID+", '"+comment+"', "+rating+", "+userID+", "+itemID+")");
+			renderView(itemID, response);
+		}
+	});
+});
+
+ ////// UTILITY //////
 
 /** Test database query selecting all from table items */
 router.get('/test_database', function(request, response) {
@@ -114,73 +175,108 @@ router.get('/check', function(request, response) {
   });
 });
 
-/** Fills the database */
-//router.get('/add', function(request, response) {
-  //add();
-//});
+ ////// FUNCTIONS //////
 
-/** Removes everything from the database */
-//router.get('/remove', function(request, response) {
-  //remove();
-//});
+function renderHomepage(request, response){
+	var items = [];
+	pg.connect(connectionString, function(err, client, done){
+		// Query items
+		var query = client.query("SELECT * FROM items", function(err, result) {
+			// For each item
+			for (i = 0; i < result.rows.length; i++) {
+				// Add item
+				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+				items.push(item);
+			}
+		});
 
-function add(){
+		query.on('end', function(){
+			response.render('index', {items: items, username: username});
+			done();
+		});
+	});
+}
+
+function renderView(itemID, response, error){
   pg.connect(connectionString, function(err, client, done){
-    // Add item 0
-    client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (0, 'Java DVD', 'Short summary about Java DVD item', 'Longer description about java dvd item', 16.99, '2000-09-09T00:00:00.000Z', 2, 20, 2.3, 3)");
-    // Item 0s comments
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (0, 'This is the first comment of item 0!', 2, 2, 0)");
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (1, 'This is the second comment of item 0!', 4, 3, 0)");
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (2, 'This is the third comment of item 0!', 1, 1, 0)");
+    // Check for error in connection
+    if(err){
+      done();
+      console.log(err);
+      return;
+    }
 
-    // Add item 1
-    client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (1, 'C++ Book', 'Short summary about C++ Book item', 'Longer description about C++ Book item', 9.99, '2000-09-09T00:00:00.000Z', 1, 5, 3, 3)");
-    // Item 1s comments
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (3, 'This is the first comment of item 1!', 4, 2, 1)");
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (4, 'This is the second comment of item 1!', 2, 0, 1)");
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (5, 'This is the third comment of item 1!', 3, 3, 1)");
+    // First query
+    var query = client.query("SELECT * FROM items WHERE id = " + itemID);
+    var rows = [];
+    var itemName;
+    var itemDescription;
+    var itemPrice;
+    var itemStock;
+    var itemRating;
 
-    // Add item 2
-    client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount) VALUES (2, 'AI Tutorial', 'Short summary about AI Tutorial item', 'Longer description about AI Tutorial item', 128.99, '2000-09-09T00:00:00.000Z', 0, -1, 4.5, 2)");
-    // Item 2s comments
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (6, 'This is the first comment of item 2!', 4, 1, 2)");
-    client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES (7, 'This is the second comment of item 2!', 5, 0, 2)");
+    // Put all the items into the array
+    query.on('row', function(row){
+      rows.push(row);
+    });
 
+    // Act on items
+    query.on('end', function(){
 
+      if(rows.length != 1){
+        console.log("ERROR WITH ITEM: " + rows.length);
+        done();
+        return;
+      }
+
+      itemID = rows[0].id;
+      itemName = rows[0].name;
+      itemDescription = rows[0].description;
+      itemPrice = rows[0].price;
+      itemStock = rows[0].stockcount;
+      //itemRating = rows[0].totalrating;
+
+      // Second query
+      var query2 = client.query("SELECT * FROM itemcomments WHERE itemid = " + itemID);
+      var rows2 = [];
+      var itemReviewCount;
+
+      // Put all the items into the array
+      query2.on('row', function(row){
+        rows2.push(row);
+      });
+
+      // Act on item comments and ratings. Render the page
+      query2.on('end', function(){
+        var itemReviewCount = rows2.length;
+        var itemRating = 0;
+        var itemComments = [];
+        var itemCommentRatings = [];
+        var itemCommenterIDs = [];
+
+        // Get item overall rating, each comment and its relative rating
+        if(itemReviewCount > 0){
+          var index = 0;
+          var itemCom = rows2[index];
+          while(itemCom!=null){
+            itemRating += itemCom.rating;
+            itemComments[index] = itemCom.comment;
+            itemCommentRatings[index] = itemCom.rating;
+            itemCommenterIDs[index] = itemCom.commenterid;
+            itemCom = rows2[++index];
+          }
+          itemRating = itemRating/itemReviewCount;
+        }
+
+        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error});
+        done();
+      });
+      done();
+    });
   });
 }
 
-function remove(){
-  pg.connect(connectionString, function(err, client, done){
-    client.query('DELETE FROM itemcomments WHERE id = 0');
-    client.query('DELETE FROM itemcomments WHERE id = 1');
-    client.query('DELETE FROM itemcomments WHERE id = 2');
-    client.query('DELETE FROM itemcomments WHERE id = 3');
-    client.query('DELETE FROM itemcomments WHERE id = 4');
-    client.query('DELETE FROM itemcomments WHERE id = 5');
-    client.query('DELETE FROM itemcomments WHERE id = 6');
-    client.query('DELETE FROM itemcomments WHERE id = 7');
-
-
-    client.query('DELETE FROM items WHERE id = 0');
-    client.query('DELETE FROM items WHERE id = 1');
-    client.query('DELETE FROM items WHERE id = 2');
-  });
-}
-
-router.get("/contact",function(req,res) {
-  res.render('contact', {title: 'Top End Code', username:username});
-});
-
-router.get("/about",function(req,res) {
-  res.render('about', {title: 'Top End Code', username:username});
-});
-
-router.get("/register",function(req,res) {
-  res.render('register', {title: 'Top End Code', username:username});
-});
-
-router.get('/search', function(request, response) {
+function renderSearchpage(request, response) {
   var search = request.query.search;
   var category = request.query.type;
   // If no search then display everything
@@ -261,114 +357,9 @@ router.get('/search', function(request, response) {
     });
   }
 
-});
+}
 
-
-/** Browse items page */
-router.get('/', function(request, response) {
-  var items = [];
-  pg.connect(connectionString, function(err, client, done){
-    // Query items
-    var query = client.query("SELECT * FROM items", function(err, result) {
-      // For each item
-      for (i = 0; i < result.rows.length; i++) {
-        // Add item
-        var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
-        items.push(item);
-      }
-    });
-
-    query.on('end', function(){
-      response.render('index', {items: items, username: username});
-      done();
-    });
-  });
-});
-
-/** View a specific items page */
-router.get('/view', function(request, response) {
-  var itemID = parseInt(request.query.itemid);
-  pg.connect(connectionString, function(err, client, done){
-    // Check for error in connection
-    if(err){
-      done();
-      console.log(err);
-      return;
-    }
-
-    // First query
-    var query = client.query("SELECT * FROM items WHERE id = " + itemID);
-    var rows = [];
-    var itemName;
-    var itemDescription;
-    var itemPrice;
-    var itemStock;
-    var itemRating;
-
-    // Put all the items into the array
-    query.on('row', function(row){
-      rows.push(row);
-    });
-
-    // Act on items
-    query.on('end', function(){
-
-      if(rows.length != 1){
-        console.log("ERROR WITH ITEM: " + rows.length);
-        done();
-        return;
-      }
-
-      itemID = rows[0].id;
-      itemName = rows[0].name;
-      itemDescription = rows[0].description;
-      itemPrice = rows[0].price;
-      itemStock = rows[0].stockcount;
-      //itemRating = rows[0].totalrating;
-
-      // Second query
-      var query2 = client.query("SELECT * FROM itemcomments WHERE itemid = " + itemID);
-      var rows2 = [];
-      var itemReviewCount;
-
-      // Put all the items into the array
-      query2.on('row', function(row){
-        rows2.push(row);
-      });
-
-      // Act on item comments and ratings. Render the page
-      query2.on('end', function(){
-        var itemReviewCount = rows2.length;
-        var itemRating = 0;
-        var itemComments = [];
-        var itemCommentRatings = [];
-        var itemCommenterIDs = [];
-
-        // Get item overall rating, each comment and its relative rating
-        if(itemReviewCount > 0){
-          var index = 0;
-          var itemCom = rows2[index];
-          while(itemCom!=null){
-            itemRating += itemCom.rating;
-            itemComments[index] = itemCom.comment;
-            itemCommentRatings[index] = itemCom.rating;
-            itemCommenterIDs[index] = itemCom.commenterid;
-            itemCom = rows2[++index];
-          }
-          itemRating = itemRating/itemReviewCount;
-        }
-
-        response.render('view', {id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username});
-        done();
-      });
-      done();
-    });
-  });
-});
-
-router.get("/listItem",function(req,res) {
-  res.render('listItem', {title: 'Top End Code'});
-});
+ ////// OTHER PEOPLES CODE THEY CAN REFORMAT INTO PLACES ABOVE THIS LATER :D //////
 
 /*router.post('/listItem', function(req, res) {
   userid = localStorage.getItem("userid");
@@ -407,19 +398,15 @@ router.get("/listItem",function(req,res) {
   });
 });*/
 
-router.get("/", function(req,res){
-  res.render('sell', {title: 'Sell', username: username});
-});
-
 router.get("/profile",function(req,res) {
   var FNAME = req.body.firstName;
   res.render('profile', {title: 'Top End Code', username: username});
 });
 
-router.get("/terms",function(req,res) {
-  var FNAME = req.body.firstName;
-  res.render('terms', {title: 'Top End Code', username: username});
+router.get("/listItem",function(req,res) {
+  res.render('listItem', {title: 'Top End Code'});
 });
+
 router.get("/cart",function(req,res) {
   //    sorry I dont know how to pass parameters yet.
   //    to be implemented 22/05 - mc
