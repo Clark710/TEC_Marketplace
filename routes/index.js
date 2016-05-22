@@ -56,11 +56,11 @@ router.get('/view', function(request, response) {
 });
 
 router.get("/register",function(req,res) {
-	res.render('register', {title: 'Top End Code', username:username, loginState:loggedIn});
+	res.render('register', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/login",function(req,res) {
-	res.render('login', {title: 'Top End Code', username:username, loginState:loggedIn});
+	res.render('login', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/logout",function(request,response) {
@@ -76,15 +76,15 @@ router.get("/cart",function(request, response) {
 
 router.get("/terms",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('terms', {title: 'Top End Code', username: username, loginState:loggedIn});
+  res.render('terms', {title: 'Top End Code', username: username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/contact",function(req,res) {
-	res.render('contact', {title: 'Top End Code', username:username, loginState:loggedIn});
+	res.render('contact', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/about",function(req,res) {
-	res.render('about', {title: 'Top End Code', username:username, loginState:loggedIn});
+	res.render('about', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
  ////// POSTS //////
@@ -158,17 +158,22 @@ router.post('/login', function (req,res,next) {
 router.post('/view', function(request, response) {
 	pg.connect(connectionString, function(err, client, done){
 		var comment = request.body.comment;
-		var rating = parseInt(request.body.rating);
+		if(request.body.rating==undefined){
+			var rating = undefined;
+		} else {
+			var rating = parseInt(request.body.rating);
+		}
 		var commenterID = parseInt(request.body.commenterid);
 		var itemID = parseInt(request.body.itemid);
   		var ID = Math.floor((Math.random() * 100) + 1);
 		if(commenterID < 0){
 			// Must be logged in first
 			renderView(itemID, response, "You must be logged in before you can comment.");
-		} else if(rating < 0 || comment == ""){
+		} else if(rating < 0 || rating == undefined || comment == "" || comment == undefined){
 			// Must have put a rating and a comment
 			renderView(itemID, response, "You must add a rating and a comment");
 		} else {
+			console.log("ID: " + ID + ", COMMENT: " + comment + ", Rating: " + rating + ", UserID: " + userID + ", itemID: " + itemID);
 			client.query("INSERT INTO itemcomments (id, comment, rating, commenterid, itemid) VALUES ("+ID+", '"+comment+"', "+rating+", "+userID+", "+itemID+")");
 			renderView(itemID, response);
 		}
@@ -235,7 +240,7 @@ function renderHomepage(request, response){
 		});
 
 		query.on('end', function(){
-			response.render('index', {items: items, username: username, loginState:loggedIn});
+			response.render('index', {items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
 			done();
 		});
 	});
@@ -251,7 +256,7 @@ function renderCart(request, response){
 	}
 	// Carts title
 	var str = cartItems.length + " items in your cart";
-	response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice});
+	response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
 	
 }
 
@@ -326,7 +331,7 @@ function renderView(itemID, response, error){
           itemRating = itemRating/itemReviewCount;
         }
 
-        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn});
+        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn, cartCount:cartItems.length});
         done();
       });
       done();
@@ -361,7 +366,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
           done();
         });
       });
@@ -389,7 +394,7 @@ function renderSearchpage(request, response) {
 
         query.on('end', function () {
           var str = "TEC - " + items.length + " Results";
-          response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
+          response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
           done();
         });
       });
@@ -409,7 +414,7 @@ function renderSearchpage(request, response) {
 
       query.on('end', function(){
         var str = "TEC - " + items.length + " Results from search '" + search + "'";
-        response.render('search', {title: str, items: items, username: username, loginState:loggedIn});
+        response.render('search', {title: str, items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
         done();
       });
     });
@@ -495,11 +500,11 @@ function renderSearchpage(request, response) {
 
 router.get("/profile",function(req,res) {
   var FNAME = req.body.firstName;
-  res.render('profile', {title: 'Top End Code', username: username, loginState:loggedIn});
+  res.render('profile', {title: 'Top End Code', username: username, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/listItem",function(req,res) {
-  res.render('listItem', {title: 'Top End Code', loginState:loggedIn});
+  res.render('listItem', {title: 'Top End Code', loginState:loggedIn, cartCount:cartItems.length});
 });
 
 

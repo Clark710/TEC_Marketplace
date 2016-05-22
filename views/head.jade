@@ -44,6 +44,8 @@ body
                             a(href='/register') Register
                     else
                         li
+                            a(href='/cart') Items in Cart: #{cartCount}
+                        li
                             a(href='/profile') #{username}
                         li
                             a(href='/logout', method='post') Logout
