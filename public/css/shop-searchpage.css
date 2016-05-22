@@ -73,7 +73,6 @@ body {
 .search-results-list.search-results-item.title-description.description {
     position: absolute;
     background-color: transparent;
-    margin: 1px 1px;
     font-size: small;
     top: 23px;
     right: 0px;
