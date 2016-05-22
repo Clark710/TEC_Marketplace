@@ -10,39 +10,39 @@ html(lang='en')
                     p.lead #{title}
                     .search-results-list
                         each item in items
-                          .row
-                            .search-results-list.search-results-item
-                                img(id='search-results-image', src='images/book-image.png', alt='')
-                                .search-results-list.search-results-item.ratings
-                                    p
-                                        if item.rating > 0
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if item.rating > 1.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if item.rating > 2.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if item.rating > 3.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                        if item.rating > 4.5
-                                            span.glyphicon.glyphicon-star
-                                        else
-                                            span.glyphicon.glyphicon-star-empty
-                                    p #{item.reviews} reviews
-                                .search-results-list.search-results-item.price-and-buy
-                                    p.search-results-list.search-results-item.price-and-buy.price() $#{item.price}
-                                    a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
-                                .search-results-list.search-results-item.title-description
-                                    p.search-results-list.search-results-item.title-description.title 
-                                        a(href="/view?itemid=#{item.id}") #{item.name}
-                                    p.search-results-list.search-results-item.title-description.description #{item.summary}
+                            .row
+                                .search-results-list.search-results-item
+                                    img(id='search-results-image', src='images/book-image.png', alt='')
+                                    .search-results-list.search-results-item.ratings
+                                        p
+                                            if item.rating > 0
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 1.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 2.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 3.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                            if item.rating > 4.5
+                                                span.glyphicon.glyphicon-star
+                                            else
+                                                span.glyphicon.glyphicon-star-empty
+                                        p #{item.reviews} reviews
+                                    .search-results-list.search-results-item.price-and-buy
+                                        p.search-results-list.search-results-item.price-and-buy.price() $#{item.price}
+                                        a.search-results-list.search-results-item.price-and-buy.buy(href='#') Add to Cart
+                                    .search-results-list.search-results-item.title-description
+                                        p.search-results-list.search-results-item.title-description.title
+                                            a(href="/view?itemid=#{item.id}") #{item.name}
+                                        p.search-results-list.search-results-item.title-description.description #{item.summary}
         // /.container
         hr
         include foot
