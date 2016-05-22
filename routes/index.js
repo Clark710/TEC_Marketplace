@@ -8,7 +8,7 @@ var loggedIn = 0;
 var cartItems = [];
 
 ////// FAKE CART ITEMS //////
-var item1 = {
+/*var item1 = {
 	id: 0,
 	name: "fake1",
 	price: 19.99,  
@@ -35,7 +35,7 @@ var item4 = {
 cartItems[0] = item1;
 cartItems[1] = item2;
 cartItems[2] = item3;
-cartItems[3] = item4;
+cartItems[3] = item4;*/
 ////// FAKE CART ITEMS //////
 
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
