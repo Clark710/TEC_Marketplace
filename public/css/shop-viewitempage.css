@@ -54,4 +54,18 @@
 .ratings-list-item.comment {
 
 }
+.ratings-add-comment {
+
+}
+#commentBox {
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    width: 90%;
+    height: 90%;
+}
+#submitButton {
+
+}
 
