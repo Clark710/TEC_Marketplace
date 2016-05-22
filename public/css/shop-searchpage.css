@@ -19,6 +19,7 @@ body {
     margin: 6px 0px 0px 0px;
     position: absolute;
     left: 42%;
+    width: 20%;
 }
 
 #searchBox {
