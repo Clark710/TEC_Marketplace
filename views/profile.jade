@@ -21,6 +21,8 @@ html(lang='en')
                 p.title-text #{user.username}'s item(s) for sale:
             else
                 p.title-text #{user.username} has no items for sale.
+            a(class="btn btn-default btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart - 6)) Previous
+            a(class="btn btn-default btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart + 6)) Next
             .profile-listings
                 each item in items
                     .profile-listing-single
@@ -54,8 +56,6 @@ html(lang='en')
                                         span.glyphicon.glyphicon-star
                                     else
                                         span.glyphicon.glyphicon-star-empty
-            a(class="btn btn-success btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart - 6)) Previous
-            a(class="btn btn-success btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart + 6)) Next
         // /.container
     hr
     include foot

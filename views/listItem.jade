@@ -2,7 +2,7 @@ doctype html
 html(lang='en')
     body
         include head
-        link(href='css/shop-register.css', rel='stylesheet')
+        link(href='css/shop-listitem.css', rel='stylesheet')
         // Page Content
         .container
             .row
@@ -54,6 +54,12 @@ html(lang='en')
                                                     option(name="type", type='text', required="required", value='C') C
                                                     option(name="type", type='text', required="required", value='Cplusplus') C++
                                                     option(name="type", type='text', required="required", value='ruby') Ruby
+                                                    option(name="type", type='text', required="required", value='windows') Windows
+                                                    option(name="type", type='text', required="required" ,value='linux') Linux
+                                                    option(name="type", type='text', required="required", value='osx') OS X
+                                                    option(name="type", type='text', required="required", value='ios') iOS
+                                                    option(name="type", type='text', required="required", value='android') Android
+                                                    option(name="type", type='text', required="required", value='other') Other
                                     .item.button
                                         button.btn.btn-success(type='submit') List
         // /.container

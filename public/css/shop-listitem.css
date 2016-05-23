@@ -1,0 +1,37 @@
+
+.middle-container {
+    position: relative;
+    height: 700px;
+}
+
+.middle-container.form-signin {
+    background-color: #eeeeee;
+    position: absolute;
+    left: 27%;
+    width: 500px;
+    height: 700px;
+    padding: 40px 40px;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.register-title {
+    font-size: xx-large;
+    color: #323232;
+    margin: 20px 50px;
+
+}
+
+.pair {
+    position: relative;
+    height: 40px;
+}
+.item {
+    margin: 0px 0px;
+    width: 400px;
+}
+.item.button {
+    margin: 40px 160px;
+}
