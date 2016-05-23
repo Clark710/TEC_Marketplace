@@ -144,7 +144,7 @@ router.post('/login', function (req,res,next) {
         return;
       } else {
         username = USERNAME;
-	userID = result.rows[0].id;
+	userID = result.rows[0].userid;
 	loggedIn = 1;
 	renderHomepage(req, res);
         console.log("Query success");
@@ -210,7 +210,7 @@ router.get('/check', function(request, response) {
       console.log(err);
       return;
     }
-    var query = client.query('SELECT * FROM itemcomments');
+    var query = client.query('SELECT * FROM items');
     var rows = [];
     query.on('row', function(row){
       rows.push(row);
@@ -357,6 +357,7 @@ function renderView(itemID, response, error){
             itemCom = rows2[++index];
           }
           itemRating = itemRating/itemReviewCount;
+          client.query("UPDATE items SET totalrating="+itemRating+" WHERE itemid="+itemID+";");
         }
 
         response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn, cartCount:cartItems.length});
