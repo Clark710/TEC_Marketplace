@@ -179,7 +179,11 @@ router.post('/listItem', function(req, res) {
 	if(USERID != -1){
 		pg.connect(connectionString, function (err, client, done) {
 			client.query("INSERT INTO items (name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES ('"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
-			res.render('listItem', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
+			
+			var query = client.query("SELECT * FROM items WHERE name = '"+NAME+"' ORDER BY itemid", function(err, result) {
+				var itemid = result.rows[result.rows.length-1].itemid;
+				renderView(itemid, res, "");
+			});
 		});
 	} else {
 		res.render('listItem', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
