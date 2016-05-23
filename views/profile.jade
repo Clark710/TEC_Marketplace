@@ -14,9 +14,6 @@ html(lang='en')
                         p Name: #{user.fname} #{user.lname}
                         p Address: #{user.address}
                         p Email: #{user.email}
-                        if user.id == userid
-                          p 
-                            a(href='/listitem') Create an item listing
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
             a(class="btn btn-success btn-block", href="/listitem") List Item
