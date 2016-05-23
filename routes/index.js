@@ -144,7 +144,7 @@ router.post('/login', function (req,res,next) {
         return;
       } else {
         username = USERNAME;
-	userID = result.rows[0].id;
+	userID = result.rows[0].userid;
 	loggedIn = 1;
 	renderHomepage(req, res);
         console.log("Query success");
@@ -210,7 +210,7 @@ router.get('/check', function(request, response) {
       console.log(err);
       return;
     }
-    var query = client.query('SELECT * FROM itemcomments');
+    var query = client.query('SELECT * FROM items');
     var rows = [];
     query.on('row', function(row){
       rows.push(row);
@@ -229,16 +229,17 @@ function renderHomepage(request, response){
 	var items = [];
 	pg.connect(connectionString, function(err, client, done){
 		// Query items
-		var query = client.query("SELECT * FROM items", function(err, result) {
+		var query = client.query("SELECT * FROM items ORDER BY itemid LIMIT 6", function(err, result) {
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseInt(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
 				items.push(item);
 			}
 		});
 
 		query.on('end', function(){
+			console.log(items[0].reviews);
 			response.render('index', {items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
 			done();
 		});
@@ -246,13 +247,13 @@ function renderHomepage(request, response){
 }
 
 function renderCart(request, response){
-	if(request.query.itemid != undefined){
+	if(request.query.itemid != undefined && loggedIn == 1){
 		pg.connect(connectionString, function(err, client, done){
 			var itemID = parseInt(request.query.itemid);
 			// Query items
-			var query = client.query("SELECT * FROM items WHERE id = " + itemID + ";", function(err, result) {
+			var query = client.query("SELECT * FROM items WHERE itemid = " + itemID + " ORDER BY itemid;", function(err, result) {
 				// Add item to list
-				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				var item = {id:parseInt(result.rows[0].itemid), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
 				cartItems.push(item);
 				console.log(cartItems.length);
 			});
@@ -273,7 +274,7 @@ function renderCart(request, response){
 		return;
 	}
 
-	if(request.query.index != undefined){
+	if(request.query.index != undefined && loggedIn == 1){
 		cartItems.splice(request.query.index, 1);
 	}
 	
@@ -298,7 +299,7 @@ function renderView(itemID, response, error){
     }
 
     // First query
-    var query = client.query("SELECT * FROM items WHERE id = " + itemID);
+    var query = client.query("SELECT * FROM items WHERE itemid = " + itemID);
     var rows = [];
     var itemName;
     var itemDescription;
@@ -320,7 +321,7 @@ function renderView(itemID, response, error){
         return;
       }
 
-      itemID = rows[0].id;
+      itemID = rows[0].itemid;
       itemName = rows[0].name;
       itemDescription = rows[0].description;
       itemPrice = rows[0].price;
@@ -357,6 +358,8 @@ function renderView(itemID, response, error){
             itemCom = rows2[++index];
           }
           itemRating = itemRating/itemReviewCount;
+          client.query("UPDATE items SET reviewcount="+itemReviewCount+" WHERE itemid="+itemID+";");
+          client.query("UPDATE items SET totalrating="+itemRating+" WHERE itemid="+itemID+";");
         }
 
         response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn, cartCount:cartItems.length});
@@ -388,12 +391,12 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items;", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -417,12 +420,12 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "';", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -446,12 +449,12 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items WHERE type='" + type + "';", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items WHERE type='" + type + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items WHERE type='" + type + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -475,11 +478,11 @@ function renderSearchpage(request, response) {
     pg.connect(connectionString, function(err, client, done){
       // Query items
       var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%');", function (err, resultTotal) {
-	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
+	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
 		  // Add item
-		  var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 		  items.push(item);
 		}
 	      });

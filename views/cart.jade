@@ -7,7 +7,8 @@ html(lang='en')
         .container
             .row
                 include sidebar
-                .col-md-9
+                if loginState == 1
+                  .col-md-9
                     .outer-left-side
                         .left-side
                             .cart-list
@@ -24,6 +25,9 @@ html(lang='en')
                                 p.cart-summary.title-text Cart Summary
                                 p.cart-summary.price $#{totalPrice}
                                 a.cart-summary.proceed-button(href='') Proceed To Checkout
+                else
+                  p You must be logged in first before you can buy anything. 
+                    a(href="/login") </br> Login
 
         hr
         include foot

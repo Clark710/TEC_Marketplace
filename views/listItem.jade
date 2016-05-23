@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+    body
+        include head
+        link(href='css/shop-register.css', rel='stylesheet')
+        // Page Content
+        .container
+            .row
+                .col-md-12
+                    .row
+                        .middle-container
+                            .middle-container.form-signin
+                                .register-title
+                                    p.register-title TEC List Item
+                                form(method='post')
+                                    .item.uname
+                                        input#id.form-control(placeholder='ID', name="id", type='text', required="required")
+                                        input#name.form-control(placeholder='Name', name="name", type='text', required="required")
+                                        input#summary.form-control(placeholder='Summary', name="summary", type='text', required="required")
+                                        input#description.form-control(placeholder='Description', name="description", type='text',  required="required")
+                                        input#price.form-control(placeholder='Price', name="price", type='price',  required="required")
+                                        input#enddate.form-control(placeholder='End Date', name="enddate", type='date',  required="required")
+                                        input#type.form-control(placeholder='Type', name="type", type='text', required="required")
+                                        input#catagory.form-control(placeholder='Category', name="catagory", type='text', required="required")
+                                    .item.button
+                                        button.btn.btn-default(href='#', type='submit') List
+        // /.container
+        hr
+        include foot
+        // /.container
+        // jQuery
+        script(src='js/jquery.js')
+        // Bootstrap Core JavaScript
+        script(src='js/bootstrap.min.js')
