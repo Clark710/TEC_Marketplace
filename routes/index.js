@@ -264,7 +264,7 @@ function renderHomepage(request, response){
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
+				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount), type:result.rows[i].type};
 				items.push(item);
 			}
 		});
