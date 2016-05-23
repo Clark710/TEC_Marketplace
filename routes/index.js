@@ -7,38 +7,6 @@ var userID = -1;
 var loggedIn = 0;
 var user;
 var cartItems = [];
-
-////// FAKE CART ITEMS //////
-/*var item1 = {
-	id: 0,
-	name: "fake1",
-	price: 19.99,  
-	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
-};
-var item2 = {
-	id: 1,
-	name: "fake2",
-	price: 29.99,  
-	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
-};
-var item3 = {
-	id: 2,
-	name: "fake3",
-	price: 39.99,  
-	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
-};
-var item4 = {
-	id: 3,
-	name: "fake4",
-	price: 49.99,  
-	summary: "De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription. De scriptio ndescr ipt ion descript. Iondesc ript iondescr iptiondescrip tiondescripti. Ondes criptiondescriptiondescri tiondescriptio ndescri ptiondes cription."
-};
-cartItems[0] = item1;
-cartItems[1] = item2;
-cartItems[2] = item3;
-cartItems[3] = item4;*/
-////// FAKE CART ITEMS //////
-
 var connectionString = "postgres://swen303group7:1234567890@marketplace.cl3zdftaq5q4.ap-southeast-2.rds.amazonaws.com:5432/marketplace"
 
  ////// GETS //////
@@ -285,23 +253,38 @@ function renderHomepage(request, response){
 function renderProfile(profileID, response){
 	pg.connect(connectionString,function(err,client,done){
 		client.query("SELECT * FROM users WHERE userid="+profileID+";", function(error, result){
-			if(result != undefined){
-				var firstname = result.rows[0].firstname;
-				var lastname = result.rows[0].lastname;
-				var address = result.rows[0].address;
-				var email = result.rows[0].email;
-				var profileUsername = result.rows[0].username;
-				user = {id:profileID, fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
-				response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
-			} else {
-				var firstname = "";
-				var lastname = "";
-				var address = "";
-				var email = "";
-				var profileUsername = "";
-				user = {id: "", fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
-				response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
-			}
+			client.query("SELECT * FROM items WHERE userid="+profileID+";", function(error2, result2){
+				if(result != undefined){
+					var listItems = [];
+					for(var i = 0 ; i < result2.rows.length ; i++){
+						var itemID = parseInt(result2.rows[i].itemid);
+						var itemName = result2.rows[i].name;
+						var itemDesc = result2.rows[i].description;
+						var itemSumm = result2.rows[i].summary;
+						var itemPrice = parseFloat(result2.rows[i].price);
+						var itemStock = parseInt(result2.rows[i].itemid);
+						var itemRating = parseFloat(result2.rows[i].totalrating);
+						var itemReviews = parseInt(result2.rows[i].reviewcount);
+						var item = {id:itemID, name:itemName, description:itemDesc, summary:itemSumm, price:itemPrice, stock:itemStock, rating:itemRating, reviews:itemReviews}
+						listItems.push(item);
+					}
+					var firstname = result.rows[0].firstname;
+					var lastname = result.rows[0].lastname;
+					var address = result.rows[0].address;
+					var email = result.rows[0].email;
+					var profileUsername = result.rows[0].username;
+					user = {id:profileID, fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
+					response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, items:listItems, loginState:loggedIn, cartCount:cartItems.length});
+				} else {
+					var firstname = "";
+					var lastname = "";
+					var address = "";
+					var email = "";
+					var profileUsername = "";
+					user = {id: "", fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
+					response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
+				}
+			});
 		});
 	});
 }

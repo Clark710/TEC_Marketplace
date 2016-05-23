@@ -15,14 +15,45 @@ html(lang='en')
                                 form(method='post')
                                     .item.uname
                                         input(value=userid, type='hidden', name='userid')
-                                        input#name.form-control(placeholder='Name', name="name", type='text', required="required")
-                                        input#summary.form-control(placeholder='Summary', name="summary", type='text', required="required")
-                                        input#description.form-control(placeholder='Description', name="description", type='text',  required="required")
-                                        input#price.form-control(placeholder='Price', name="price", type='number',  required="required")
-                                        input#enddate.form-control(placeholder='End Date', name="enddate", type='date',  required="required")
-                                        input#enddate.form-control(placeholder='Stock Count', name="stockcount", type='number',  required="required")
-                                        input#type.form-control(placeholder='Type', name="type", type='text', required="required")
-                                        input#catagory.form-control(placeholder='Category', name="category", type='text', required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Name
+                                            input#name.form-control(name="name", type='text', required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Summary
+                                            input#summary.form-control(name="summary", type='text', required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Description
+                                            input#description.form-control(name="description", type='text',  required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Price
+                                            input#price.form-control(name="price", type='number',  required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Listing End Date
+                                            input#enddate.form-control(placeholder='End Date', name="enddate", type='date',  required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Quantity
+                                            input#stockcount.form-control(name="stockcount", type='number',  required="required")
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Category
+                                            select#catagory.form-control(name='catagory', required="required")
+                                                option(name="category", type='text', required="required", value='programminglanguages') Programming Languages
+                                                option(name="category", type='text', required="required" ,value='operatingsystems') Operating Systems
+                                                option(name="category", type='text', required="required", value='computerscience') Computer Science
+                                                option(name="category", type='text', required="required", value='business') Business
+                                                option(name="category", type='text', required="required", value='databases') Databases
+                                                option(name="category", type='text', required="required" ,value='programming') Game Programming
+                                                option(name="category", type='text', required="required", value='graphics') Graphics
+                                                option(name="category", type='text', required="required", value='opensource') Open Source
+                                                option(name="category", type='text', required="required", value='userguides') User Guides
+                                                option(name="category", type='text', required="required", value='other') Other
+                                        label.item.item-input
+                                            span.input-label(style='color: #aaa;') Category
+                                            elect#type.form-control(name='type', required="required")
+                                                option(name="category", type='text', required="required", value='volvo') Volvo XC90
+                                                option(name="category", type='text', required="required" ,value='saab') Saab 95
+                                                option(name="category", type='text', required="required", value='mercedes') Mercedes SLK
+                                                option(name="category", type='text', required="required", value='mercedes') Mercedes SLK
+
                                     .item.button
                                         button.btn.btn-default(href='#', type='submit') List
         // /.container
