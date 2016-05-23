@@ -74,8 +74,12 @@ body {
     position: absolute;
     background-color: transparent;
     font-size: small;
-    top: 23px;
+    top: 35px;
     right: 0px;
+    height: 90px;
+    overflow-y: scroll;
+    border: 0px;
+    padding: 5px 5px;
 }
 .search-results-list.search-results-item.price-and-buy {
     margin: 3px 3px;

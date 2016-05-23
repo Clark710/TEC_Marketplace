@@ -28,7 +28,8 @@
     height: 40px;
 }
 .item {
-    margin: 5px 0px;
+    margin: 0px 0px;
+    width: 100%;
 }
 .item.fname {
     width: 195px;
