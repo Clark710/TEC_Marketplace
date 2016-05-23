@@ -15,7 +15,7 @@ html(lang='en')
                         .middle-container.image-and-info
                             img(id='product-image',src='images/book-image.png', alt='')
                             .caption
-                                h4.item-price $#{price}
+                                h4.item-price $#{price} 
                                 if stock < 0
                                         p.stock-left 
                                 else
@@ -24,6 +24,8 @@ html(lang='en')
                         .bottom-container.ratings
                             p
                                 a(href="/cart?itemid="+id) Add to cart
+                            p
+                                a(href="/profile?userid="+listerid) Sellers profile page
                             p
                                 if rating > 0
                                     span.glyphicon.glyphicon-star

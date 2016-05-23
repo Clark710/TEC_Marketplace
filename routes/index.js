@@ -199,7 +199,7 @@ router.get('/test_database', function(request, response) {
       console.log(err);
       return;
     }
-    var query = client.query('SELECT * FROM users');
+    var query = client.query('SELECT * FROM items');
     var rows = [];
     query.on('row', function(row){
       rows.push(row);
@@ -340,6 +340,7 @@ function renderView(itemID, response, error){
     var itemPrice;
     var itemStock;
     var itemRating;
+    var listerID;
 
     // Put all the items into the array
     query.on('row', function(row){
@@ -360,6 +361,7 @@ function renderView(itemID, response, error){
       itemDescription = rows[0].description;
       itemPrice = rows[0].price;
       itemStock = rows[0].stockcount;
+      listerID = rows[0].userid;
       //itemRating = rows[0].totalrating;
 
       // Second query
@@ -396,7 +398,7 @@ function renderView(itemID, response, error){
           client.query("UPDATE items SET totalrating="+itemRating+" WHERE itemid="+itemID+";");
         }
 
-        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, userid:userID, error: error, loginState:loggedIn, cartCount:cartItems.length});
+        response.render('view', {userid: userID, id: itemID, listerid: listerID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, userid:userID, error: error, loginState:loggedIn, cartCount:cartItems.length});
         done();
       });
       done();
