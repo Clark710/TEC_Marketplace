@@ -43,7 +43,7 @@ html(lang='en')
                                         p.search-results-list.search-results-item.title-description.title
                                             a(href="/view?itemid=#{item.id}", data-toggle="tooltip", title=item.fullname) #{item.name}
                                         //p.search-results-list.search-results-item.title-description.description #{item.summary}
-                                        textarea.search-results-list.search-results-item.title-description.description(style="resize: none;") #{item.summary}
+                                        textarea.search-results-list.search-results-item.title-description.description(readonly, style="resize: none;") #{item.summary}
                         if catagory
                             p
                                 a(class="btn btn-success btn-lg", href="/search?catagory=" + catagory + "&itemStart=" + (itemStart - 10)) Previous
