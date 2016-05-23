@@ -233,7 +233,7 @@ function renderHomepage(request, response){
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+				var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 				items.push(item);
 			}
 		});
@@ -250,9 +250,9 @@ function renderCart(request, response){
 		pg.connect(connectionString, function(err, client, done){
 			var itemID = parseInt(request.query.itemid);
 			// Query items
-			var query = client.query("SELECT * FROM items WHERE id = " + itemID + ";", function(err, result) {
+			var query = client.query("SELECT * FROM items WHERE itemid = " + itemID + ";", function(err, result) {
 				// Add item to list
-				var item = {id:parseInt(result.rows[0].id), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				var item = {id:parseInt(result.rows[0].itemid), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
 				cartItems.push(item);
 				console.log(cartItems.length);
 			});
@@ -298,7 +298,7 @@ function renderView(itemID, response, error){
     }
 
     // First query
-    var query = client.query("SELECT * FROM items WHERE id = " + itemID);
+    var query = client.query("SELECT * FROM items WHERE itemid = " + itemID);
     var rows = [];
     var itemName;
     var itemDescription;
@@ -320,7 +320,7 @@ function renderView(itemID, response, error){
         return;
       }
 
-      itemID = rows[0].id;
+      itemID = rows[0].itemid;
       itemName = rows[0].name;
       itemDescription = rows[0].description;
       itemPrice = rows[0].price;
@@ -393,7 +393,7 @@ function renderSearchpage(request, response) {
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -422,7 +422,7 @@ function renderSearchpage(request, response) {
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -451,7 +451,7 @@ function renderSearchpage(request, response) {
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
 		    var item = {
-		      id: result.rows[i].id,
+		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
 		      price: result.rows[i].price,
@@ -479,7 +479,7 @@ function renderSearchpage(request, response) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
 		  // Add item
-		  var item = {id:result.rows[i].id, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 		  items.push(item);
 		}
 	      });
