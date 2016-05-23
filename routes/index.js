@@ -418,7 +418,6 @@ function renderView(itemID, response, error){
 function renderSearchpage(request, response) {
   var search = request.query.search;
   var catagory = request.query.catagory;
-  console.log(catagory);
   var type = request.query.type;
   var itemStart;
   if (request.query.itemStart == undefined){
@@ -439,10 +438,11 @@ function renderSearchpage(request, response) {
 		var query = client.query("SELECT * FROM items ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
+		    var name = result.rows[i].name.substring(0, 30);
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
-		      name: result.rows[i].name,
+		      name: name,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -468,10 +468,11 @@ function renderSearchpage(request, response) {
 		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
+		    var name = result.rows[i].name.substring(0, 30);
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
-		      name: result.rows[i].name,
+		      name: name,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -497,10 +498,11 @@ function renderSearchpage(request, response) {
 		var query = client.query("SELECT * FROM items WHERE type='" + type + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
+		    var name = result.rows[i].name.substring(0, 30);
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
-		      name: result.rows[i].name,
+		      name: name,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -526,8 +528,9 @@ function renderSearchpage(request, response) {
 	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
+		    var name = result.rows[i].name.substring(0, 30);
 		  // Add item
-		  var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  var item = {id:result.rows[i].itemid, name:name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 		  items.push(item);
 		}
 	      });
