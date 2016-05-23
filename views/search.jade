@@ -41,21 +41,22 @@ html(lang='en')
                                         a.search-results-list.search-results-item.price-and-buy.buy(href="/cart?itemid="+item.id) Add to cart
                                     .search-results-list.search-results-item.title-description
                                         p.search-results-list.search-results-item.title-description.title
-                                            a(href="/view?itemid=#{item.id}") #{item.name}
-                                        p.search-results-list.search-results-item.title-description.description #{item.summary}
+                                            a(href="/view?itemid=#{item.id}", data-toggle="tooltip", title="Hooray!") #{item.name}
+                                        //p.search-results-list.search-results-item.title-description.description #{item.summary}
+                                        textarea.search-results-list.search-results-item.title-description.description(style="resize: none;") #{item.summary}
                         if catagory
-                          p 
-                            a(href="/search?catagory=" + catagory + "&itemStart=" + (itemStart - 10)) Previous 
-                            a(href="/search?catagory=" + catagory + "&itemStart=" + (itemStart + 10)) Next 
+                            p
+                                a(class="btn btn-success btn-lg", href="/search?catagory=" + catagory + "&itemStart=" + (itemStart - 10)) Previous
+                                a(class="btn btn-success btn-lg",href="/search?catagory=" + catagory + "&itemStart=" + (itemStart + 10)) Next
                         else
-                          if type
-                            p 
-                              a(href="/search?type=" + type + "&itemStart=" + (itemStart - 10)) Previous 
-                              a(href="/search?type=" + type + "&itemStart=" + (itemStart + 10)) Next 
-                          else
-                            p 
-                              a(href="/search?itemStart=" + (itemStart - 10)) Previous 
-                              a(href="/search?itemStart=" + (itemStart + 10)) Next 
+                            if type
+                                p
+                                    a(class="btn btn-success btn-lg",href="/search?type=" + type + "&itemStart=" + (itemStart - 10)) Previous
+                                    a(class="btn btn-success btn-lg",href="/search?type=" + type + "&itemStart=" + (itemStart + 10)) Next
+                            else
+                                p
+                                    a(class="btn btn-success btn-lg",href="/search?itemStart=" + (itemStart - 10)) Previous
+                                    a(class="btn btn-success btn-lg",href="/search?itemStart=" + (itemStart + 10)) Next
         // /.container
         hr
         include foot
