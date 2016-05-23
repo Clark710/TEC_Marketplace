@@ -36,7 +36,7 @@ html(lang='en')
                                         label.item.item-input
                                             span.input-label(style='color: #aaa;') Category
                                             select#catagory.form-control(name='catagory', required="required")
-                                                option(name="category", type='text', required="required", value='programminglanguages') Programming Languages
+                                                option(name="category", type='text', required="required", value='programminglanguage') Programming Languages
                                                 option(name="category", type='text', required="required" ,value='operatingsystems') Operating Systems
                                                 option(name="category", type='text', required="required", value='computerscience') Computer Science
                                                 option(name="category", type='text', required="required", value='business') Business
@@ -46,17 +46,16 @@ html(lang='en')
                                                 option(name="category", type='text', required="required", value='opensource') Open Source
                                                 option(name="category", type='text', required="required", value='userguides') User Guides
                                                 option(name="category", type='text', required="required", value='other') Other
-                                        if(catagory == 'programminglanguages')//tits this didnt work
                                             label.item.item-input
                                                 span.input-label(style='color: #aaa;') Type
                                                 select#type.form-control(name='type', required="required")
-                                                    option(name="type", type='text', required="required", value='volvo') Volvo XC90
-                                                    option(name="type", type='text', required="required" ,value='saab') Saab 95
-                                                    option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
-                                                    option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
-
+                                                    option(name="type", type='text', required="required", value='java') Java
+                                                    option(name="type", type='text', required="required" ,value='saab') Python
+                                                    option(name="type", type='text', required="required", value='C') C
+                                                    option(name="type", type='text', required="required", value='Cplusplus') C++
+                                                    option(name="type", type='text', required="required", value='ruby') Ruby
                                     .item.button
-                                        button.btn.btn-success(href='#', type='submit') List
+                                        button.btn.btn-success(href='/view?itemid=' + id, type='submit') List
         // /.container
         hr
         include foot
