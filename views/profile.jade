@@ -8,12 +8,12 @@ html(lang='en')
             .row
                 include sidebar
                 .col-md-9
-                    p.lead Username
+                    p.lead #{user.username}
                     .left-side
-                        p User ID
-                        p Fname Lname
-                        p Address
-                        p Email Address
+                        p #{user.id}
+                        p #{user.fname} #{user.lname}
+                        p #{user.address}
+                        p #{user.email}
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
         // /.container

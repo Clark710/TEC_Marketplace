@@ -46,7 +46,7 @@ body
                         li
                             a(href='/cart') Items in Cart: #{cartCount}
                         li
-                            a(href='/profile') #{username}
+                            a(href='/profile?userid=' + userid) #{username}
                         li
                             a(href='/logout', method='post') Logout
                 form.nav.navbar-nav.middle(name='search-query', action='/search', method='get')

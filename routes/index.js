@@ -5,6 +5,7 @@ var pg = require('pg');
 var username = "Login";
 var userID = -1;
 var loggedIn = 0;
+var user;
 var cartItems = [];
 
 ////// FAKE CART ITEMS //////
@@ -56,11 +57,16 @@ router.get('/view', function(request, response) {
 });
 
 router.get("/register",function(req,res) {
-	res.render('register', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
+	res.render('register', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/login",function(req,res) {
-	res.render('login', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
+	res.render('login', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
+});
+
+router.get("/profile",function(request,response) {
+  	var profileID = parseInt(request.query.userid);
+	renderProfile(profileID, response);
 });
 
 router.get("/logout",function(request,response) {
@@ -75,16 +81,15 @@ router.get("/cart",function(request, response) {
 });
 
 router.get("/terms",function(req,res) {
-  var FNAME = req.body.firstName;
-  res.render('terms', {title: 'Top End Code', username: username, loginState:loggedIn, cartCount:cartItems.length});
+  res.render('terms', {title: 'Top End Code', username: username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/contact",function(req,res) {
-	res.render('contact', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
+	res.render('contact', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 router.get("/about",function(req,res) {
-	res.render('about', {title: 'Top End Code', username:username, loginState:loggedIn, cartCount:cartItems.length});
+	res.render('about', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
  ////// POSTS //////
@@ -140,11 +145,16 @@ router.post('/login', function (req,res,next) {
         return;
       }
       else if (result.rowCount === 0){
-        res.render('login', { title: 'Top End Code', username: username, failed: fail });
+        res.render('login', { title: 'Top End Code', username: username, userid:userID, failed: fail });
         return;
       } else {
         username = USERNAME;
 	userID = result.rows[0].userid;
+	var firstname = result.rows[0].firstname;
+	var lastname = result.rows[0].lastname;
+	var address = result.rows[0].address;
+	var email = result.rows[0].email;
+	user = {id:userID, fname:firstname, lname:lastname, address:address, email:email}
 	loggedIn = 1;
 	renderHomepage(req, res);
         console.log("Query success");
@@ -240,8 +250,32 @@ function renderHomepage(request, response){
 
 		query.on('end', function(){
 			console.log(items[0].reviews);
-			response.render('index', {items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
+			response.render('index', {items: items, username: username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 			done();
+		});
+	});
+}
+
+function renderProfile(profileID, response){
+	pg.connect(connectionString,function(err,client,done){
+		client.query("SELECT * FROM users WHERE userid="+profileID+";", function(error, result){
+			if(result != undefined){
+				var firstname = result.rows[0].firstname;
+				var lastname = result.rows[0].lastname;
+				var address = result.rows[0].address;
+				var email = result.rows[0].email;
+				var profileUsername = result.rows[0].username;
+				user = {id:profileID, fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
+				response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
+			} else {
+				var firstname = "";
+				var lastname = "";
+				var address = "";
+				var email = "";
+				var profileUsername = "";
+				user = {id: "", fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
+				response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
+			}
 		});
 	});
 }
@@ -266,7 +300,7 @@ function renderCart(request, response){
 				}
 				// Carts title
 				var str = cartItems.length + " items in your cart";
-				response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
+				response.render('cart', {title: str, items: cartItems, username: username, userid:userID, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
 				done();
 			});
 
@@ -285,7 +319,7 @@ function renderCart(request, response){
 	}
 	// Carts title
 	var str = cartItems.length + " items in your cart";
-	response.render('cart', {title: str, items: cartItems, username: username, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
+	response.render('cart', {title: str, items: cartItems, username: username, userid:userID, loginState:loggedIn, totalPrice: cartPrice, cartCount:cartItems.length});
 	
 }
 
@@ -362,7 +396,7 @@ function renderView(itemID, response, error){
           client.query("UPDATE items SET totalrating="+itemRating+" WHERE itemid="+itemID+";");
         }
 
-        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, error: error, loginState:loggedIn, cartCount:cartItems.length});
+        response.render('view', {userid: userID, id: itemID, name: itemName, description: itemDescription, price: itemPrice, rating: itemRating, reviews: itemReviewCount, stock: itemStock, comments: itemComments, commentRatings: itemCommentRatings, commenterIDs: itemCommenterIDs, username: username, userid:userID, error: error, loginState:loggedIn, cartCount:cartItems.length});
         done();
       });
       done();
@@ -409,7 +443,7 @@ function renderSearchpage(request, response) {
 
 		query.on('end', function () {
 		  var str = "TEC - " + resultTotal.rows.length + " Results";
-		  response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  response.render('search', {title: str, items: items, username: username, userid:userID, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
 		  done();
 		});
 	});
@@ -438,7 +472,7 @@ function renderSearchpage(request, response) {
 
 		query.on('end', function () {
 		  var str = "TEC - " + resultTotal.rows.length + " Results";
-		  response.render('search', {title: str, items: items, username: username, catagory: catagory, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  response.render('search', {title: str, items: items, username: username, userid:userID, catagory: catagory, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
 		  done();
 		});
         });
@@ -467,7 +501,7 @@ function renderSearchpage(request, response) {
 
 		query.on('end', function () {
 		  var str = "TEC - " + resultTotal.rows.length + " Results";
-		  response.render('search', {title: str, items: items, username: username, type: type, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		  response.render('search', {title: str, items: items, username: username, userid:userID, type: type, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
 		  done();
 		});
 	});
@@ -489,7 +523,7 @@ function renderSearchpage(request, response) {
 
 	      query.on('end', function(){
 		var str = "TEC - " + items.length + " Results from search '" + search + "'";
-		response.render('search', {title: str, items: items, username: username, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
+		response.render('search', {title: str, items: items, username: username, userid:userID, itemStart: itemStart, loginState:loggedIn, cartCount:cartItems.length});
 		done();
 	      });
       });
@@ -542,14 +576,8 @@ function renderSearchpage(request, response) {
   //    add up total price from all items
   //    pass dylan array of item titles, and total price
 
-
-router.get("/profile",function(req,res) {
-  var FNAME = req.body.firstName;
-  res.render('profile', {title: 'Top End Code', username: username, loginState:loggedIn, cartCount:cartItems.length});
-});
-
 router.get("/listItem",function(req,res) {
-  res.render('listItem', {title: 'Top End Code', loginState:loggedIn, cartCount:cartItems.length});
+  res.render('listItem', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
 
