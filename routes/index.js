@@ -80,6 +80,11 @@ router.get("/cart",function(request, response) {
 	renderCart(request,response);
 });
 
+router.get("/checkout",function(request,response) {
+	cartItems = [];
+	renderHomepage(request, response);
+});
+
 router.get("/terms",function(req,res) {
   res.render('terms', {title: 'Top End Code', username: username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
@@ -193,6 +198,23 @@ router.post('/view', function(request, response) {
 	});
 });
 
+router.post('/listItem', function(req, res) {
+	var USERID = parseInt(req.body.userid);
+	var NAME = req.body.name;
+	var SUMMARY = req.body.summary;
+	var DESCRIPTION = req.body.description;
+	var PRICE = parseFloat(req.body.price);
+	var ENDDATE = req.body.enddate;
+	var STOCKCOUNT = parseInt(req.body.stockcount);
+	var TYPE = req.body.type;
+	var CATEGORY = req.body.category;
+	if(USERID != -1){
+		pg.connect(connectionString, function (err, client, done) {
+			client.query("INSERT INTO items (name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES ('"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
+		});
+	}
+});
+
  ////// UTILITY //////
 
 /** Test database query selecting all from table items */
@@ -247,7 +269,7 @@ function renderHomepage(request, response){
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
+				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount), type:result.rows[i].type};
 				items.push(item);
 			}
 		});
@@ -536,75 +558,6 @@ function renderSearchpage(request, response) {
     });
   }
 }
-
- ////// OTHER PEOPLES CODE THEY CAN REFORMAT INTO PLACES ABOVE THIS LATER :D //////
-
-router.post('/listItem', function(req, res) {
-	var USERID = parseInt(req.body.userid);
-	var NAME = req.body.name;
-	var SUMMARY = req.body.summary;
-	var DESCRIPTION = req.body.description;
-	var PRICE = parseFloat(req.body.price);
-	var ENDDATE = req.body.enddate;
-	var STOCKCOUNT = parseInt(req.body.stockcount);
-	var TYPE = req.body.type;
-	var CATEGORY = req.body.category;
-	if(USERID != -1){
-		pg.connect(connectionString, function (err, client, done) {
-			client.query("INSERT INTO items (name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES ('"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
-		});
-	}
-});
-
-	/*console.log(NAME);
-	console.log(SUMMARY);
-	console.log(DESCRIPTION);
-	console.log(PRICE);
-	console.log(ENDDATE);
-	console.log(USERID);
-	console.log(STOCKCOUNT);
-	console.log(TYPE);
-	console.log(CATEGORY);*/
-	
-  /*userid = localStorage.getItem("userid");
-  var FILE = req.body.file;
-  console.log(FILE);
-  var ID = req.body.id;
-  var NAME = req.body.name;
-  var SUMMARY = req.body.summary;
-  var DESCRIPTION = req.body.description;
-  var PRICE = req.body.price;
-  var ENDDATE = req.body.enddate;
-  var USERID = userid;
-  var STOCKCOUNT = req.body.stockcount;
-  var TYPE = req.body.type;
-  var CATEGORY = req.body.category;
-  var client = new pg.Client(connectionString);
-  pg.connect(connectionString, function (err, client, done) {
-    if (err) {
-      return console.error('could not connect to postgres', err);
-    }
-    console.log('Connected to database');
-    var query = ("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, type, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)");
-    client.query(query, [ID, NAME, SUMMARY, DESCRIPTION, PRICE, ENDDATE, USERID, STOCKCOUNT, TYPE, CATEGORY], function (error, result) {
-      console.log(result);
-      console.log(error);
-      if (error) {
-        console.error('Query failed');
-        console.error(error);
-        return;
-      }
-      else {
-        res.render('/',{title: 'Top End Code', userid: userid});
-        return;
-      }
-    })
-  });*/
-  //    psudocode  
-  //    select * from items where userid=userID; //get all items from user
-  //    select address from users where id=userID
-  //    add up total price from all items
-  //    pass dylan array of item titles, and total price
 
 
 module.exports = router;
