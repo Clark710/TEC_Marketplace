@@ -25,7 +25,7 @@ html(lang='en')
                             .caption
                                 h4.pull-right $#{item.price}
                                 h4
-                                    a(href='#') #{item.name}
+                                    a(href='/view?itemid=' + item.id) #{item.name}
                                 p	#{item.summary}
                             .ratings
                                 p.pull-right #{item.reviews} reviews
