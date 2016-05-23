@@ -10,11 +10,10 @@ html(lang='en')
                 .col-md-9
                     p.lead #{user.username}
                     .left-side
-
-                        p #{user.id}
-                        p #{user.fname} #{user.lname}
-                        p #{user.address}
-                        p #{user.email}
+                        p User id: #{user.id}
+                        p Name: #{user.fname} #{user.lname}
+                        p Address: #{user.address}
+                        p Email: #{user.email}
                         if userid == user.id
                           p 
                             a(href="/listitem") List item
