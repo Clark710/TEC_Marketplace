@@ -46,16 +46,17 @@ html(lang='en')
                                                 option(name="category", type='text', required="required", value='opensource') Open Source
                                                 option(name="category", type='text', required="required", value='userguides') User Guides
                                                 option(name="category", type='text', required="required", value='other') Other
-                                        label.item.item-input
-                                            span.input-label(style='color: #aaa;') Type
-                                            select#type.form-control(name='type', required="required")
-                                                option(name="type", type='text', required="required", value='volvo') Volvo XC90
-                                                option(name="type", type='text', required="required" ,value='saab') Saab 95
-                                                option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
-                                                option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
+                                        if(catagory == 'programminglanguages')//tits this didnt work
+                                            label.item.item-input
+                                                span.input-label(style='color: #aaa;') Type
+                                                select#type.form-control(name='type', required="required")
+                                                    option(name="type", type='text', required="required", value='volvo') Volvo XC90
+                                                    option(name="type", type='text', required="required" ,value='saab') Saab 95
+                                                    option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
+                                                    option(name="type", type='text', required="required", value='mercedes') Mercedes SLK
 
                                     .item.button
-                                        button.btn.btn-default(href='#', type='submit') List
+                                        button.btn.btn-success(href='#', type='submit') List
         // /.container
         hr
         include foot

@@ -16,7 +16,11 @@ html(lang='en')
                         p Email: #{user.email}
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
-            a(class="btn btn-success btn-block", href="/listitem") #{user.username}'s item(s) for sale:
+            a(class="btn btn-success btn-block", href="/listitem") List Item
+            if items.length > 0
+                p.title-text #{user.username}'s item(s) for sale:
+            else
+                p.title-text #{user.username} has no items for sale.
             .profile-listings
                     each item in items
                       .profile-listing-single
