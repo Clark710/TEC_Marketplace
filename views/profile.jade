@@ -10,10 +10,14 @@ html(lang='en')
                 .col-md-9
                     p.lead #{user.username}
                     .left-side
-                        p User ID: #{user.id}
-                        p Name: #{user.fname} #{user.lname}
-                        p Address: #{user.address}
-                        p Email: #{user.email}
+
+                        p #{user.id}
+                        p #{user.fname} #{user.lname}
+                        p #{user.address}
+                        p #{user.email}
+                        if userid == user.id
+                          p 
+                            a(href="/listitem") List item
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
         // /.container
