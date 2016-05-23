@@ -551,7 +551,7 @@ router.post('/listItem', function(req, res) {
 	var CATEGORY = req.body.category;
 	if(USERID != -1){
 		pg.connect(connectionString, function (err, client, done) {
-			client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES (1000, '"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
+			client.query("INSERT INTO items (name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES ('"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
 		});
 	}
 });

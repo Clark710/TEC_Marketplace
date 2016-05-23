@@ -14,6 +14,9 @@ html(lang='en')
                         p #{user.fname} #{user.lname}
                         p #{user.address}
                         p #{user.email}
+                        if userid == user.id
+                          p 
+                            a(href="/listitem") List item
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
         // /.container
