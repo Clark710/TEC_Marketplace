@@ -34,7 +34,7 @@ router.get("/login",function(req,res) {
 
 router.get("/profile",function(request,response) {
   	var profileID = parseInt(request.query.userid);
-	renderProfile(profileID, response);
+	renderProfile(profileID, request, response);
 });
 
 router.get("/logout",function(request,response) {
@@ -250,10 +250,19 @@ function renderHomepage(request, response){
 	});
 }
 
-function renderProfile(profileID, response){
+function renderProfile(profileID, request, response){
+	var itemStart;
+	if (request.query.itemStart == undefined){
+		itemStart = 0;
+	} else {
+		itemStart = parseInt(request.query.itemStart);
+		if (itemStart < 0){
+			itemStart = 0;
+		}
+	}
 	pg.connect(connectionString,function(err,client,done){
 		client.query("SELECT * FROM users WHERE userid="+profileID+";", function(error, result){
-			client.query("SELECT * FROM items WHERE userid="+profileID+";", function(error2, result2){
+			client.query("SELECT * FROM items WHERE userid="+profileID+" LIMIT 6 OFFSET "+itemStart+";", function(error2, result2){
 				if(result != undefined){
 					var listItems = [];
 					for(var i = 0 ; i < result2.rows.length ; i++){
@@ -274,7 +283,7 @@ function renderProfile(profileID, response){
 					var email = result.rows[0].email;
 					var profileUsername = result.rows[0].username;
 					user = {id:profileID, fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
-					response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, items:listItems, loginState:loggedIn, cartCount:cartItems.length});
+					response.render('profile', {title: 'Top End Code', itemStart: itemStart, username: username, userid:userID, user: user, items:listItems, loginState:loggedIn, cartCount:cartItems.length});
 				} else {
 					var firstname = "";
 					var lastname = "";
@@ -282,7 +291,7 @@ function renderProfile(profileID, response){
 					var email = "";
 					var profileUsername = "";
 					user = {id: "", fname:firstname, lname:lastname, address:address, email:email, username: profileUsername}
-					response.render('profile', {title: 'Top End Code', username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
+					response.render('profile', {title: 'Top End Code', itemStart: itemStart, username: username, userid:userID, user: user, loginState:loggedIn, cartCount:cartItems.length});
 				}
 			});
 		});
@@ -290,6 +299,15 @@ function renderProfile(profileID, response){
 }
 
 function renderCart(request, response){
+	var itemStart;
+	if (request.query.itemStart == undefined){
+		itemStart = 0;
+	} else {
+		itemStart = parseInt(request.query.itemStart);
+		if (itemStart < 0){
+			itemStart = 0;
+		}
+	}
 	if(request.query.itemid != undefined && loggedIn == 1){
 		pg.connect(connectionString, function(err, client, done){
 			var itemID = parseInt(request.query.itemid);
