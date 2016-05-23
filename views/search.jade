@@ -41,7 +41,7 @@ html(lang='en')
                                         a.search-results-list.search-results-item.price-and-buy.buy(href="/cart?itemid="+item.id) Add to cart
                                     .search-results-list.search-results-item.title-description
                                         p.search-results-list.search-results-item.title-description.title
-                                            a(href="/view?itemid=#{item.id}", data-toggle="tooltip", title="Hooray!") #{item.name}
+                                            a(href="/view?itemid=#{item.id}", data-toggle="tooltip", title=item.fullname) #{item.name}
                                         //p.search-results-list.search-results-item.title-description.description #{item.summary}
                                         textarea.search-results-list.search-results-item.title-description.description(style="resize: none;") #{item.summary}
                         if catagory

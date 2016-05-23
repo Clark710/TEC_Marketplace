@@ -439,10 +439,12 @@ function renderSearchpage(request, response) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    var name = result.rows[i].name.substring(0, 30);
+		    var fullname = result.rows[i].name;
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
 		      name: name,
+		      fullname: fullname,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -469,10 +471,12 @@ function renderSearchpage(request, response) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    var name = result.rows[i].name.substring(0, 30);
+		    var fullname = result.rows[i].name;
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
 		      name: name,
+		      fullname: fullname,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -499,10 +503,12 @@ function renderSearchpage(request, response) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    var name = result.rows[i].name.substring(0, 30);
+		    var fullname = result.rows[i].name;
 		    // Add item
 		    var item = {
 		      id: result.rows[i].itemid,
 		      name: name,
+		      fullname: fullname,
 		      summary: result.rows[i].summary,
 		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
@@ -529,8 +535,9 @@ function renderSearchpage(request, response) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
 		    var name = result.rows[i].name.substring(0, 30);
+		    var fullname = result.rows[i].name;
 		  // Add item
-		  var item = {id:result.rows[i].itemid, name:name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  var item = {id:result.rows[i].itemid, name:name, fullname: fullname, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 		  items.push(item);
 		}
 	      });
