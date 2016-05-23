@@ -54,6 +54,8 @@ html(lang='en')
                                         span.glyphicon.glyphicon-star
                                     else
                                         span.glyphicon.glyphicon-star-empty
+            a(class="btn btn-success btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart - 6)) Previous
+            a(class="btn btn-success btn-lg",href="/profile?userid=" + user.id + "&itemStart=" + (itemStart + 6)) Next
         // /.container
     hr
     include foot
