@@ -247,7 +247,7 @@ function renderHomepage(request, response){
 }
 
 function renderCart(request, response){
-	if(request.query.itemid != undefined){
+	if(request.query.itemid != undefined && loggedIn == 1){
 		pg.connect(connectionString, function(err, client, done){
 			var itemID = parseInt(request.query.itemid);
 			// Query items
@@ -274,7 +274,7 @@ function renderCart(request, response){
 		return;
 	}
 
-	if(request.query.index != undefined){
+	if(request.query.index != undefined && loggedIn == 1){
 		cartItems.splice(request.query.index, 1);
 	}
 	
