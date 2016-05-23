@@ -14,11 +14,74 @@ html(lang='en')
                         p Name: #{user.fname} #{user.lname}
                         p Address: #{user.address}
                         p Email: #{user.email}
-                        if userid == user.id
-                          p 
-                            a(href="/listitem") List item
                     .right-side
                         img(id='profile-image',src='http://placehold.it/300x200', alt='')
+            if userid == user.id
+                a(class="btn btn-success btn-block", href="/listitem") List item
+                .profile-listings
+                    p.title-text </br>Your Listings:
+                    .profile-listing-single
+                        .thumbnail
+                            img(src='images/book-image.png', alt='')
+                            .caption
+                                h4.pull-right $Dolla billz
+                                h4
+                                    a(href='#') Item name
+                                p	Item summary
+                            .ratings
+                                p.pull-right DIS MANY reviews
+                                p
+                                    if 0 > 0
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 1.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 2.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 3.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 4.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                    .profile-listing-single
+                        .thumbnail
+                            img(src='images/book-image.png', alt='')
+                            .caption
+                                h4.pull-right $Dolla billz
+                                h4
+                                    a(href='#') Item name
+                                p	Item summary
+                            .ratings
+                                p.pull-right DIS MANY reviews
+                                p
+                                    if 0 > 0
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 1.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 2.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 3.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
+                                    if 0 > 4.5
+                                        span.glyphicon.glyphicon-star
+                                    else
+                                        span.glyphicon.glyphicon-star-empty
         // /.container
     hr
     include foot
