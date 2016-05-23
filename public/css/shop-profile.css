@@ -1,12 +1,15 @@
 
 .left-side {
-    background-color: #0074D9;
     float: left;
+    width: 58%;
+    margin: 5px 5px;
 }
 
 .right-side {
     float: right;
+    margin: 5px 5px;
     background-color: #006600;
+    width: 38%;
 }
 
 #profile-image {
