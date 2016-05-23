@@ -15,22 +15,22 @@ html(lang='en')
                         p Address: #{user.address}
                         p Email: #{user.email}
                     .right-side
-                        img(id='profile-image',src='http://placehold.it/300x200', alt='')
+                        img(id='profile-image',src='images/profile-image.png', alt='')
             a(class="btn btn-success btn-block", href="/listitem") List Item
             if items.length > 0
                 p.title-text #{user.username}'s item(s) for sale:
             else
                 p.title-text #{user.username} has no items for sale.
             .profile-listings
-                    each item in items
-                      .profile-listing-single
+                each item in items
+                    .profile-listing-single
                         .thumbnail
                             img(src='images/book-image.png', alt='')
                             .caption
                                 h4.pull-right $#{item.price}
                                 h4
                                     a(href='/view?itemid=' + item.id) #{item.name}
-                                p	#{item.summary}
+                                textarea.sample-summary(readonly, style="resize: none;") 	#{item.summary}
                             .ratings
                                 p.pull-right #{item.reviews} reviews
                                 p
