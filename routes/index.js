@@ -80,6 +80,11 @@ router.get("/cart",function(request, response) {
 	renderCart(request,response);
 });
 
+router.get("/checkout",function(request,response) {
+	cartItems = [];
+	renderHomepage(request, response);
+});
+
 router.get("/terms",function(req,res) {
   res.render('terms', {title: 'Top End Code', username: username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
