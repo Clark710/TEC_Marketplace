@@ -81,7 +81,7 @@ html(lang='en')
                                 input(value=id, type='hidden', name='itemid')
                                 input(value=userid, type='hidden', name='commenterid')
                                 if error
-                                    p #{error}
+                                    span.label.label-danger #{error}
                                 p Rating: 
                                   |  1 - 
                                   input(value=1, type='radio', name='rating')
