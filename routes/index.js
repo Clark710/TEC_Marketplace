@@ -229,16 +229,17 @@ function renderHomepage(request, response){
 	var items = [];
 	pg.connect(connectionString, function(err, client, done){
 		// Query items
-		var query = client.query("SELECT * FROM items", function(err, result) {
+		var query = client.query("SELECT * FROM items ORDER BY itemid LIMIT 6", function(err, result) {
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseInt(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
 				items.push(item);
 			}
 		});
 
 		query.on('end', function(){
+			console.log(items[0].reviews);
 			response.render('index', {items: items, username: username, loginState:loggedIn, cartCount:cartItems.length});
 			done();
 		});
@@ -250,7 +251,7 @@ function renderCart(request, response){
 		pg.connect(connectionString, function(err, client, done){
 			var itemID = parseInt(request.query.itemid);
 			// Query items
-			var query = client.query("SELECT * FROM items WHERE itemid = " + itemID + ";", function(err, result) {
+			var query = client.query("SELECT * FROM items WHERE itemid = " + itemID + " ORDER BY itemid;", function(err, result) {
 				// Add item to list
 				var item = {id:parseInt(result.rows[0].itemid), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
 				cartItems.push(item);
@@ -357,6 +358,7 @@ function renderView(itemID, response, error){
             itemCom = rows2[++index];
           }
           itemRating = itemRating/itemReviewCount;
+          client.query("UPDATE items SET reviewcount="+itemReviewCount+" WHERE itemid="+itemID+";");
           client.query("UPDATE items SET totalrating="+itemRating+" WHERE itemid="+itemID+";");
         }
 
@@ -389,7 +391,7 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items;", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
@@ -418,7 +420,7 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "';", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items WHERE catagory='" + catagory + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
@@ -447,7 +449,7 @@ function renderSearchpage(request, response) {
       pg.connect(connectionString, function (err, client, done) {
         // Query items
         var query = client.query("SELECT * FROM items WHERE type='" + type + "';", function (err, resultTotal) {
-		var query = client.query("SELECT * FROM items WHERE type='" + type + "' LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
+		var query = client.query("SELECT * FROM items WHERE type='" + type + "' ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function (err, result) {
 		  // For each item
 		  for (i = 0; i < result.rows.length; i++) {
 		    // Add item
@@ -476,7 +478,7 @@ function renderSearchpage(request, response) {
     pg.connect(connectionString, function(err, client, done){
       // Query items
       var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%');", function (err, resultTotal) {
-	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
+	      var query = client.query("SELECT * FROM items WHERE LOWER(name) LIKE LOWER('%"+search+"%')" + " ORDER BY itemid LIMIT 10 OFFSET "+itemStart+";", function(err, result) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
 		  // Add item
