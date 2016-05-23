@@ -92,6 +92,10 @@ router.get("/about",function(req,res) {
 	res.render('about', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
 });
 
+router.get("/listItem",function(req,res) {
+  res.render('listItem', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
+});
+
  ////// POSTS //////
 
 router.post("/register",function(req,res){
@@ -243,7 +247,7 @@ function renderHomepage(request, response){
 			// For each item
 			for (i = 0; i < result.rows.length; i++) {
 				// Add item
-				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseInt(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
+				var item = {id:parseInt(result.rows[i].itemid), name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:parseInt(result.rows[i].totalrating), reviews:parseInt(result.rows[i].reviewcount)};
 				items.push(item);
 			}
 		});
@@ -287,7 +291,7 @@ function renderCart(request, response){
 			// Query items
 			var query = client.query("SELECT * FROM items WHERE itemid = " + itemID + " ORDER BY itemid;", function(err, result) {
 				// Add item to list
-				var item = {id:parseInt(result.rows[0].itemid), name:result.rows[0].name, description:result.rows[0].summary, price:parseInt(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
+				var item = {id:parseInt(result.rows[0].itemid), name:result.rows[0].name, description:result.rows[0].summary, price:parseFloat(result.rows[0].price), rating:parseInt(result.rows[0].totalrating)};
 				cartItems.push(item);
 				console.log(cartItems.length);
 			});
@@ -359,7 +363,7 @@ function renderView(itemID, response, error){
       itemID = rows[0].itemid;
       itemName = rows[0].name;
       itemDescription = rows[0].description;
-      itemPrice = rows[0].price;
+      itemPrice = parseFloat(rows[0].price);
       itemStock = rows[0].stockcount;
       listerID = rows[0].userid;
       //itemRating = rows[0].totalrating;
@@ -435,7 +439,7 @@ function renderSearchpage(request, response) {
 		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
-		      price: result.rows[i].price,
+		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
 		      reviews: result.rows[i].reviewcount
 		    };
@@ -464,7 +468,7 @@ function renderSearchpage(request, response) {
 		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
-		      price: result.rows[i].price,
+		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
 		      reviews: result.rows[i].reviewcount
 		    };
@@ -493,7 +497,7 @@ function renderSearchpage(request, response) {
 		      id: result.rows[i].itemid,
 		      name: result.rows[i].name,
 		      summary: result.rows[i].summary,
-		      price: result.rows[i].price,
+		      price: parseFloat(result.rows[i].price),
 		      rating: result.rows[i].totalrating,
 		      reviews: result.rows[i].reviewcount
 		    };
@@ -518,7 +522,7 @@ function renderSearchpage(request, response) {
 		// For each item
 		for (i = 0; i < result.rows.length; i++) {
 		  // Add item
-		  var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:result.rows[i].price, rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
+		  var item = {id:result.rows[i].itemid, name:result.rows[i].name, summary:result.rows[i].summary, price:parseFloat(result.rows[i].price), rating:result.rows[i].totalrating, reviews:result.rows[i].reviewcount};
 		  items.push(item);
 		}
 	      });
@@ -535,8 +539,34 @@ function renderSearchpage(request, response) {
 
  ////// OTHER PEOPLES CODE THEY CAN REFORMAT INTO PLACES ABOVE THIS LATER :D //////
 
-/*router.post('/listItem', function(req, res) {
-  userid = localStorage.getItem("userid");
+router.post('/listItem', function(req, res) {
+	var USERID = parseInt(req.body.userid);
+	var NAME = req.body.name;
+	var SUMMARY = req.body.summary;
+	var DESCRIPTION = req.body.description;
+	var PRICE = parseFloat(req.body.price);
+	var ENDDATE = req.body.enddate;
+	var STOCKCOUNT = parseInt(req.body.stockcount);
+	var TYPE = req.body.type;
+	var CATEGORY = req.body.category;
+	if(USERID != -1){
+		pg.connect(connectionString, function (err, client, done) {
+			client.query("INSERT INTO items (id, name, summary, description, price, enddate, userid, stockcount, totalrating, reviewcount, type, catagory) VALUES (1000, '"+NAME+"', '"+SUMMARY+"', '"+DESCRIPTION+"', "+PRICE+", '"+ENDDATE+"', "+USERID+", "+STOCKCOUNT+", "+0+", "+0+", '"+TYPE+"', '"+CATEGORY+"')");
+		});
+	}
+});
+
+	/*console.log(NAME);
+	console.log(SUMMARY);
+	console.log(DESCRIPTION);
+	console.log(PRICE);
+	console.log(ENDDATE);
+	console.log(USERID);
+	console.log(STOCKCOUNT);
+	console.log(TYPE);
+	console.log(CATEGORY);*/
+	
+  /*userid = localStorage.getItem("userid");
   var FILE = req.body.file;
   console.log(FILE);
   var ID = req.body.id;
@@ -569,18 +599,12 @@ function renderSearchpage(request, response) {
         return;
       }
     })
-  });
-});*/
-
+  });*/
   //    psudocode  
   //    select * from items where userid=userID; //get all items from user
   //    select address from users where id=userID
   //    add up total price from all items
   //    pass dylan array of item titles, and total price
-
-router.get("/listItem",function(req,res) {
-  res.render('listItem', {title: 'Top End Code', username:username, userid:userID, loginState:loggedIn, cartCount:cartItems.length});
-});
 
 
 module.exports = router;

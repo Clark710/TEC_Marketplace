@@ -14,14 +14,15 @@ html(lang='en')
                                     p.register-title TEC List Item
                                 form(method='post')
                                     .item.uname
-                                        input#id.form-control(placeholder='ID', name="id", type='text', required="required")
+                                        input(value=userid, type='hidden', name='userid')
                                         input#name.form-control(placeholder='Name', name="name", type='text', required="required")
                                         input#summary.form-control(placeholder='Summary', name="summary", type='text', required="required")
                                         input#description.form-control(placeholder='Description', name="description", type='text',  required="required")
-                                        input#price.form-control(placeholder='Price', name="price", type='price',  required="required")
+                                        input#price.form-control(placeholder='Price', name="price", type='number',  required="required")
                                         input#enddate.form-control(placeholder='End Date', name="enddate", type='date',  required="required")
+                                        input#enddate.form-control(placeholder='Stock Count', name="stockcount", type='number',  required="required")
                                         input#type.form-control(placeholder='Type', name="type", type='text', required="required")
-                                        input#catagory.form-control(placeholder='Category', name="catagory", type='text', required="required")
+                                        input#catagory.form-control(placeholder='Category', name="category", type='text', required="required")
                                     .item.button
                                         button.btn.btn-default(href='#', type='submit') List
         // /.container
