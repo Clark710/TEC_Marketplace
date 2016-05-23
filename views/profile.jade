@@ -2,74 +2,24 @@ doctype html
 html(lang='en')
     body
         include head
+        link(href='css/shop-profile.css', rel='stylesheet')
         // Page Content
         .container
             .row
-                .col-md-3
-                    p.lead Top End Code
-                    .list-group
-                        .list-group-item
-                            details
-                                summary <a href='#'>Programming Languages</a>
-                                .drop-down-content.single-item
-                                    a(href='#') Java
-                                .drop-down-content.single-item
-                                    a(href='#') Python
-                                .drop-down-content.single-item
-                                    a(href='#') C
-                                .drop-down-content.single-item
-                                    a(href='#') C#
-                                .drop-down-content.single-item
-                                    a(href='#') C++
-                                .drop-down-content.single-item
-                                    a(href='#') Ruby
-                                .drop-down-content.single-item
-                                    a(href='#') Other
-                        .list-group-item
-                            details
-                                summary <a href='#'>Operating Systems</a>
-                                .drop-down-content
-                                    .drop-down-content.single-item
-                                        a(href='#') Windows
-                                    .drop-down-content.single-item
-                                        a(href='#') Linux
-                                    .drop-down-content.single-item
-                                        a(href='#') OS X
-                                    .drop-down-content.single-item
-                                        a(href='#') iOS
-                                    .drop-down-content.single-item
-                                        a(href='#') Android
-                                    .drop-down-content.single-item
-                                        a(href='#') Other
-                        .list-group-item
-                            a(href='#') Computer Science
-                        .list-group-item
-                            a(href='#') Business
-                        .list-group-item
-                            a(href='#') Databases
-                        .list-group-item
-                            a(href='#') Game Programming
-                        .list-group-item
-                            a(href='#') Graphics
-                        .list-group-item
-                            a(href='#') Open Source
-                        .list-group-item
-                            a(href='#') User Guides
-                        .list-group-item
-                            a(href='#') Other
+                include sidebar
                 .col-md-9
                     p.lead #{title}
-
+                    .left-side
+                        p User ID
+                        p Fname Lname
+                        p Address
+                        p Email Address
+                    .right-side
+                        img(id='profile-image',src='http://placehold.it/300x200', alt='')
         // /.container
-        .container
-            hr
-            // Footer
-            footer
-                .row
-                    .col-lg-12
-                        p Copyright © TEC 2016
-        // /.container
-        // jQuery
-        script(src='js/jquery.js')
-        // Bootstrap Core JavaScript
-        script(src='js/bootstrap.min.js')
+    hr
+    include foot
+    // jQuery
+    script(src='js/jquery.js')
+    // Bootstrap Core JavaScript
+    script(src='js/bootstrap.min.js')

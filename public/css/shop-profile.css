@@ -1,0 +1,17 @@
+
+.left-side {
+    background-color: #0074D9;
+    float: left;
+}
+
+.right-side {
+    float: right;
+    background-color: #006600;
+}
+
+#profile-image {
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
